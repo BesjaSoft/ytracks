@@ -1,0 +1,17 @@
+body,p,div { font-size:11px;font-family:Arial,Helvetica,sans-serif; }
+body { margin: 0px; padding: 0px; color: #333; background-color : #FFFFFF; }
+form { margin: 0px; }
+.CopyrightFooter { margin-top:10px; }
+.copyright { font-size:11px; color:#444444; }
+.inputlabel { font-weight: bold; text-align: left; }
+.inputbox { width: 150px; margin: 0 0 1em 0; border: 1px solid #cccccc; }
+.clr { clear:both; }
+.ctr { text-align: center; }
+.login p { padding: 0 1em 0 1em; }
+.login-form { text-align: left; float: right; width: 60%; }
+.login-text { text-align: left; width: 170px; float: left; }
+.register-text { text-align: left; width: 170px; float: left; }
+.button { border : solid 1px #cccccc; background: #E9ECEF; color: #666666;font-weight: bold; font-size: 11px; padding: 4px; }
+.login { margin-left: auto; margin-right: auto; margin-top: 3em; padding: 15px; border: 1px solid #cccccc; width: 429px; background: #F1F3F5; }
+.form-block { border: 1px solid #cccccc; background: #E9ECEF; padding-top: 15px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px; }
+.loginTitle { margin:0px;padding:0px;margin-bottom:10px;color:#333333; }

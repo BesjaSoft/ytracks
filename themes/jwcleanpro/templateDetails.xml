@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="template">
+	<name>jw_clean_pro</name>
+	<version>1.0</version>
+	<creationDate>11/13/07</creationDate>
+	<author>JoomlaWeb.com</author>
+	<authorEmail>webmaster@JoomlaWeb.com</authorEmail>
+	<authorUrl>http://www.JoomlaWeb.com</authorUrl>
+	<copyright></copyright>
+	<license>Creative Commons Attribution 2.5 License.</license>
+	<description>
+	<![CDATA[
+			<h3>License</h3>
+
+			All the free CSS templates on this site are distributed under the  <b><a href="http://creativecommons.org/licenses/by/2.5/"> Creative Commons Attribution 2.5 License.</a></b> This means that you are free:
+			
+	<ul>
+	<li>to copy, distribute, display, and perform the work</li>
+    <li>to make derivative works</li>
+    <li>to make commercial use of the work</li>
+	</ul>
+	Under the following conditions:
+    <ul>
+	<li>You must attribute the work in the manner specified by the author or licensor. (In this case, a link back to my site)</li>
+    <li>For any reuse or distribution, you must make clear to others the license terms of this work</li>
+    <li>Any of these conditions can be waived if you get permission from the copyright holder</li>
+	</ul>
+
+			<h3>Removing the link and template sponsor</h3>
+			
+			If you don't want to link back to joomlaweb.com, you can always pay a link removal donation fee of 20 USD. This will allow you to use the template link free on one domain name. Also, kindly send me the site's url so I can include it on my list of verified users <br />
+
+You can send your payments through Paypal to this address: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=paypal%40joomlaweb%2ecom&item_name=Joomla%20of%20Web%21%20Donation&page_style=boj&no_shipping=1&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8">paypal@joomlaweb.com</a>
+
+			]]>  
+	
+	
+	
+	</description>
+	<files>
+		<filename>component.php</filename>
+		<filename>license.txt</filename>
+		<filename>css/index.html</filename>
+		<filename>css/iepngfix.htc</filename>
+		<filename>css/blank.gif</filename>
+		<filename>favicon.ico</filename>
+		<filename>html/com_content/category/blog.php</filename>
+		<filename>html/com_content/category/blog_item.php</filename>
+		<filename>html/com_content/category/default.php</filename>
+		<filename>html/com_content/category/index.html</filename>
+		<filename>html/com_content/frontpage/default.php</filename>
+		<filename>html/com_content/frontpage/default_item.php</filename>
+		<filename>html/com_content/frontpage/index.html</filename>
+		<filename>html/com_content/index.html</filename>
+		<filename>html/com_content/section/blog.php</filename>
+		<filename>html/com_content/section/blog_item.php</filename>
+		<filename>html/com_content/section/default.php</filename>
+		<filename>html/com_content/section/index.html</filename>
+		<filename>html/index.html</filename>
+		<filename>html/pagination.php</filename>
+		<filename>images/index.html</filename>
+		<filename>index.html</filename>
+		<filename>index.php</filename>
+		<filename>menu/menu.php</filename>
+		<filename>jwd.php</filename>
+		<filename>params.ini</filename>
+	</files>
+	<images>
+		<filename>images/arrow2.png</filename>
+		<filename>images/arrow3.png</filename>
+		<filename>images/arrow.png</filename>
+		<filename>images/rightarrow2.gif</filename>
+		<filename>images/author.gif</filename>
+		<filename>images/blank.png</filename>
+		<filename>images/bullet2.gif</filename>
+		<filename>images/bullet3.gif</filename>
+		<filename>images/bullet.gif</filename>
+		<filename>images/dot2.gif</filename>
+		<filename>images/dot.gif</filename>
+		<filename>images/emailbutton.png</filename>
+		<filename>images/grad1.gif</filename>
+		<filename>images/grad2.gif</filename>
+		<filename>images/grad3.gif</filename>
+		<filename>images/icon-css.gif</filename>
+		<filename>images/icon-xhtml.gif</filename>
+		<filename>images/icon-rss.gif</filename>
+		<filename>images/icon-date.gif</filename>
+		<filename>images/icon-error.gif</filename>
+		<filename>images/icon-info.gif</filename>
+		<filename>images/icon-search.gif</filename>
+		<filename>images/icon-tips.gif</filename>
+		<filename>images/icon-user.gif</filename>
+		<filename>images/indent1.png</filename>
+		<filename>images/indent2.png</filename>
+		<filename>images/indent3.png</filename>
+		<filename>images/indent4.png</filename>
+		<filename>images/joomlaweb.gif</filename>
+		<filename>images/logo.gif</filename>
+		<filename>images/logo.png</filename>
+		<filename>images/modulecorner.gif</filename>
+		<filename>images/modulecorner_red.gif</filename>
+		<filename>images/opaque.png</filename>
+		<filename>images/pages.gif</filename>
+		<filename>images/password.gif</filename>
+		<filename>images/pdf_button.png</filename>
+		<filename>images/printbutton.png</filename>
+		<filename>images/so-q.gif</filename>
+		<filename>images/spacer.png</filename>
+		<filename>images/trans.gif</filename>
+		<filename>images/trans-bg.png</filename>
+		<filename>images/user-decrease.png</filename>
+		<filename>images/user-increase.png</filename>
+		<filename>images/username.gif</filename>
+		<filename>images/user-reset.png</filename>
+		<filename>images/vdot2.gif</filename>
+		<filename>images/vdot.gif</filename>
+		<filename>template_thumbnail.png</filename>
+	</images>
+	<css>
+		<filename>css/menu.css</filename>
+		<filename>css/template.css</filename>
+		<filename>menu/suckerfish.css</filename>
+	</css>
+	<positions>
+		<position>hnav</position>
+		<position>breadcrumbs</position>
+		<position>banner</position>
+		<position>left</position>
+		<position>right</position>
+		<position>top</position>
+		<position>user1</position>
+		<position>user2</position>
+		<position>user3</position>
+		<position>user4</position>
+		<position>user5</position>
+		<position>user6</position>
+		<position>user7</position>
+		<position>user8</position>
+		<position>user9</position>
+		<position>myfooter</position>
+		<position>syndicate</position>
+		<position>debug</position>
+	</positions>
+	<params>
+		<param type="spacer" default="&lt;B&gt;Template Logo&lt;/B&gt;" />
+		<param name="logoType" type="list" default="image" label="Logo type" description="Set Logo Type">
+			<option value="image">Image</option>
+			<option value="text">Text</option>
+		</param>
+		<param name="logoText" type="text" default="" size="50" label="Logo text" description="Set Logo Text" />
+		<param name="sloganText" type="text" default="" size="50" label="Slogan" description="Set Slogan" />
+		<param type="spacer" default="&lt;hr /&gt;&lt;B&gt;Template Width&lt;/B&gt;" />
+		<param name="jwd_screen" type="list" default="950" label="Template Width" description="Set Template Width">
+			<option value="auto">Auto (fluid)</option>
+			<option value="750">Narrow Screen</option>
+			<option value="960">Wide Screen</option>
+			<option value="fluid">Specified Percentage</option>
+			<option value="fix">Specified Pixel</option>
+		</param>		
+		<param name="jwd_screen_width" type="text" default="" label="Specified width" description="Specified Width" />
+		<param type="spacer" default="&lt;hr /&gt;&lt;B&gt;Font Size&lt;/B&gt;" />		
+		<param name="fontSize" type="text" default="12px" size="50" label="Font Size" description="Font Size ( eg. 10px, 11px, 100%, 1em)" />
+		<param type="spacer" default="&lt;hr /&gt;&lt;B&gt;Horizontal Navigation&lt;/B&gt;" />		
+		<param name="MyNavigation" type="list" default="1" label="Horizontal Navigation" description="Horizontal Navigation">
+			<option value="0">Disable</option>
+			<option value="1">Suckerfish</option>
+			<option value="2">Use Embeded Navigation</option>
+		</param>
+		<param name="MyNavigationMenuType" type="menu" default="mainmenu" label="Menu Type" description="Menu Type" />
+	</params>
+</install>

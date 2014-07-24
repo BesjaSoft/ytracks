@@ -1,0 +1,173 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #BEC7BA;
+}
+.topNav {
+	font-family: Tahoma;
+	font-size: 12px;
+	font-weight: bold;
+	color: white; 
+	text-decoration: none;
+	text-transform: uppercase;
+}
+.selectedTopNav {
+	font-family: Tahoma;
+	font-size: 12px;
+	font-weight: bold;
+	color: black; 
+	text-decoration: none;
+	text-transform: uppercase;
+}
+form {
+	padding: 0px;
+	margin: 0px;
+}
+.style1 {
+	color: #787878;
+	font-size: 11px;
+	font-family: tahoma;
+	text-decoration:none
+}
+.style2 {
+	color: #6A9F00;
+	font-size: 11px;
+	font-family: tahoma;
+	font-weight: bold;
+}
+.style3 {
+	color: #787878;
+	font-size: 11px;
+	font-family: tahoma;
+	font-weight: bold;
+	text-decoration:none
+}
+.style4 {
+	color: #FFFFFF;
+	font-size: 10px;
+	font-family: tahoma;
+	font-weight: bold;
+	text-decoration:none
+}
+.style5 {
+	color: #5a5a5a;
+	font-size: 11px;
+	font-family: tahoma;
+	text-decoration:none
+}
+.style6 {
+	color: #629400;
+	font-size: 12px;
+	font-family: tahoma;
+	font-weight: bold;
+}
+.style7 {
+	color: #629400;
+	font-size: 11px;
+	font-family: tahoma;
+	font-weight: bold;
+}
+.style8 {
+	color: #629400;
+	font-size: 11px;
+	font-family: tahoma;
+	text-decoration:none
+}
+.style9 {
+	color: #787878;
+	font-size: 11px;
+	font-family: tahoma;
+	text-decoration:none
+}
+.style10 {color: #d10000;
+	font-size: 11px;
+	font-family: tahoma}
+.style11 {
+	color: #cc7823;
+	font-size: 11px;
+	font-family: tahoma;
+}
+.style12 {
+	color: #5a5a5a;
+	font-size: 11px;
+	font-family: tahoma;
+	text-decoration:none
+}
+
+/***************************************************************
+* MENU
+***************************************************************/
+
+#menu{
+    background: url('../images/ocms_menu.png');
+    background-repeat: repeat-x;
+    height: 36px;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+    color: white;
+    position: relative;
+}
+
+#menu li {
+    float: left;
+    padding-top: 6px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#menu .splitter{
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top:0px;
+}
+
+#menu li a {
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;
+    text-decoration: none;
+    font-size: 13px;
+    color: white;
+}
+#menu li a:hover {
+    text-decoration: underline;
+}
+
+/***************************************************************
+* NEWS
+***************************************************************/
+
+.blockNews{
+    
+}
+
+.newsTitle h2{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.newsTitle a:link, .newsTitle a:visited
+{
+    color: #993300;
+    
+}
+
+.newsBody{
+    font-size: 12px;
+}
+
+.news_date{
+    color: #999;
+    font-size: 12px;
+}
+
+#description h1{
+    font-size: 12px;
+    float: left; 
+    width: 500px;
+    font-weight: normal;
+}

@@ -1,0 +1,174 @@
+
+#nav {
+	margin: 0; /* all lists */
+	padding: 0;
+	float: left;
+	border-right: 1px solid #000000;
+	
+}
+
+#nav ul {
+	margin: 0; /* all lists */
+	padding: 0;
+}
+
+
+#nav li {
+	margin: 0; /* all list items */
+	padding: 0;
+	float: left;
+	display: block;
+	background: none;
+	cursor: pointer;
+	position: relative;
+}
+
+#nav li ul {
+	width: 16.4em;
+	position: absolute; /* second-level lists */
+	height: auto;
+	w\idth: 15.9em;
+}
+
+#nav li ul ul {
+	margin: -1.5em 0 0 14em; /* third-and-above-level lists */
+}
+
+#nav li li {
+	padding: 0 1em 0 0;
+	margin: 0;
+	width: 14.9em;
+}
+
+#nav ul a {
+	width: 14.8em;
+	w\idth: 10.8em;
+}
+
+#nav li ul {
+	left: -999em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
+}
+
+#nav li:hover ul ul, #nav li:hover ul ul ul,
+#nav li.sfhover ul ul, #nav li.havechildsfhover ul ul, #nav li.havechild-activesfhover ul ul, #nav li.activesfhover ul ul,
+#nav li.sfhover ul ul ul, #nav li.havechildsfhover ul ul ul, #nav li.havechild-activesfhover ul ul ul, #nav li.activesfhover ul ul ul {
+	left: -999em;
+}
+
+/* This "unhides" the sub-menus (left: -999em is what hides them) */
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul,
+#nav li.sfhover ul, #nav li.havechildsfhover ul, #nav li.havechild-activesfhover ul, #nav li.activesfhover ul,
+#nav li li.sfhover ul, #nav li li.havesubchildsfhover ul, #nav li li.havesubchild-activesfhover ul, #nav li li.activesfhover ul,
+#nav li li li.sfhover ul, #nav li li li.havesubchildsfhover ul, #nav li li li.havesubchild-activesfhover ul, #nav li li li.activesfhover ul {
+	left: auto;
+}
+
+/* STYLING THE MENU
+-----------------------------------*/
+/* 1st level */
+#nav li a {
+	margin: 0;
+	padding: 10px;
+	border-left: 1px solid #000000;
+	border-right: 1px solid #333333;
+	display: block;
+	color: #CCCCCC;
+	font-weight: normal;
+	line-height: normal;
+	text-decoration: none;
+}
+
+#nav li a:hover,
+#nav li a:active,
+#nav li a:focus {
+	background: url(../images/arrow2.png) no-repeat bottom center #000000;
+	color: #FFFFFF;
+}
+
+#nav li {
+	margin: 0;
+}
+
+#nav li:hover,
+#nav li.sfhover,
+#nav li.havechildsfhover,
+#nav li.havechild-activesfhover {
+	background: #000000;
+	color: #FFFFFF;
+}
+
+#nav li a.active,
+#nav li a.active:hover,
+#nav li a.active:active,
+#nav li a.active:focus {
+	background:  #CC0000;
+	color: #FFFFFF;
+}
+
+/* 2nd level and above */
+#nav li ul {
+	border: 1px solid #000000;
+	background: url(../images/opaque.png);
+}
+
+#nav li ul li {
+	border-top: 1px solid #777777;
+	border-bottom: 1px solid #444444;
+	background: none;
+}
+
+#nav li ul a {
+	border-right: none;
+	margin: 0;
+	padding: 7px 10px;
+	background: none;
+	color: #CCCCCC;
+	font-weight: normal;
+	line-height: normal;
+	text-transform: none;
+}
+
+#nav li.havesubchild,
+#nav li.havesubchild-active {
+	background: url(../images/bullet2.gif) no-repeat 94% 50%;
+}
+
+#nav li ul a:hover,
+#nav li ul a:active,
+#nav li ul a:focus,
+#nav ul li:hover,
+#nav ul li.sfhover,
+#nav ul li.havesubchildsfhover,
+#nav ul li.havesubchild-activesfhover,
+#nav ul ul li:hover,
+#nav ul ul li.sfhover,
+#nav ul ul li.havesubchildsfhover,
+#nav ul ul li.havesubchild-activesfhover {
+	background: #333333;
+	color: #CCCCCC;
+}
+
+#nav ul li a.active,
+#nav ul li a.active:hover,
+#nav ul li a.active:active,
+#nav ul li a.active:focus {
+	background: none !important;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

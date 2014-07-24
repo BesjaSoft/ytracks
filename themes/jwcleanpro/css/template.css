@@ -1,0 +1,215 @@
+html, body, form, fieldset	{margin:0; padding:0}
+body	{color:#000000; background:#FFFFFF; font-family:Arial, Helvetica, sans-serif; line-height:150%}
+body#bd	{color:#333333; background:#F2F2F2}
+body.contentpane	{width:auto; /* Printable Page */ margin:1em 2em; line-height:1.3em; margin:0px 0px 0px 0px; font-size:12px; color:#333}
+a	{color:#CC0000; text-decoration:underline}
+a:hover, a:active, a:focus	{color:#333333; text-decoration:underline}
+.contentheading, .componentheading, .blog_more strong, h1, h2, h3, h4	{font-family:"Segoe UI", Arial, Helvetica, sans-serif}
+small, .small, .smalldark, .mosimage_caption, .createby, .createdate, .modifydate, .img_caption	, .article-section{color:#BBBBBB; font-size:92%}
+a.readon	{font-size:92%; color:#CC0000}
+h1	{font-size:180%}
+h2	{font-size:150%}
+h3	{font-size:125%}
+h4	{font-size:100%; text-transform:uppercase}
+p, pre, blockquote, ul, ol, h1, h2, h3, h4, h5, h6	{margin:1em 0; padding:0}
+ul	{list-style:none}
+ul li	{padding-left:30px; background:url(../images/bullet.gif) no-repeat 18px 8px; line-height:180%}
+ol li	{margin-left:35px; line-height:180%}
+th	{padding:5px; font-weight:bold; text-align:left}
+fieldset	{border:none; padding:10px 5px; background:url(../images/dot2.gif) repeat-x top}
+fieldset a	{font-weight:bold}
+hr	{border-top:1px solid #CCCCCC; border-right:0; border-left:0; border-bottom:0; height:1px}
+td, div	{font-size:100%}
+/* FORM --------------------------------------------------------- */ 
+form	{margin:0; padding:0}
+form label	{cursor:pointer}
+input, select, textarea, .inputbox	{padding:3px 5px; font-family:Tahoma, Arial, Helvetica, sans-serif; font-size:100%}
+.button	{padding:3px 5px; border:1px solid #333333; background:#333333; color:#CCCCCC; font-size:85%; text-transform:uppercase}
+.button:hover, .button:focus	{border:1px solid #999999; background:#666666; color:#FFFFFF}
+* html .button	{padding:2px 0 !important; /*IE 6*/}
+*+html .button	{padding:2px 0 !important; /*IE 7*/}
+.inputbox	{border:1px solid #CCCCCC; background:#FFFFFF}
+.inputbox:hover, .inputbox:focus	{background:#FFFFCC}
+/* TYPOGRAPHY --------------------------------------------------------- */ 
+pre, .code	{padding:10px 15px; margin:5px 0 15px; border-left:5px solid #999999; background:#FFFFFF; font:1em/1.5 "Courier News", monospace}
+blockquote	{padding:1em 40px 1em 15px}
+/* Legend */ 
+.legend-title	{margin:0; padding:0 3px; float:left; display:block; background:#F6F6F6; font-weight:bold; position:absolute; top:-10px; left:7px}
+.legend	{margin:20px 0; padding:0 10px; border:1px solid #CACACC; background:#FFFFFF; position:relative}
+/* JOOMLA STYLE --------------------------------------------------------- */ 
+table.blog	{}
+.article_separator	{clear:both; display:block; height:20px; }
+.article_column	{}
+.column_separator	{padding:0 3px}
+/* content tables */ td.sectiontableheader	{padding:4px; border-right:1px solid #fff}
+tr.sectiontableentry0 td, tr.sectiontableentry1 td, tr.sectiontableentry2 td	{padding:4px}
+td.sectiontableentry0, td.sectiontableentry1, td.sectiontableentry2	{padding:3px}
+table.contentpane	{border:none; width:100%}
+table.contentpaneopen	{border:none; border-collapse:collapse; border-spacing:0}
+td.article_column div.contentpaneopen	{ height:auto; min-height:250px;}
+table.contenttoc	{margin:0 0 10px 10px; padding:0; width:35%}
+table.contenttoc a	{text-decoration:none}
+table.contenttoc td	{padding:1px 5px 1px 25px; background:url(../images/bullet-list.gif) no-repeat 5% 50%}
+table.contenttoc th	{padding:0 0 3PX; border-bottom:1px solid #CCCCCC; text-indent:5px}
+table.poll	{padding:0; width:100%; border-collapse:collapse}
+table.pollstableborder	{padding:0; width:100%; border:none; text-align:left}
+table.pollstableborder img	{vertical-align:baseline}
+table.pollstableborder td	{padding:4px!important; border-collapse:collapse; border-spacing:0}
+table.pollstableborder tr.sectiontableentry1 td	{background:#ECECEC}
+table.searchintro	{padding:10px 0; width:100%}
+table.searchintro td	{padding:5px!important}
+table.adminform	{}
+.adminform .inputbox	{}
+.blog_more	{padding:10px 0; background:url(../images/dot.gif) repeat-x top}
+.blog_more strong	{margin:0 0 5px; display:block; font-size:125%}
+.blog_more ul	{margin:0; padding:0}
+.blog_more ul li	{margin:0; padding:0 0 0 17px; background:url(../images/bullet.gif) no-repeat 6px 8px}
+.category	{font-weight:bold}
+h1.componentheading, .componentheading	{padding:5px 0 15px; margin:0 0 10px; background:url(../images/dot.gif) repeat-x bottom}
+.componentheading	{font-size:200%; font-weight:bold}
+.contentdescription	{padding-bottom:30px}
+h2.contentheading, .contentheading	{margin:0; font-weight:bold}
+table.blog .contentheading	{font-size:120%; padding: 0 0 0 5px;}
+.contentheading	{font-size:160%}
+a.contentpagetitle, a.contentpagetitle:hover, a.contentpagetitle:active, a.contentpagetitle:focus	{text-decoration:none !important}
+a.readon	{margin-top:10px; padding:1px 5px 1px 14px;  display:block; background:url(../images/arrow.png) no-repeat 5px 48%; font-weight:bold; text-decoration:none; text-transform:uppercase}
+table.contentpaneopen td, table.contentpane td	{}
+table.contentpaneopen, table.contentpane, table.blog	{width:100%}
+.moduletable	{padding:0}
+ul.pagination	{margin:15px auto; padding:10px 0; background:url(../images/dot.gif) repeat-x top}
+ul.pagination li	{margin:0; padding:0; display:inline; background:none}
+ul.pagination li span	{padding:2px 5px}
+ul.pagination a	{padding:2px 5px; border:1px solid #F6F6F6}
+ul.pagination a:hover, ul.pagination a:active, ul.pagination a:focus	{border:1px solid #ECECEC; background:#FFFFFF}
+.pagenavbar	{padding-left:14px; background:url(../images/icon-pages.gif) no-repeat center left}
+.pagenavcounter	{padding:8px 14px 0 14px; background:url(../images/icon-pages.gif) no-repeat 0 11px}
+.sectiontableheader	{padding:8px 5px; background:#444444; color:#FFFFFF}
+.sectiontableheader a	{color:#FFFFFF}
+tr.sectiontableentry1 td	{padding:8px 5px; background:url(../images/dot2.gif) repeat-x bottom}
+tr.sectiontableentry2 td	{padding:8px 5px; background:url(../images/dot2.gif) repeat-x bottom #ECECEC}
+tr.sectiontableentry1:hover td, tr.sectiontableentry2:hover td	{background:url(../images/dot2.gif) repeat-x bottom #FFFFCC}
+.smalldark	{text-align:left}
+div.syndicate div	{text-align:center}
+.pollstableborder tr.sectiontableentry1 td, .pollstableborder tr.sectiontableentry2 td	{background:none}
+/* META --------------------------------------------------------- */ 
+.article-tools	{border-bottom:1px solid #DDDDDD; width:100%; float:left; clear:both; margin-bottom:15px; display:block;}
+.article-meta	{padding:5px 0; width:80%; float:left}
+.createby	{padding:3px 3px 3px 20px; background:url(../images/icon-user.gif) no-repeat 0 5px}
+.createdate	{padding:3px 3px 3px 20px; background:url(../images/icon-date.gif) no-repeat 0 5px}
+.modifydate	{width:100%; float:left}
+div.buttonheading	{float:right; width:15%}
+.buttonheading img	{margin:7px 5px 0 0; border:0; float:right}
+/* MAIN LAYOUT DIVS --------------------------------------------------------- */ 
+#jwd_coverper	{width:100%; margin:0; background:#F2F2F2}
+#jwd_mainbody { background:#FFFFFF;}
+#jwd_content { padding:5px;}
+#jwd_containercover_0 #jwd_mainbody {float:none;width:100%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;border-top:3px solid #CC0000;}
+#jwd_containercover_1 #jwd_mainbody {float:left;width:77.4%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;border-top:3px solid #CC0000;}
+#jwd_containercover_1 #jwd_sidebar1 {float:left;width:22%; border-bottom:1px solid #CCCCCC;}
+#jwd_containercover_1 #jwd_sidebar2 {float:left;width:22%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;}
+#jwd_containercover_2 #jwd_mainbody {float:left;width:77.4%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;border-top:3px solid #CC0000;}
+#jwd_containercover_2 #jwd_sidebar1 {float:left;width:22%; border-bottom:1px solid #CCCCCC;}
+#jwd_containercover_2 #jwd_sidebar2 {float:left;width:22%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;}
+#jwd_containercover_3 #jwd_mainbody {float:left;width:55.4%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;border-top:3px solid #CC0000;}
+#jwd_containercover_3 #jwd_sidebar1 {float:left;width:22%; border-bottom:1px solid #CCCCCC;}
+#jwd_containercover_3 #jwd_sidebar2 {float:left;width:22%; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;border-right:1px solid #CCCCCC;}
+#jwd_containercover_3 #user9 {float:left;width:44%;border-right:1px solid #CCCCCC;}
+
+/* LEFT COLUMN + RIGHT COLUMN --------------------------------------------------------- */ 
+#jwd_sidebar1	{overflow:hidden;}
+#jwd_sidebar2	{overflow:hidden;background:#FFFFFF}
+#jwd_sidebar1 table, #jwd_sidebar2 table	{border-collapse:collapse; border-spacing:0}
+#jwd_sidebar1 ul li, #jwd_sidebar2 ul li	{padding-left:15px; margin:0; background:url(../images/bullet.gif) no-repeat 5px 50%}
+#jwd_sidebar1 ul, #jwd_sidebar2 ul	{margin:0}
+#jwd_sidebar1 ol, #jwd_sidebar2 ol	{margin-left:5px}
+#jwd_sidebar1 .article_separator, #jwd_sidebar2 .article_separator	{display:none}
+
+* html #jwd_contentcover	{height:300px}
+/* --------------------------------------------------------- */ 
+#jwd_bottommodules { margin:20px 0 0 0; border-right:1px solid #CCCCCC; display:table; width:100%;}
+#user5 div.moduletable, #user6 div.moduletable, #user7 div.moduletable, #user8 div.moduletable {background:#EEEEEE url(../images/modulecorner_red.gif) no-repeat scroll right top;border-top:3px solid #CC0000; border-left:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;height:130px;overflow:hidden;}
+#user5 div.moduletable:hover, #user6 div.moduletable:hover, #user7 div.moduletable:hover, #user8 div.moduletable:hover {background:#FFFFFF url(../images/modulecorner.gif) no-repeat scroll right top;border-top:3px solid #CCCCCC;}
+#user1 , #user2, #user5 ,#user6 ,#user7 ,#user8  { float:left; }
+#user9 { background:#555555; color: #CCCCCC; }
+#user9 h3{ color:#FFFFFF;}
+/* HEADER --------------------------------------------------------- */ 
+#jwd_headercover	{color:#CCCCCC; line-height:normal; height:90px;}
+#jwd_header	{ height:90px}
+#jwd_header a	{color:#CCCCCC}
+h1.logo, h1.logo-text	{margin:0 0 0 5px; padding:15px 0 0 0; font-size:350%}
+h1.logo a	{width:208px; display:block; background:url(../images/logo.png) no-repeat; height:80px; position:relative; z-index:1}
+h1.logo a span	{ top:-1000px}
+h1.logo-text a	{color:#222222 !important; text-decoration:none; outline:none; }
+h1.logo-text a strong	{color:#CC0000 !important}
+p.site-slogan	{margin:-13px 0 0 0; padding:2px 5px 2px 20px; color:#333333; font-size:100%; }
+#jwd_header_left { width:50%; display:table; float:left;}
+#jwd_search	{padding-left:20px; background:url(../images/icon-search.gif) no-repeat center left; position:absolute; right:80px; top:7px}
+#jwd_search .inputbox	{width:120px; border:1px solid #000; padding:3px 5px; color:#FFF; background:#666; font-size:92%}
+/* MAIN NAVIGATION --------------------------------------------------------- */ 
+#jwd_navigationcover	{border-bottom:3px solid #CC0000; background:#444444;  position:relative; z-index:1000;}
+#jwd_navigation	{border-left:1px solid #333333; background:#444444}
+#jwd_pathway	{font-size:92%}
+#jwd_pathway strong	{margin-right:5px; font-weight:normal}
+#jwd_pathway a	{text-decoration:none}
+#jwd_pathway img	{margin:1px 5px}
+/* MODULE --------------------------------------------------------- */ 
+div.moduletable, div.moduletable_menu, div.moduletable_text	{padding:10px; background:transparent url(../images/modulecorner.gif) no-repeat scroll right top; border-top:3px solid #CCCCCC}
+div.moduletable h3, div.moduletable_menu h3, div.moduletable_text h3	{padding:0 0 8px; margin:0; color:#CC0000; font-size:125%; font-weight:bold; text-transform:uppercase}
+div.jwd_top-module div.moduletable	{border:none; background:#FFFFDE url(../images/modulecorner_red.gif) no-repeat scroll right top; border-bottom:1px solid #CCCCCC}
+div.jwd_user6-module div.moduletable	{border:none; background:none}
+div.jwd_user6-module	{text-align:center}
+div#jwd_bottomareacover div.moduletable	{border:none; background:none}
+div.module h3	{margin:0 -15px 10px; padding:8px 15px 5px; border-bottom:2px solid #F6F6F6; color:#CC0000; font-size:125%; font-weight:bold; text-transform:uppercase}
+div.module	{margin-bottom:20px; float:left; clear:both; width:100%; background:url(../images/b-br.gif) no-repeat bottom right #FFFFFF}
+div.module div	{background:url(../images/b-bl.gif) no-repeat bottom left}
+div.module div div	{background:url(../images/b-tr.gif) no-repeat top right}
+div.module div div div	{padding:0 15px 10px; background:url(../images/b-tl.gif) no-repeat top left}
+div.module_text div div div div, div.module div div div div	{margin:0; padding:0; float:none; width:99%; background:none}
+div.module_text h3	{margin:0 0 10px; width:100%; clear:both; display:block; overflow:hidden}
+div.module_text span	{padding:0 3px 0 0; float:left; clear:both; display:block; background:#F6F6F6; font-weight:bold}
+div.module_text	{margin-bottom:20px; padding:0; float:left; clear:both; width:100%; background:url(../images/bt-br.gif) no-repeat bottom right #F6F6F6}
+div.module_text div	{background:url(../images/bt-bl.gif) no-repeat bottom left}
+div.module_text div div	{background:url(../images/bt-tr.gif) no-repeat top right}
+div.module_text div div div	{padding:0 15px 10px; display:block; background:url(../images/bt-tl.gif) no-repeat top left}
+div.banneritem_text	{padding:5px 0 !important}
+div.advs	{width:100%; clear:both; display:block}
+
+
+/* FOOTER --------------------------------------------------------- */ 
+#jwd_footercover	{ padding:20px 0 30px; clear:both;}
+#jwd_footer	{padding:5px; border:1px solid #CCCCCC; background:#FFFFFF; color:#666666; position:relative; z-index:100;}
+#jwd_footer .copyright	{clear:both; display:block; color:#999999; font-style:normal; font-size:92%;}
+#jwd_footer .copyright	a{ text-decoration:none; color:#888888; z-index:0;}
+#jwd_bottomnavigation	{background:#EEEEEE; border:1px solid #DDDDDD; margin:0pt 0pt 5px; padding:3px 5px;}
+#jwd_footer ul	{ margin:0; padding:0;}
+#jwd_footer li	{margin:0; padding:0; display:inline; background:none}
+#jwd_footer li a	{padding:0 15px 0 0; display:inline; color:#666666; font-weight:bold; font-size:92%; line-height:normal; text-decoration:none; text-transform:uppercase}
+#jwd_footer li a:hover, #jwd_footer li a:active, #jwd_footer li a:focus	{color:#CC0000; text-decoration:none}
+.jwd_valid	{font-size:92%; position:absolute; right:0; bottom:0px;width:300px;text-align:right;}
+.jwd_valid a	{margin:0 5px 0 0; padding:0; border:none; border:none; text-decoration:none}
+.jwd_valid a span	{display:none}
+.jwd_valid a img	{border:none}
+.banneritem	{display:block}
+div.banneritem img	{border:none}
+/* MISCELLANOUS ----------------------------------------------------------- */ 
+h3.show	{background:url(../images/arrow2.png) no-repeat 90% 60%; cursor:pointer}
+h3.hide	{background:url(../images/arrow3.png) no-repeat 90% 60%; cursor:pointer}
+#jwd_banner	{text-align:center; display:table; width:49%; float:right; padding:15px 0 0 0;}
+div.back_button a, div.back_button a:hover, div.back_button a:active	{margin:10px 0; display:block; background:none!important; text-decoration:none!important}
+#form-login p	{margin:0 0 5px}
+#form-login ul	{margin:10px 0 0}
+#form-login .inputbox	{width:80%}
+#modlgn_passwd {background: #FFF3D9 url(../images/password.gif) no-repeat left center;padding-left:25px;}
+#modlgn_username {background: #FFF3D9 url(../images/username.gif) no-repeat left center;padding-left:25px;}
+.clr	{clear:both}
+.hasTip img	{margin:10px 5px 0 0; border:none}
+#system-message dd.message ul, #system-message dd.error ul, #system-message dd.notice ul	{padding:0; margin:0}
+#system-message dd.message ul li, #system-message dd.error ul li, #system-message dd.notice ul li	{background:none; padding:5px; margin:0; color:#FFFFFF}
+#system-message dd.message ul	{background:#006699; border:none}
+#system-message dd.error ul	{background:#BF0000; border:none}
+#system-message dd.notice ul	{background:#EE9600; border:none}
+.clearfix:after	{clear:both; display:block; content:"."; height:0; visibility:hidden}
+* html > body .clearfix	{width:100%; display:block}
+* html .clearfix	{height:1%}
+/* Firefox Scroll Hack - Don't remove */ 
+html	{margin-bottom:1px; height:100%!important; height:auto}
