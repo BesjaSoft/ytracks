@@ -1,0 +1,70 @@
+/*nav*/
+.nav {
+	position:relative;
+	float:left;
+	width:95%;
+	padding:0 0 1.75em 1em;
+	margin:0;
+	list-style:none;
+	line-height:1em;
+}
+.nav li {
+	float:left;
+	margin:0;
+	padding:0;
+}
+.nav a {
+	display:block;
+	color:#444;
+	text-decoration:none;
+	font-weight:bold;
+	background:#ddd;
+	margin:0;
+	padding:0.25em 1em;
+	border-left:1px solid #fff;
+	border-top:1px solid #fff;
+	border-right:1px solid #aaa;
+}
+.nav a:hover,
+.nav a:active,
+.nav a.here:link,
+.nav a.here:visited {
+	background:#bbb;
+}
+.nav a.here:link,
+.nav a.here:visited {
+	position:relative;
+	z-index:1;
+}
+/*subnav*/
+.nav ul {
+	position:absolute;
+	left:0;
+	top:1.5em;
+	float:left;
+	background:#bbb;
+	width:100%;
+	margin:0;
+	padding:0.25em 0.25em 0.25em 1em;
+	list-style:none;
+	border-top:1px solid #fff;
+}
+.nav ul li {
+	float:left;
+	display:block;
+	margin-top:1px;
+}
+.nav ul a {
+	background:#bbb;
+	color:#fff;
+	display:inline;
+	margin:0;
+	padding:0 1em;
+	border:0
+}
+.nav ul a:hover,
+.nav ul a:active,
+.nav ul a.here:link,
+.nav ul a.here:visited {
+	color:#444;
+}

@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+body {
+    padding-top: 42px;
+    position: relative;
+}
+
+table td {
+    font-size: 12px;
+}
+.footer
+{
+	padding: 10px;
+	margin: 10px 20px;
+	font-size: 0.8em;
+	text-align: center;
+	border-top: 1px solid #333333;
+}
+
+.chassis{
+	display: inline;
+    color: green;
+}
+
+.licenseplate{
+    display: inline;
+    color: gold;
+}
