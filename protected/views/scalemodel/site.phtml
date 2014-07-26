@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title><?= $this->menuOption ?> - Vodafone ES backoffice portal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="/zf/www/css/site.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/zf/www/css/nav.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/zf/www/css/thickbox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/zf/www/css/dhtmlxtree/dhtmlxtree.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/zf/www/css/jstree/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/zf/www/css/ui.tabs.css" type="text/css" media="print, projection, screen" />
+    <link rel="stylesheet" href="/zf/www/css/ui.dialog.css" type="text/css" media="print, projection, screen" />
+    <link rel="stylesheet" href="/zf/www/css/ui.accordion.css" type="text/css" media="print, projection, screen" />
+    <!--[if IE]><link rel="stylesheet" href="/zf/www/css/site-ie.css" type="text/css" /><![endif]-->
+    <!--[if !IE]><!--><link rel="stylesheet" href="/zf/www/css/site-not-ie.css" type="text/css" /><!--<![endif]-->
+
+    <?= $this->cssFiles ?>
+
+    <?php $development = (Zend_Registry::get('environment') == 'developer')? true : false; ?>
+    <?php if ($development): ?>
+        <link rel="stylesheet" href="/zf/www/css/site-developer.css" type="text/css" media="screen"/>
+        <link rel="shortcut icon" href="/zf/www/images/icons/favicon_development.ico" type="image/x-icon" />
+    <?php else: ?>
+        <link rel="shortcut icon" href="/zf/www/images/icons/favicon.ico" type="image/x-icon" />
+    <?php endif; ?>
+
+    <script type="text/javascript" src="/zf/www/javascript/jquery.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery-ui.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.date.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.bgiframe.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.form.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.ajaxfiledownload.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.tooltip.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.splitter.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/jquery.thickbox.js"></script>
+    <script type="text/javascript" src="/zf/www/javascript/nav.js"></script>
+    <?= $this->javascript ?>
+    <script type="text/javascript" >
+        <?= $this->inlinejavascript ?>
+    </script>
+</head>
+<body>
+    <?= $this->menu ?>
+    <div id="urhere">
+        <span style="float:left;"><?= $this->uhere ?></span>
+        <span style="float:right;">| <?= $this->escape($this->userFullName) ?> | <a class="topmenu" href="/zf/private/auth/logout">Logout</a> |</span>
+        <?php if ($development): ?>
+            <div id="databases" style="font-family:'arial'; text-align:center; font-size:10px; color:#0061A8; ">
+                <span style="cursor: help;" title="<?= str_replace('<br />', ' | ' ,Zend_Registry::get('databaseidentifier')); ?>">
+                    <?= str_replace(array('<br />', ': '),array('</b> | ', ': <b>'),Zend_Registry::get('databaseidentifier')); ?></b>
+                </span>
+            </div>
+        <?php endif; ?>
+    </div>
+    <div id="pageContent"><?= $this->render($this->actionTemplate); ?></div>
+    <script type="text/javascript">
+        cssdropdown.startchrome("chromemenu");
+
+        thickboxLoaded = false;
+    </script>
+</body>
+</html>

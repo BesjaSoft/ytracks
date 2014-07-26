@@ -1,0 +1,41 @@
+<?php
+
+$this->widget('bootstrap.widgets.TbDetailView', array(
+    'data' => $model,
+    'attributes' => array('id',
+        array(
+            'name' => 'type_id',
+            'type' => 'raw',
+            'value' => CHtml::link(CHtml::encode($model->type->make->name), array('make/view', 'id' => $model->type->make_id)) . ' ' . CHtml::link(CHtml::encode($model->type->name), array('type/view', 'id' => $model->type_id))
+        ),
+        'reference',
+        'chassisnumber',
+        'alias',
+        'year',
+        'color_id',
+        'condition_id',
+        'modifications',
+        'licenseplate',
+        'remarks',
+        'bodywork_id',
+        'carrosseriesoort_id',
+        'model',
+        'options',
+        'history',
+        'engine',
+        'group',
+        'first_owner',
+        'next_owners',
+        'carrossier',
+        'comment',
+        $model->getPublishedModelDetailView(),
+        'ordering',
+        'checked_out',
+        'checked_out_time',
+        'created',
+        'modified',
+        'deleted',
+        'deleted_date',
+    ),
+));
+?>

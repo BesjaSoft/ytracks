@@ -1,0 +1,28 @@
+<div class="view">
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+	<?php echo CHtml::encode($data->description); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('created')); ?>:</b>
+	<?php echo CHtml::encode($data->created); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('deleted')); ?>:</b>
+	<?php echo CHtml::encode($data->deleted); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('lastupdate')); ?>:</b>
+	<?php echo CHtml::encode($data->lastupdate); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('version')); ?>:</b>
+	<?php echo CHtml::encode($data->version); ?>
+	<br />
+
+
+</div>
