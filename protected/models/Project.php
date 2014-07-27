@@ -145,8 +145,8 @@ class Project extends BaseModel {
     public function getAlbum() {
         return strtolower($this->getBaseImagePath()
                 . '/races'
-                . '/' . $this->competition->code
-                . '/' . $this->season->name
+                . '/' . isset($this->competition_id) ? $this->competition->code : 'xax'
+                . '/' . isset($this->season_id) ? $this->season->name : 'zaz'
         ); // The directory to display
     }
 

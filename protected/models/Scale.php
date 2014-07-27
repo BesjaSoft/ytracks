@@ -14,7 +14,7 @@
  */
 class Scale extends Unit {
 
-    public function getDisplayField() {
+    public static function getDisplayField() {
         return 'code';
     }
 

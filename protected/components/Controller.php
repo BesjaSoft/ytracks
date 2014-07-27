@@ -176,12 +176,22 @@ class Controller extends CController {
         return $res;
     }
 
-    protected function ShowDetailViewContent($model){
+    protected function ShowDetailViewContent($model) {
         return array(
             'label' => $model->getAttributeLabel('content_id'),
             'type' => 'raw',
-            'value' => !isset($model->content_id) ? '' : CHtml::Link(CHtml::encode($model->content->title), array('content/view', 'id' => $model->content_id))
+            'value' => !isset($model->content_id) ?  $model->content_id : CHtml::Link(CHtml::encode($model->content->title), array('content/view', 'id' => $model->content_id))
         );
     }
-    
+
+    protected function BuildActionMenu($model) {
+        return array(
+            array('label' => 'List '.get_class($model), 'url' => array('index')),
+            array('label' => 'Create '.get_class($model), 'url' => array('create')),
+            array('label' => 'Update '.get_class($model), 'url' => array('update', 'id' => $model->id)),
+            array('label' => 'Delete '.get_class($model), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+            array('label' => 'Manage '.get_class($model), 'url' => array('admin')),
+        );
+    }
+
 }

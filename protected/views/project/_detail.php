@@ -11,7 +11,7 @@
 		     , 'value' => $model->season->name
 		     ),
 		array( 'label'=> 'Admin'
-		     , 'value'=> $model->administrator->name
+		     , 'value'=> isset($model->administrator) ? $model->administrator->name : 'unknown'
 		     ),
 		'type',
 		'params',

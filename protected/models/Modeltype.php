@@ -21,7 +21,7 @@ class Modeltype extends Unit {
         return parent::model($className);
     }
 
-    public function getDisplayField() {
+    public static function getDisplayField() {
         return 'description';
     }
 

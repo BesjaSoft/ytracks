@@ -14,7 +14,7 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
         ),
         array('label' => $model->getAttributeLabel('length')
             , 'type' => 'raw'
-            , 'value' => $model->length . ' ' . $model->distance->description,
+            , 'value' => $model->length . ' ' . !isset($model->distance) ? 'unknown' : $model->distance->description,
         ),
         'checked_out',
         'checked_out_time',

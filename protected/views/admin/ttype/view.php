@@ -4,13 +4,7 @@ $this->breadcrumbs = array(
     $model->name,
 );
 
-$this->menu = array(
-    array('label' => 'List Ttype', 'url' => array('index')),
-    array('label' => 'Create Ttype', 'url' => array('create')),
-    array('label' => 'Update Ttype', 'url' => array('update', 'id' => $model->id)),
-    array('label' => 'Delete Ttype', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
-    array('label' => 'Manage Ttype', 'url' => array('admin')),
-);
+$this->menu = $this->BuildActionMenu($model);
 ?>
 
 <h1>View Ttype #<?php echo $model->id; ?></h1>
@@ -25,7 +19,7 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
         array(
             'label' => $model->getAttributeLabel('make_id'),
             'type' => 'raw',
-            'value' => !isset($model->make_id) ? '' : CHtml::Link(CHtml::encode($model->make->name), array('make/view', 'id' => $model->make_id))
+            'value' => !isset($model->make_id) ? $model->make_id : CHtml::Link(CHtml::encode($model->make->name), array('make/view', 'id' => $model->make_id))
         ),
         'type_id',
         'engine_id',

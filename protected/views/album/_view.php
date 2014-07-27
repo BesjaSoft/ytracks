@@ -1,4 +1,4 @@
-<?php /*Yii::app()->baseUrl.'/'; ?>index.php?r=image/view&file=<?php echo $bestand; ?>" rel="shadowbox[x];player=img"><img src="<?php echo $thumbnail; ?>" />*/?>
+<?php /* Yii::app()->baseUrl.'/'; ?>index.php?r=image/view&file=<?php echo $bestand; ?>" rel="shadowbox[x];player=img"><img src="<?php echo $thumbnail; ?>" /> */ ?>
 <h2>Album: <?php echo $model->getAlbum(); ?></h2>
 <div id='gallery'>
     <ul>
@@ -18,32 +18,34 @@
             if ($handle = opendir($dir)) {
 
                 while (false !== ($file = readdir($handle))) {
-                    $bestand = $dir ."/". $file ;
-                    $ext = pathinfo($bestand);
-                    $fileSize = filesize($bestand);
-                    //echo 'bestand:'.$bestand.', size:'.$fileSize;
-                    if(in_array($ext['extension'], $exten) && $fileSize <= 2097152) {
-                        try {
-                            $thumbnail = Multithumb::createThumbnail($bestand, $width, $height);
-                            echo '<li>'.Chtml::link('<img src="'.$thumbnail.'"/>',
-                                         Yii::app()->baseUrl.'/index.php?r=image/view&file='.urlencode($bestand),
-                                         //$bestand,
-                                         array('rel'=>'shadowbox[x];player=img','title'=>$file)
-                                      ).'</li>';
-
-                        } catch (Exception $ex) {
-                            echo 'Error in creating image of '.$bestand.'!';
+                    if ($file != "." && $file != "..") {
+                        $bestand = $dir . "/" . $file;
+                        $ext = pathinfo($bestand);
+                        $fileSize = filesize($bestand);
+                        //echo 'bestand:'.$bestand.', size:'.$fileSize;
+                        if (!is_dir($bestand)) {
+                            if (in_array($ext['extension'], $exten) && $fileSize <= 2097152) {
+                                try {
+                                    $thumbnail = Multithumb::createThumbnail($bestand, $width, $height);
+                                    echo '<li>' . Chtml::link('<img src="' . $thumbnail . '"/>', Yii::app()->baseUrl . '/index.php?r=image/view&file=' . urlencode($bestand),
+                                            //$bestand,
+                                            array('rel' => 'shadowbox[x];player=img', 'title' => $file)
+                                    ) . '</li>';
+                                } catch (Exception $ex) {
+                                    echo 'Error in creating image of ' . $bestand . '!';
+                                }
+                            }
                         }
                     }
-            }
+                }
 
-            if (empty($handle)) {
-                ?><li>
-                <?php
-                    echo "Album not available, please contact the administrator on <a href='mailto:[email]'>[email]</a>";
-                ?>
-                </li>
-            <?php
+                if (empty($handle)) {
+                    ?><li>
+                        <?php
+                        echo "Album not available, please contact the administrator on <a href='mailto:[email]'>[email]</a>";
+                        ?>
+                    </li>
+                    <?php
                 }
                 closedir($handle);
             } else {
@@ -52,7 +54,6 @@
         } else {
             echo 'No pictures available';
         }
-
         ?>
     </ul>
 </div>

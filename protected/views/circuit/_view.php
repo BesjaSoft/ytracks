@@ -1,6 +1,6 @@
 <div class="row" style="padding:5px; border-top: solid 1px;">
 
-    <div class="span1 offset1" style="float:left;"><?php echo CHtml::image($data->getRandomImage()); ?></div>
+    <div class="span1 offset1"><?php echo CHtml::image($data->getRandomImage()); ?></div>
     <div class="span5">
         <b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
         <?php echo CHtml::link(CHtml::encode($data->name), array('view', 'id' => $data->id)); ?>
@@ -11,7 +11,7 @@
         <br />
 
         <b><?php echo CHtml::encode($data->getAttributeLabel('length')); ?>:</b>
-        <?php echo CHtml::encode($data->length . ' ' . $data->distance->code); ?>
+        <?php echo CHtml::encode($data->length . ' ' . !isset($data->distance) ? '' : $data->distance->code); ?>
         <br />
     </div>
 
