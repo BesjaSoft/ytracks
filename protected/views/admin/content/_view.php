@@ -1,7 +1,11 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('asset_id')); ?>:</b>
+	<?php echo CHtml::encode($data->asset_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
@@ -12,31 +16,19 @@
 	<?php echo CHtml::encode($data->alias); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('title_alias')); ?>:</b>
-	<?php echo CHtml::encode($data->title_alias); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('introtext')); ?>:</b>
 	<?php echo CHtml::encode($data->introtext); ?>
 	<br />
-    <?php /*
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fulltext')); ?>:</b>
-	<?php echo CHtml::textArea(null,$data->fulltext); ?>
+	<?php echo CHtml::encode($data->fulltext); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('state')); ?>:</b>
 	<?php echo CHtml::encode($data->state); ?>
 	<br />
 
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('sectionid')); ?>:</b>
-	<?php echo CHtml::encode($data->sectionid); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('mask')); ?>:</b>
-	<?php echo CHtml::encode($data->mask); ?>
-	<br />
-
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('catid')); ?>:</b>
 	<?php echo CHtml::encode($data->catid); ?>
 	<br />
@@ -93,10 +85,6 @@
 	<?php echo CHtml::encode($data->version); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('parentid')); ?>:</b>
-	<?php echo CHtml::encode($data->parentid); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ordering')); ?>:</b>
 	<?php echo CHtml::encode($data->ordering); ?>
 	<br />
@@ -121,8 +109,20 @@
 	<?php echo CHtml::encode($data->metadata); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('deleted')); ?>:</b>
-	<?php echo CHtml::encode($data->deleted); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('featured')); ?>:</b>
+	<?php echo CHtml::encode($data->featured); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('language')); ?>:</b>
+	<?php echo CHtml::encode($data->language); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('xreference')); ?>:</b>
+	<?php echo CHtml::encode($data->xreference); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('old_id')); ?>:</b>
+	<?php echo CHtml::encode($data->old_id); ?>
 	<br />
 
 	*/ ?>

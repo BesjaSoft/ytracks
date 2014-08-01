@@ -1,200 +1,78 @@
-<div class="wide form">
-
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
-
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'content-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'title'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'asset_id',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'alias'); ?>
-		<?php echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'alias'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'title',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'title_alias'); ?>
-		<?php echo $form->textField($model,'title_alias',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'title_alias'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'introtext'); ?>
-		<?php echo $form->textArea($model,'introtext',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'introtext'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'introtext',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'fulltext'); ?>
-		<?php echo $form->textArea($model,'fulltext',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'fulltext'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'fulltext',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'state'); ?>
-		<?php echo $form->textField($model,'state'); ?>
-		<?php echo $form->error($model,'state'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'state',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'sectionid'); ?>
-		<?php echo $form->textField($model,'sectionid'); ?>
-		<?php echo $form->error($model,'sectionid'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'catid',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'mask'); ?>
-		<?php echo $form->textField($model,'mask'); ?>
-		<?php echo $form->error($model,'mask'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'created',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'catid'); ?>
-		<?php echo $form->textField($model,'catid'); ?>
-		<?php echo $form->error($model,'catid'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'created_by',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'created_by_alias',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_by'); ?>
-		<?php echo $form->textField($model,'created_by'); ?>
-		<?php echo $form->error($model,'created_by'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'modified',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_by_alias'); ?>
-		<?php echo $form->textField($model,'created_by_alias',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'created_by_alias'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'modified_by',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'checked_out',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified_by'); ?>
-		<?php echo $form->textField($model,'modified_by'); ?>
-		<?php echo $form->error($model,'modified_by'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'checked_out_time',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'checked_out'); ?>
-		<?php echo $form->textField($model,'checked_out'); ?>
-		<?php echo $form->error($model,'checked_out'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'publish_up',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'checked_out_time'); ?>
-		<?php echo $form->textField($model,'checked_out_time'); ?>
-		<?php echo $form->error($model,'checked_out_time'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'publish_down',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'publish_up'); ?>
-		<?php echo $form->textField($model,'publish_up'); ?>
-		<?php echo $form->error($model,'publish_up'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'images',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'publish_down'); ?>
-		<?php echo $form->textField($model,'publish_down'); ?>
-		<?php echo $form->error($model,'publish_down'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'urls',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'images'); ?>
-		<?php echo $form->textArea($model,'images',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'images'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'attribs',array('class'=>'span5','maxlength'=>5120)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'urls'); ?>
-		<?php echo $form->textArea($model,'urls',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'urls'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'version',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'attribs'); ?>
-		<?php echo $form->textArea($model,'attribs',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'attribs'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'ordering',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'version'); ?>
-		<?php echo $form->textField($model,'version'); ?>
-		<?php echo $form->error($model,'version'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'metakey',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'parentid'); ?>
-		<?php echo $form->textField($model,'parentid'); ?>
-		<?php echo $form->error($model,'parentid'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'metadesc',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'ordering'); ?>
-		<?php echo $form->textField($model,'ordering'); ?>
-		<?php echo $form->error($model,'ordering'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'access',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'metakey'); ?>
-		<?php echo $form->textArea($model,'metakey',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'metakey'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'hits',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'metadesc'); ?>
-		<?php echo $form->textArea($model,'metadesc',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'metadesc'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'metadata',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'access'); ?>
-		<?php echo $form->textField($model,'access'); ?>
-		<?php echo $form->error($model,'access'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'featured',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'hits'); ?>
-		<?php echo $form->textField($model,'hits'); ?>
-		<?php echo $form->error($model,'hits'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'language',array('class'=>'span5','maxlength'=>7)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'metadata'); ?>
-		<?php echo $form->textArea($model,'metadata',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'metadata'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'xreference',array('class'=>'span5','maxlength'=>50)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'deleted'); ?>
-		<?php echo $form->textField($model,'deleted'); ?>
-		<?php echo $form->error($model,'deleted'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'old_id',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+			'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Content', 'url'=>array('index')),
-	array('label'=>'Create Content', 'url'=>array('create')),
+	array('label'=>'List Content','url'=>array('index')),
+	array('label'=>'Create Content','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -30,29 +30,26 @@ You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&g
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
-		'type'=>'striped bordered condensed',
+<?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'content-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
+		'asset_id',
 		'title',
 		'alias',
-		'title_alias',
 		'introtext',
 		'fulltext',
 		/*
 		'state',
-		'sectionid',
-		'mask',
 		'catid',
 		'created',
 		'created_by',
@@ -67,17 +64,19 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'urls',
 		'attribs',
 		'version',
-		'parentid',
 		'ordering',
 		'metakey',
 		'metadesc',
 		'access',
 		'hits',
 		'metadata',
-		'deleted',
+		'featured',
+		'language',
+		'xreference',
+		'old_id',
 		*/
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),
 	),
 )); ?>
