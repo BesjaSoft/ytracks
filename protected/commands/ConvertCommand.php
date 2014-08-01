@@ -4,14 +4,15 @@ class ConvertCommand extends CConsoleCommand {
 
     private $key = null;
     private $content = array(
-        'wsrp' => array('path' => '../../../../webcopier/wsrp/*.html', 'category' => 2, 'section' => 5),
-        'chassis' => array('path' => '../../../../webcopier/wsrp/chassis/*.html', 'category' => 2, 'section' => 6),
-        'formula2' => array('path' => '../../../../webcopier/Formula2/*.htm', 'category' => 2, 'section' => 8),
-        'gelf1' => array('path' => '../../../../webcopier/GELMotorsport/archive/f1/*/*.html', 'category' => 2, 'section' => 9),
-        'gelpeople' => array('path' => '../../../../webcopier/GELMotorsportPeople/*.html', 'category' => 2, 'section' => 14),
-        'geldrivers' => array('path' => '../../../../webcopier/GELMotorsport/drivers/*.html', 'category' => 2, 'section' => 15),
-        'geltracks' => array('path' => '../../../../webcopier/GELMotorsport/tracks/*.html', 'category' => 2, 'section' => 16),
-        'rallybase' => array('path' => '../../../webcopier/Rallybase/*.html', 'category' => 2, 'section' => 17),
+        'wsrp' => array('path' => '../../../../webcopier/wsrp/*.html', 'category' => 14),
+        'chassis' => array('path' => '../../../../webcopier/wsrp/chassis/*.html', 'category' => 15),
+        'formula2' => array('path' => '../../../../webcopier/Formula2/*.htm', 'category' => 16),
+        'gelf1' => array('path' => '../../../../webcopier/GELMotorsport/archive/f1/*/*.html', 'category' => 20),
+        'gelpeople' => array('path' => '../../../../webcopier/GELMotorsportPeople/*.html', 'category' => 22),
+        'geldrivers' => array('path' => '../../../../webcopier/GELMotorsport/drivers/*.html', 'category' => 21),
+        'geltracks' => array('path' => '../../../../webcopier/GELMotorsport/tracks/*.html', 'category' => 23),
+        'rallybase' => array('path' => '../../../webcopier/Rallybase/*.html', 'category' => 24),
+        'urh' => array('path' => '../../../webcopier/ultimateracinghistory/*.html', 'category' => 25),
     );
 
     public function actionIndividual($section, $step) {
@@ -144,21 +145,21 @@ class ConvertCommand extends CConsoleCommand {
     private function convertWsrpContent($do = false) {
         echo '**** Convert content => tresult ****' . "\n";
         if ($do) {
-            Tresult::model()->readContent($this->key, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+            Tresult::model()->readContent($this->key, $this->content[$this->key]['category']);
         }
     }
 
     private function convertContentStories($do = false) {
         echo '**** Convert content => stories ****' . "\n";
         if ($do) {
-            Content::model()->convertStories($this->key, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+            Content::model()->convertStories($this->key, $this->content[$this->key]['category']);
         }
     }
 
     private function convertContentTindividual($do = false) {
         echo '**** Convert content => tindividual ****' . "\n";
         if ($do) {
-            Tindividual::model()->readContent($this->key, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+            Tindividual::model()->readContent($this->key, $this->content[$this->key]['category']);
         }
     }
 
@@ -191,7 +192,7 @@ class ConvertCommand extends CConsoleCommand {
             $files = glob($this->content[$this->key]['path']);
             foreach ($files as $file) {
                 echo 'File:' . $file . "\n";
-                Content::model()->readfile($file, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+                Content::model()->readfile($file, $this->content[$this->key]['category']);
             }
         }
     }
@@ -199,21 +200,21 @@ class ConvertCommand extends CConsoleCommand {
     private function convertRallybaseChampionships($do = false) {
         echo '**** Convert Rallybase Championships ****' . "\n";
         if ($do) {
-            Tresult::model()->convertRallybaseChampionships($this->key, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+            Tresult::model()->convertRallybaseChampionships($this->key, $this->content[$this->key]['category']);
         }
     }
 
     private function convertRallybaseDrivers($do = false) {
         echo '**** Convert Rallybase Drivers ****' . "\n";
         if ($do) {
-            Tresult::model()->convertRallybaseDrivers($this->key, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+            Tresult::model()->convertRallybaseDrivers($this->key, $this->content[$this->key]['category']);
         }
     }
 
     private function convertRallybaseRallies($do = false) {
         echo '**** Convert Rallybase Rallies ****' . "\n";
         if ($do) {
-            Tresult::model()->convertRallybaseRallies($this->key, $this->content[$this->key]['category'], $this->content[$this->key]['section']);
+            Tresult::model()->convertRallybaseRallies($this->key, $this->content[$this->key]['category']);
         }
     }
 

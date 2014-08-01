@@ -205,7 +205,7 @@ class Content extends BaseModel {
         return parent::model($className);
     }
 
-    public function readfile($file, $sectionId, $catId) {
+    public static function readfile($file, $catId) {
 
         if (file_exists($file)) {
             $config = array('output-xhtml' => true,
@@ -219,7 +219,7 @@ class Content extends BaseModel {
                 //$text = file_get_contents($file);
                 if (!empty($text)) {
                     $title = substr($file, strrpos($file, '/') + 1);
-                    if ($catId == 13) { // azracingcars
+                    if ($catId == 24) { // azracingcars
                         $sh1 = strpos($text, '<h1>', strpos($text, '<h1>') + 1);
                         $eh1 = strpos($text, '</h1>', strpos($text, '</h1>') + 1);
                         $title = trim(substr($text, $sh1 + 4, ($eh1 - $sh1 - 4)));
@@ -236,12 +236,7 @@ class Content extends BaseModel {
                     $text = $this->removeTags($text, 'noscript');
                     // encode the text to utf8
                     //$text = utf8_encode($text);
-                    $content = Content::model()->find(
-                            'title=:title and sectionid=:section and catid=:cat', array('title' => $title,
-                        'section' => $sectionId,
-                        'cat' => $catId
-                            )
-                    );
+                    $content = Content::model()->find('title=:title and catid=:cat', array('title' => $title, 'cat' => $catId));
                     if (empty($content->id)) {
                         echo 'Title not found : ' . $title . "\n";
                         $content = new Content();
@@ -249,7 +244,6 @@ class Content extends BaseModel {
                     $content->title = $title;
                     $content->introtext = '';
                     $content->fulltext = trim($text);
-                    $content->sectionid = $sectionId;
                     $content->catid = $catId;
                     $content->state = 1;
                     $content->created_by_alias = 'Administrator';

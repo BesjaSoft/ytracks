@@ -18,7 +18,7 @@ class ChassisCommand extends CConsoleCommand
         $files = glob($dir_path."*.html");
         echo 'Aantal files: '.count($files)."\n";
         foreach ($files as $file) {
-            Content::model()->readfile($file, 2, 6); // wsrp/chassis
+            Content::model()->readfile($file, 15); // wsrp/chassis
         }
     }
 
