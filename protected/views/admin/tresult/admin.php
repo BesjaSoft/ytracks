@@ -49,7 +49,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array('name' => 'row', 'htmlOptions' => array('style' => 'width:20px;')),
         array('name' => 'num', 'htmlOptions' => array('style' => 'width:40px;')),
         'individuals',
-        //array('name' => 'tvehicle', 'type' => 'html', 'value' => '$data->tvehicle.CHtml::tag(\'div\', array(\'class\' => \'chassis\'), $data->tchassis).CHtml::tag(\'div\', array(\'class\' => \'licenseplate\'), $data->tlicenseplate)'),
+        array('name' => 'tvehicle', 'type' => 'html', 'value' => '$data->tvehicle.CHtml::tag(\'div\', array(\'class\' => \'chassis\'), $data->tchassis).CHtml::tag(\'div\', array(\'class\' => \'licenseplate\'), $data->tlicenseplate)'),
         array('name' => 'error', 'htmlOptions' => array('style' => 'width:15px;')),
         array(
             'class' => 'CButtonColumn',

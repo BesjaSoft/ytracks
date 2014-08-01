@@ -1,18 +1,18 @@
 <?php
 if ($model->getClassName() == 'Round') {
-    $condition = 'projectround_id=' . $model->id;
-    $order = 'projectround_id,ordering asc';
+    $condition = 'round_id=' . $model->id;
+    $order = 'round_id,ordering asc';
 } else {
     echo 'class onbekend' . $model->getClassName();
 }
 $dataProvider = new CActiveDataProvider('Subround', array(
-            'criteria' => array(
-                'condition' => $condition,
-                'order' => $order
-            ),
-            'pagination' => array(
-                'pageSize' => 15,
-            ),
+    'criteria' => array(
+        'condition' => $condition,
+        'order' => $order
+    ),
+    'pagination' => array(
+        'pageSize' => 15,
+    ),
         ));
 ?><h2><?php echo $model->getClassName() . ' : ' . $model->{$model->getDisplayField()}; ?></h2>
 <?php echo CHtml::link('New Subround', array('/subround/create')); ?><br/>

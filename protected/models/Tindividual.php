@@ -43,7 +43,7 @@ class Tindividual extends BaseModel {
         return '{{tracks_tindividuals}}';
     }
 
-    public function getDisplayField() {
+    public static function getDisplayField() {
         return 'full_name';
     }
 

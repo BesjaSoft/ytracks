@@ -28,13 +28,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'lastupdate'); ?>
-		<?php echo $form->textField($model,'lastupdate'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'version'); ?>
-		<?php echo $form->textField($model,'version'); ?>
+		<?php echo $form->label($model,'modified'); ?>
+		<?php echo $form->textField($model,'modified'); ?>
 	</div>
 
 	<div class="row buttons">

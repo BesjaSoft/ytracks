@@ -22,7 +22,7 @@ $this->widget('bootstrap.widgets.TbDetailView',
     'data' => $model,
     'attributes' => array(
         'id',
-        'content_id',
+        $this->ShowContentDetailView($model),
         'last_name',
         'first_name',
         'full_name',
@@ -30,8 +30,8 @@ $this->widget('bootstrap.widgets.TbDetailView',
         array(
             'name' => 'individual_id',
             'type' => 'raw',
-            'value' => CHtml::link(CHtml::encode($model->individual->full_name),
-                    array('individual/view', 'id' => $model->individual_id))
+            'value' => isset($model->individual_id) ? CHtml::link(CHtml::encode($model->individual->full_name),
+                    array('individual/view', 'id' => $model->individual_id)) : $model->individual_id
         ),
         'height',
         'weight',

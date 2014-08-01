@@ -8,7 +8,7 @@
  * @property string $description
  * @property string $created
  * @property string $deleted
- * @property string $lastupdate
+ * @property string $modified
  * @property integer $version
  */
 class Modeltype extends Unit {

@@ -9,8 +9,7 @@ $this->menu = array(
     array('label' => 'Create Tindividual', 'url' => array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search',
-        "
+Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
@@ -31,8 +30,8 @@ $('.search-form form').submit(function(){
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-    <?php echo CHtml::link('Advanced Search',
-            '#', array('class' => 'search-button btn')); ?>
+<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button btn'));
+?>
 <div class="search-form" style="display:none">
     <?php
     $this->renderPartial('_search', array(
@@ -42,16 +41,15 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView',
-        array(
+$this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'tindividual-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => array(
         array('name' => 'id', "header" => '#', 'htmlOptions' => array('style' => 'width:40px;')),
-        'content_id',
-        'last_name',
+        $this->showContentGrid(),
         'first_name',
+        'last_name',
         'nationality',
         'date_of_birth',
         'date_of_death',

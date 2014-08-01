@@ -99,8 +99,8 @@ if ($model->getClassName() == 'Individual') {
         array('name' => '#', 'value' => '$data->number'),
         array('name' => 'performance', 'value' => '$data->performance'),
         $this->setResultVehicleColumn(),
-        'laps'
-        , $this->setResultButtonColumn()
+        'laps',
+        $this->setResultButtonColumn()
     );
 }
 

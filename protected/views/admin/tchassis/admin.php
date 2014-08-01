@@ -43,7 +43,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'filter' => $model,
     'columns' => array(
         array('name' => 'id', 'value' => '$data->id', 'htmlOptions' => array('style' => 'text-align: right; width:50px;')),
-        'filename',
+        //'filename',
         'tmake',
         'ttype',
         'chassis',

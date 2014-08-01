@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Category', 'url'=>array('index')),
-	array('label'=>'Create Category', 'url'=>array('create')),
+	array('label'=>'List Category','url'=>array('index')),
+	array('label'=>'Create Category','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -30,40 +30,49 @@ You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&g
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.TbGridView', array(
-		'type'=>'striped bordered condensed',
+<?php $this->widget('bootstrap.widgets.TbGridView',array(
 	'id'=>'category-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
+		'asset_id',
 		'parent_id',
-		'title',
-		'name',
-		'alias',
-		'image',
+		'lft',
+		'rgt',
+		'level',
 		/*
-		'section',
-		'image_position',
+		'path',
+		'extension',
+		'title',
+		'alias',
+		'note',
 		'description',
 		'published',
 		'checked_out',
 		'checked_out_time',
-		'editor',
-		'ordering',
 		'access',
-		'count',
 		'params',
+		'metadesc',
+		'metakey',
+		'metadata',
+		'created_user_id',
+		'created_time',
+		'modified_user_id',
+		'modified_time',
+		'hits',
+		'language',
+		'version',
 		*/
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),
 	),
 )); ?>

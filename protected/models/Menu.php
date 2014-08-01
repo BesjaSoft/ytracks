@@ -6,37 +6,31 @@
  * The followings are the available columns in table '{{menu}}':
  * @property integer $id
  * @property string $menutype
- * @property string $name
+ * @property string $title
  * @property string $alias
+ * @property string $note
+ * @property string $path
  * @property string $link
  * @property string $type
  * @property integer $published
- * @property string $parent
- * @property string $componentid
- * @property integer $sublevel
- * @property integer $ordering
+ * @property string $parent_id
+ * @property string $level
+ * @property string $component_id
  * @property string $checked_out
  * @property string $checked_out_time
- * @property integer $pollid
  * @property integer $browserNav
- * @property integer $access
- * @property integer $utaccess
+ * @property string $access
+ * @property string $img
+ * @property string $template_style_id
  * @property string $params
- * @property string $lft
- * @property string $rgt
- * @property string $home
+ * @property integer $lft
+ * @property integer $rgt
+ * @property integer $home
+ * @property string $language
+ * @property integer $client_id
  */
-class Menu extends BaseModel
+class Menu extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Menu the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -53,17 +47,18 @@ class Menu extends BaseModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('params', 'required'),
-			array('published, sublevel, ordering, pollid, browserNav, access, utaccess', 'numerical', 'integerOnly'=>true),
-			array('menutype', 'length', 'max'=>75),
-			array('name, alias', 'length', 'max'=>255),
-			array('type', 'length', 'max'=>50),
-			array('parent, componentid, checked_out, lft, rgt', 'length', 'max'=>11),
-			array('home', 'length', 'max'=>1),
-			array('link, checked_out_time', 'safe'),
+			array('menutype, title, alias, path, link, type, img, params', 'required'),
+			array('published, browserNav, lft, rgt, home, client_id', 'numerical', 'integerOnly'=>true),
+			array('menutype', 'length', 'max'=>24),
+			array('title, alias, note, img', 'length', 'max'=>255),
+			array('path, link', 'length', 'max'=>1024),
+			array('type', 'length', 'max'=>16),
+			array('parent_id, level, component_id, checked_out, access, template_style_id', 'length', 'max'=>10),
+			array('language', 'length', 'max'=>7),
+			array('checked_out_time', 'safe'),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, menutype, name, alias, link, type, published, parent, componentid, sublevel, ordering, checked_out, checked_out_time, pollid, browserNav, access, utaccess, params, lft, rgt, home', 'safe', 'on'=>'search'),
+			// @todo Please remove those attributes that should not be searched.
+			array('id, menutype, title, alias, note, path, link, type, published, parent_id, level, component_id, checked_out, checked_out_time, browserNav, access, img, template_style_id, params, lft, rgt, home, language, client_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,63 +81,87 @@ class Menu extends BaseModel
 		return array(
 			'id' => 'ID',
 			'menutype' => 'Menutype',
-			'name' => 'Name',
+			'title' => 'Title',
 			'alias' => 'Alias',
+			'note' => 'Note',
+			'path' => 'Path',
 			'link' => 'Link',
 			'type' => 'Type',
 			'published' => 'Published',
-			'parent' => 'Parent',
-			'componentid' => 'Componentid',
-			'sublevel' => 'Sublevel',
-			'ordering' => 'Ordering',
+			'parent_id' => 'Parent',
+			'level' => 'Level',
+			'component_id' => 'Component',
 			'checked_out' => 'Checked Out',
 			'checked_out_time' => 'Checked Out Time',
-			'pollid' => 'Pollid',
 			'browserNav' => 'Browser Nav',
 			'access' => 'Access',
-			'utaccess' => 'Utaccess',
+			'img' => 'Img',
+			'template_style_id' => 'Template Style',
 			'params' => 'Params',
 			'lft' => 'Lft',
 			'rgt' => 'Rgt',
 			'home' => 'Home',
+			'language' => 'Language',
+			'client_id' => 'Client',
 		);
 	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('menutype',$this->menutype,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('alias',$this->alias,true);
+		$criteria->compare('note',$this->note,true);
+		$criteria->compare('path',$this->path,true);
 		$criteria->compare('link',$this->link,true);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('published',$this->published);
-		$criteria->compare('parent',$this->parent,true);
-		$criteria->compare('componentid',$this->componentid,true);
-		$criteria->compare('sublevel',$this->sublevel);
-		$criteria->compare('ordering',$this->ordering);
+		$criteria->compare('parent_id',$this->parent_id,true);
+		$criteria->compare('level',$this->level,true);
+		$criteria->compare('component_id',$this->component_id,true);
 		$criteria->compare('checked_out',$this->checked_out,true);
 		$criteria->compare('checked_out_time',$this->checked_out_time,true);
-		$criteria->compare('pollid',$this->pollid);
 		$criteria->compare('browserNav',$this->browserNav);
-		$criteria->compare('access',$this->access);
-		$criteria->compare('utaccess',$this->utaccess);
+		$criteria->compare('access',$this->access,true);
+		$criteria->compare('img',$this->img,true);
+		$criteria->compare('template_style_id',$this->template_style_id,true);
 		$criteria->compare('params',$this->params,true);
-		$criteria->compare('lft',$this->lft,true);
-		$criteria->compare('rgt',$this->rgt,true);
-		$criteria->compare('home',$this->home,true);
+		$criteria->compare('lft',$this->lft);
+		$criteria->compare('rgt',$this->rgt);
+		$criteria->compare('home',$this->home);
+		$criteria->compare('language',$this->language,true);
+		$criteria->compare('client_id',$this->client_id);
 
-		return new CActiveDataProvider(get_class($this), array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return Menu the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

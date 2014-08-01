@@ -104,7 +104,7 @@ class CategoryController extends Controller
 
 	/**
 	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
 	public function actionDelete($id)
@@ -155,7 +155,7 @@ class CategoryController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Category::model()->findByPk((int)$id);
+		$model=Category::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -138,14 +138,14 @@ class Competition extends BaseModel {
         // add the project to the menu
         // first find the parent if applicable
         $criteriaParent = new CDbCriteria();
-        $criteriaParent->condition = 'name=:name';
-        $criteriaParent->params = array(':name' => 'Competitions');
+        $criteriaParent->condition = 'name=:name and menutype=:menutype';
+        $criteriaParent->params = array(':title' => 'Competitions', 'menutype' => 'mainmenu');
         $parent = Menu::model()->find($criteriaParent);
 
         $criteriaComponent = new CDbCriteria();
         $criteriaComponent->condition = 'name=:name';
         $criteriaComponent->params = array(':name' => 'Tracks');
-        $component = Component::model()->find($criteriaComponent);
+        $component = Extension::model()->find($criteriaComponent);
 
         // look for the menu item:
         $criteriaMenu = new CDbCriteria();
@@ -161,7 +161,7 @@ class Competition extends BaseModel {
 
             $menu = new Menu();
             $menu->menutype = 'mainmenu';
-            $menu->name = $this->name;
+            $menu->title = $this->name;
             $menu->parent = $parent->id;
             $menu->ordering = Menu::model()->count($criteriaOrdering) + 1;
             $menu->componentid = $component->id;

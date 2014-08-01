@@ -29,9 +29,10 @@
  * @property string $deleted_date
  */
 class Tchassis extends CActiveRecord {
-
     /* class static variables */
+
     private static $categoryId = 6;
+
     /**
      * Returns the static model of the specified AR class.
      * @return Tchassis the static model class
@@ -54,7 +55,7 @@ class Tchassis extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('created', 'required'),
+            array('fcreated', 'required'),
             array('make_id, type_id, vehicle_id, engine_id, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
             array('filename, tmake, ttype, tchassis, tengine, group', 'length', 'max' => 100),
             array('year', 'length', 'max' => 20),
@@ -76,7 +77,7 @@ class Tchassis extends CActiveRecord {
             'make' => array(self::BELONGS_TO, 'Make', 'make_id'),
             'type' => array(self::BELONGS_TO, 'Type', 'type_id'),
             'vehicle' => array(self::BELONGS_TO, 'Vehicle', 'vehicle_id'),
-            'Engine' => array(self::BELONGS_TO, 'Engine', 'engine_id')
+            'engine' => array(self::BELONGS_TO, 'Engine', 'engine_id')
         );
     }
 
@@ -187,8 +188,8 @@ class Tchassis extends CActiveRecord {
         $criteria->compare('deleted_date', $this->deleted_date, true);
 
         return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     public function export() {
@@ -369,21 +370,18 @@ class Tchassis extends CActiveRecord {
             $chassis = substr($chassis, 4, 10);
         } elseif (in_array(substr($chassis, 0, 3), array('S7-'))) {
             $chassis = substr($chassis, 3, 10);
-        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t290 series', 'lola t220 series', 'lola group c and imsa gtp:'))
-                && in_array(substr($chassis, 0, 3), array('T22', 'T29', 'T60', 'T61', 'T71', 'T81'))
+        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t290 series', 'lola t220 series', 'lola group c and imsa gtp:')) && in_array(substr($chassis, 0, 3), array('T22', 'T29', 'T60', 'T61', 'T71', 'T81'))
         ) {
             $tvehicle->ttype = 'Lola ' . substr($chassis, 0, 4);
             $chassis = substr($chassis, 5, 10);
-        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t160 series'))
-                && in_array(substr($chassis, 0, 4), array('SL16'))
+        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t160 series')) && in_array(substr($chassis, 0, 4), array('SL16'))
         ) {
             $tvehicle->ttype = 'Lola T' . substr($chassis, 2, 3);
         } elseif ($tvehicle->tmake == 'Courage') {
             if (in_array(substr($chassis, 0, 4), array('LC70'))) {
                 $chassis = substr($chassis, 5, 20);
             }
-        } elseif (trim($tvehicle->ttype) == 'Ferrari 166 MM'
-                && in_array(substr($chassis, 0, 8), array('166MM/53'))
+        } elseif (trim($tvehicle->ttype) == 'Ferrari 166 MM' && in_array(substr($chassis, 0, 8), array('166MM/53'))
         ) {
             $chassis = substr($chassis, 9, 20);
         } elseif (in_array(substr($chassis, 0, 5), array('166MM'))) {
@@ -394,8 +392,7 @@ class Tchassis extends CActiveRecord {
             if (in_array(substr($chassis, 0, 5), array('206S-'))) {
                 $chassis = '0' . substr($chassis, 6, 20);
             }
-        } elseif (trim($tvehicle->ttype) == 'Ferrari 365 GTB/4 Daytona'
-                && in_array(substr($chassis, 0, 8), array('365GTB4-'))) {
+        } elseif (trim($tvehicle->ttype) == 'Ferrari 365 GTB/4 Daytona' && in_array(substr($chassis, 0, 8), array('365GTB4-'))) {
             $chassis = substr($chassis, 8, 20);
         } elseif (trim($tvehicle->tmake) == 'Mosler') {
             if (trim($ttype) == 'Mosler MT900R GT3') {
@@ -547,33 +544,26 @@ class Tchassis extends CActiveRecord {
                 // now loop over the lines...
                 foreach ($lines as $line) {
                     // Fetch the make from <h1>- tags
-                    if (strpos(strtolower($line), '<h1') > 0
-                            && strpos(strtolower($line), '</h1>') > 0) {
+                    if (strpos(strtolower($line), '<h1') > 0 && strpos(strtolower($line), '</h1>') > 0) {
                         $make = substr($line
                                 , (strpos(strtolower($line), '>') + 1)
                                 , (strpos(strtolower($line), 'chassis numbers') - strpos(strtolower($line), '>') - 1)
                         );
                     }
                     // feth the type from <h3> tags
-                    if (strpos(strtolower($line), '<h3') > 0
-                            && strpos(strtolower($line), '</h3>') > 0
+                    if (strpos(strtolower($line), '<h3') > 0 && strpos(strtolower($line), '</h3>') > 0
                     ) {
                         $type = substr($line, (strpos(strtolower($line), '>') + 1), (strpos(strtolower($line), '</h3>') - strpos(strtolower($line), '>') - 1)
                         );
                     }
                     // fetch the chassisnumbers....
-                    if (!$chassis
-                            && strpos(strtolower($line), '<table') > 0
-                            && strpos(strtolower($line), 'class="chassis"') > 0
+                    if (!$chassis && strpos(strtolower($line), '<table') > 0 && strpos(strtolower($line), 'class="chassis"') > 0
                     ) {
                         $chassis = true;
                     } elseif ($chassis && strpos(strtolower($line), '<tr') > 0) {
                         $row = true;
                         $column = 0;
-                    } elseif ($chassis
-                            && $row
-                            && strpos(strtolower($line), '<td') > 0
-                            && strpos(strtolower($line), '</td>') > 0
+                    } elseif ($chassis && $row && strpos(strtolower($line), '<td') > 0 && strpos(strtolower($line), '</td>') > 0
                     ) {
                         $data[$column] = htmlspecialchars_decode
                                 (substr($line

@@ -66,9 +66,9 @@ class Controller extends CController {
     protected function setResultSubroundColumn() {
         return array('name' => 'subround_id',
             'type' => 'raw',
-            'value' => 'CHTML::link( CHTML::encode($data->subround->round->project->name."/".$data->subround->round->name."/".$data->subround->subroundtype->name)
+            'value' => 'isset($data->subround_id) ? CHTML::link( CHTML::encode($data->subround->round->project->name."/".$data->subround->round->name."/".$data->subround->subroundtype->name)
                                              , array("/subround/view","id"=>$data->subround_id)
-                                             )'
+                                             ) : $data->subround_id'
         );
     }
 
@@ -102,10 +102,10 @@ class Controller extends CController {
         return array(
             'name' => 'individual_id',
             'type' => 'raw',
-            'value' => 'CHtml::Link( CHtml::encode($data->individual->full_name).\' \'.
-                                              CHtml::Image($data->individual->getFlag($model->individual->nationality))
-                                            , array("individual/view","id"=>$model->individual_id)
-                                            )'
+            'value' => 'isset($data->individual_id) ? CHtml::Link( CHtml::encode($data->individual->full_name).\' \'.
+                                              CHtml::Image($data->individual->getFlag($data->individual->nationality))
+                                            , array("individual/view","id"=>$data->individual_id)
+                                            ) : $data->individual_id'
         );
     }
 
@@ -124,7 +124,7 @@ class Controller extends CController {
     protected function showTypeGrid() {
         return array('name' => 'type_id',
             'type' => 'raw',
-            'value' => '!isset($data->type_id) ? "" : CHTML::link( CHTML::encode($data->type->make->name)
+            'value' => '!isset($data->type_id) ? $data->type_id : CHTML::link( CHTML::encode($data->type->make->name)
                                               , array("/make/view","id"=>$data->type->make_id)
                                               )." ".
                                    CHTML::link( CHTML::encode($data->type->name)
@@ -176,21 +176,38 @@ class Controller extends CController {
         return $res;
     }
 
-    protected function ShowDetailViewContent($model) {
+    protected function ShowContentDetailView($model) {
         return array(
             'label' => $model->getAttributeLabel('content_id'),
             'type' => 'raw',
-            'value' => !isset($model->content_id) ?  $model->content_id : CHtml::Link(CHtml::encode($model->content->title), array('content/view', 'id' => $model->content_id))
+            'value' => !isset($model->content_id) ? $model->content_id : CHtml::Link(CHtml::encode($model->content->title), array('content/view', 'id' => $model->content_id))
+        );
+    }
+
+    protected function ShowIndividualDetailView($model) {
+        return array(
+            'name' => 'individual_id',
+            'type' => 'raw',
+            'value' => isset($model->individual_id) ? CHtml::link(CHtml::encode($model->individual->full_name), array('individual/view', 'id' => $model->individual_id)) : $model->individual_id
         );
     }
 
     protected function BuildActionMenu($model) {
         return array(
-            array('label' => 'List '.get_class($model), 'url' => array('index')),
-            array('label' => 'Create '.get_class($model), 'url' => array('create')),
-            array('label' => 'Update '.get_class($model), 'url' => array('update', 'id' => $model->id)),
-            array('label' => 'Delete '.get_class($model), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
-            array('label' => 'Manage '.get_class($model), 'url' => array('admin')),
+            array('label' => 'List ' . get_class($model), 'url' => array('index')),
+            array('label' => 'Create ' . get_class($model), 'url' => array('create')),
+            array('label' => 'Update ' . get_class($model), 'url' => array('update', 'id' => $model->id)),
+            array('label' => 'Delete ' . get_class($model), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+            array('label' => 'Manage ' . get_class($model), 'url' => array('admin')),
+        );
+    }
+
+    protected function ShowConstructorDetailView($model) {
+        return array(
+            'label' => $model->getAttributeLabel('constructor_id'),
+            'type' => 'raw',
+            'value' => isset($model->constructor_id) ? CHtml::Link(CHtml::encode($model->constructor->name)
+                            , array('make/view', 'id' => $model->constructor_id)) : $model->constructor_id
         );
     }
 

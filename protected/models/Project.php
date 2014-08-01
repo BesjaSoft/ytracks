@@ -168,7 +168,7 @@ class Project extends BaseModel {
         $criteriaComponent = new CDbCriteria();
         $criteriaComponent->condition = 'name=:name';
         $criteriaComponent->params = array(':name' => 'Tracks');
-        $component = Component::model()->find($criteriaComponent);
+        $component = Extension::model()->find($criteriaComponent);
 
         // look for the menu item:
         $criteriaMenu = new CDbCriteria();
@@ -219,7 +219,7 @@ class Project extends BaseModel {
         $criteriaComponent = new CDbCriteria();
         $criteriaComponent->condition = 'name=:name';
         $criteriaComponent->params = array(':name' => 'Tracks');
-        $component = Component::model()->find($criteriaComponent);
+        $component = Extension::model()->find($criteriaComponent);
 
         // look for the menu item:
         $criteriaMenu = new CDbCriteria();

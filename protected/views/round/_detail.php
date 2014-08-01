@@ -5,12 +5,12 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'attributes' => array(
         'id',
         'name',
-        array('label' => $model->getAttributeLabel('event_id')
+        /*array('label' => $model->getAttributeLabel('event_id')
             , 'type' => 'raw'
             , 'value' => CHtml::Link(CHtml::encode($model->event->name)
                     , array('event/view', 'id' => $model->event_id)
             )
-        ),
+        ),*/
         array('label' => $model->getAttributeLabel('project_id')
             , 'type' => 'raw'
             , 'value' => CHtml::Link(CHtml::encode($model->project->name)
@@ -19,18 +19,16 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
         ),
         array('label' => $model->getAttributeLabel('circuit_id')
             , 'type' => 'raw'
-            , 'value' => CHtml::Link(CHtml::encode($model->circuit->name)
-                    , array('circuit/view', 'id' => $model->circuit_id)
-            )
+            , 'value' => isset($model->circuit_id) ? CHtml::Link(CHtml::encode($model->circuit->name)
+                    , array('circuit/view', 'id' => $model->circuit_id)) : $model->circuit_id
         ),
         'ordering',
         'laps',
-        array('label' => $model->getAttributeLabel('distance_id'),
+        /*array('label' => $model->getAttributeLabel('distance_id'),
             'type' => 'raw',
-            'value' => $model->length . ' ' . CHtml::Link(CHtml::encode($model->distance->description)
-                    , array('unit/view', 'id' => $model->distance_id)
-            )
-        ),
+            'value' => $model->length . ' ' . isset($model->distance_id) ? CHtml::Link(CHtml::encode($model->distance->description)
+                            , array('unit/view', 'id' => $model->distance_id)) : $model->distance_id
+        ),*/
         'start_date',
         'end_date',
         'description',

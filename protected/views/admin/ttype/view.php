@@ -14,13 +14,8 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
         'id',
-        $this->ShowDetailViewContent($model),
-
-        array(
-            'label' => $model->getAttributeLabel('make_id'),
-            'type' => 'raw',
-            'value' => !isset($model->make_id) ? $model->make_id : CHtml::Link(CHtml::encode($model->make->name), array('make/view', 'id' => $model->make_id))
-        ),
+        $this->ShowContentDetailView($model),
+        $this->ShowIndividualDetailView($model),
         'type_id',
         'engine_id',
         'name',

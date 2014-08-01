@@ -1,121 +1,66 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+        ));
+?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
+<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5')); ?>
 
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+<?php echo $form->textFieldRow($model, 'menutype', array('class' => 'span5', 'maxlength' => 24)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'title', array('class' => 'span5', 'maxlength' => 255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'menutype'); ?>
-		<?php echo $form->textField($model,'menutype',array('size'=>60,'maxlength'=>75)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'alias', array('class' => 'span5', 'maxlength' => 255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'note', array('class' => 'span5', 'maxlength' => 255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'alias'); ?>
-		<?php echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'path', array('class' => 'span5', 'maxlength' => 1024)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'link'); ?>
-		<?php echo $form->textArea($model,'link',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'link', array('class' => 'span5', 'maxlength' => 1024)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->textField($model,'type',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'type', array('class' => 'span5', 'maxlength' => 16)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'published'); ?>
-		<?php echo $form->textField($model,'published'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'published', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'parent'); ?>
-		<?php echo $form->textField($model,'parent',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'parent_id', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'componentid'); ?>
-		<?php echo $form->textField($model,'componentid',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'level', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'sublevel'); ?>
-		<?php echo $form->textField($model,'sublevel'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'component_id', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'ordering'); ?>
-		<?php echo $form->textField($model,'ordering'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'checked_out', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'checked_out'); ?>
-		<?php echo $form->textField($model,'checked_out',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'checked_out_time', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'checked_out_time'); ?>
-		<?php echo $form->textField($model,'checked_out_time'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'browserNav', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'pollid'); ?>
-		<?php echo $form->textField($model,'pollid'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'access', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'browserNav'); ?>
-		<?php echo $form->textField($model,'browserNav'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'img', array('class' => 'span5', 'maxlength' => 255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'access'); ?>
-		<?php echo $form->textField($model,'access'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'template_style_id', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'utaccess'); ?>
-		<?php echo $form->textField($model,'utaccess'); ?>
-	</div>
+<?php echo $form->textAreaRow($model, 'params', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'params'); ?>
-		<?php echo $form->textArea($model,'params',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'lft', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'lft'); ?>
-		<?php echo $form->textField($model,'lft',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'rgt', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'rgt'); ?>
-		<?php echo $form->textField($model,'rgt',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'home', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'home'); ?>
-		<?php echo $form->textField($model,'home',array('size'=>1,'maxlength'=>1)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'language', array('class' => 'span5', 'maxlength' => 7)); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'client_id', array('class' => 'span5')); ?>
+
+<div class="form-actions">
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => 'Search',
+    ));
+    ?>
+</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

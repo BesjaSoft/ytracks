@@ -55,10 +55,10 @@ class Scalemodel extends BaseModel {
 
     public function getAlbum() {
         return strtolower($this->getBaseImagePath()
-                .'/vehicles'
-                .'/'.substr($this->getSlug($this->make->name), 0, 1)
-                .'/'.$this->getSlug($this->make->name)
-                .'/'.$this->getSlug($this->reference)
+                . '/vehicles'
+                . '/' . substr($this->getSlug($this->make->name), 0, 1)
+                . '/' . $this->getSlug($this->make->name)
+                . '/' . $this->getSlug($this->reference)
         ); // The directory to display
     }
 

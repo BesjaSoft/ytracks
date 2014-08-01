@@ -1,101 +1,68 @@
-<div class="wide form">
-
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
-
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'parent_id'); ?>
-		<?php echo $form->textField($model,'parent_id'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'asset_id',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'parent_id',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'lft',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'alias'); ?>
-		<?php echo $form->textField($model,'alias',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'rgt',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'image'); ?>
-		<?php echo $form->textField($model,'image',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'level',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'section'); ?>
-		<?php echo $form->textField($model,'section',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'path',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'image_position'); ?>
-		<?php echo $form->textField($model,'image_position',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'extension',array('class'=>'span5','maxlength'=>50)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'title',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'published'); ?>
-		<?php echo $form->textField($model,'published'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'alias',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'checked_out'); ?>
-		<?php echo $form->textField($model,'checked_out',array('size'=>11,'maxlength'=>11)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'note',array('class'=>'span5','maxlength'=>255)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'checked_out_time'); ?>
-		<?php echo $form->textField($model,'checked_out_time'); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'editor'); ?>
-		<?php echo $form->textField($model,'editor',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'published',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'ordering'); ?>
-		<?php echo $form->textField($model,'ordering'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'checked_out',array('class'=>'span5','maxlength'=>11)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'access'); ?>
-		<?php echo $form->textField($model,'access'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'checked_out_time',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'count'); ?>
-		<?php echo $form->textField($model,'count'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'access',array('class'=>'span5','maxlength'=>10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'params'); ?>
-		<?php echo $form->textArea($model,'params',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+	<?php echo $form->textAreaRow($model,'params',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<?php echo $form->textFieldRow($model,'metadesc',array('class'=>'span5','maxlength'=>1024)); ?>
+
+	<?php echo $form->textFieldRow($model,'metakey',array('class'=>'span5','maxlength'=>1024)); ?>
+
+	<?php echo $form->textFieldRow($model,'metadata',array('class'=>'span5','maxlength'=>2048)); ?>
+
+	<?php echo $form->textFieldRow($model,'created_user_id',array('class'=>'span5','maxlength'=>10)); ?>
+
+	<?php echo $form->textFieldRow($model,'created_time',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'modified_user_id',array('class'=>'span5','maxlength'=>10)); ?>
+
+	<?php echo $form->textFieldRow($model,'modified_time',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'hits',array('class'=>'span5','maxlength'=>10)); ?>
+
+	<?php echo $form->textFieldRow($model,'language',array('class'=>'span5','maxlength'=>7)); ?>
+
+	<?php echo $form->textFieldRow($model,'version',array('class'=>'span5','maxlength'=>10)); ?>
+
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+		    'buttonType'=>'submit'
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

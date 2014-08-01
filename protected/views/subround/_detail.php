@@ -3,10 +3,10 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		array('label' => $model->getAttributeLabel('projectround_id')
+		array('label' => $model->getAttributeLabel('round_id')
 		     ,'type'  => 'raw'
 		     ,'value' => CHtml::Link( CHtml::encode($model->round->name)
-		                            , array('round/view','id'=>$model->projectround_id)
+		                            , array('round/view','id'=>$model->round_id)
 		                            )
 		),
 		array('label' => $model->getAttributeLabel('subroundtype_id')

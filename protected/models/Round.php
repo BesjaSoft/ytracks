@@ -85,7 +85,7 @@ class Round extends BaseModel {
                         . '/races'
                         . '/' . $this->project->competition->code
                         . '/' . $this->project->season->name
-                        . '/' . $this->ordering . '-' . $this->event->country_code
+                        //. '/' . $this->ordering . '-' . $this->event->country_code
         ); // The directory to display
     }
 
@@ -97,7 +97,7 @@ class Round extends BaseModel {
             mkdir($album, 0777, true);
         }
 
-        $this->addMenuItem();
+        //$this->addMenuItem();
         $this->addSubrounds();
 
         // do some nice stuff in the parent afterSave
@@ -196,7 +196,7 @@ class Round extends BaseModel {
         $criteriaComponent = new CDbCriteria();
         $criteriaComponent->condition = 'name=:name';
         $criteriaComponent->params = array(':name' => 'Tracks');
-        $component = Component::model()->find($criteriaComponent);
+        $component = Extension::model()->find($criteriaComponent);
 
         // look for the menu item:
         $criteriaMenu = new CDbCriteria();
@@ -236,7 +236,7 @@ class Round extends BaseModel {
     private function addSubrounds() {
         $criteria = new CDbCriteria();
         $criteria->select = 'COUNT(*) AS CNT';
-        $criteria->condition = 'projectround_id=:round';
+        $criteria->condition = 'round_id=:round';
         $criteria->params = array('round' => $this->id);
 
         $found = Subround::model()->findAll($criteria);

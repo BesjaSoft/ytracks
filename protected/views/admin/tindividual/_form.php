@@ -27,7 +27,7 @@
             <?php $this->widget( 'zii.widgets.jui.CJuiAutoComplete'
                                , array( 'id'      => 'individual_id'
                                       , 'name'    => 'individual_id'
-                                      , 'value'   => $model->individual->full_name
+                                      , 'value'   => isset($model->individual_id) ? $model->individual->full_name : $model->individual_id
                                       , 'source'  => $this->createUrl('individual/autoComplete')
                                       , 'options' => array( 'showAnim'  => 'fold'
                                                           , 'minLength' => 3

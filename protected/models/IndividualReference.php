@@ -38,7 +38,7 @@ class IndividualReference extends BaseModel {
      * @return string the associated database table name
      */
     public function tableName() {
-        return '{{tracks_individuals_references}}';
+        return '{{tracks_references}}';
     }
 
     /**
