@@ -73,7 +73,7 @@ class Round extends BaseModel {
             array('circuit_id', 'exist', 'attributeName' => 'id', 'className' => 'Circuit'),
             array('distance_id', 'exist', 'attributeName' => 'id', 'className' => 'Distance'),
             // unique field combination:
-            array('project_id+ordering', 'application.extensions.uniqueMultiColumnValidator'),
+            array('project_id+ordering', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, event_id, project_id, circuit_id, ordering, laps, length, distance_id, start_date, end_date, description, comment, checked_out, checked_out_time, published, manches, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),

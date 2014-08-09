@@ -52,7 +52,7 @@ class Engine extends BaseModel {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('make_id, name, created', 'required'),
+            array('make_id, created', 'required'),
             array('make_id, parent_id, tuner_id, enginetype_id, cams, valves_cylinder, capacity_id, power_id, power_revs, torque_id, torque_revs, induction, ignition_id, fuelsystem_id, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
             array('name, alias', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
@@ -64,9 +64,10 @@ class Engine extends BaseModel {
             array('tuner_id', 'exist', 'attributeName' => 'id', 'className' => 'Tuner'),
             array('enginetype_id', 'exist', 'attributeName' => 'id', 'className' => 'EngineType'),
             array('parent_id', 'exist', 'attributeName' => 'id', 'className' => 'Engine'),
-            // The following rule is used by search().
-            array('make_id+name', 'application.extensions.uniqueMultiColumnValidator'),
-            //array('make_id+code','application.extensions.uniqueMultiColumnValidator'),
+            // multicolumn unique validator
+            array('make_id+name', 'uniqueMultiColumnValidator'),
+            //array('make_id+code','uniqueMultiColumnValidator'),
+            //// The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, make_id, name, alias, description, code, parent_id, tuner_id, enginetype_id, compression, cams, valves_cylinder, bore, stroke, capacity, capacity_id, power, power_id, power_revs, torque, torque_id, torque_revs, induction, ignition_id, fuelsystem_id, published, ordering, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
         );
@@ -188,8 +189,8 @@ class Engine extends BaseModel {
         $criteria->compare('deleted_date', $this->deleted_date, true);
 
         return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     public function searchEngines() {
@@ -201,15 +202,14 @@ class Engine extends BaseModel {
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
     }
-    
-    public function scopes()
-    {
+
+    public function scopes() {
         return array(
             'list' => array(
                 'condition' => 'published=1 and deleted=0',
                 'order' => $this->getDisplayField(),
-                'select' => 'id,make_id,'.$this->getDisplayField()
-            ));
+                'select' => 'id,make_id,' . $this->getDisplayField()
+        ));
     }
 
 }

@@ -14,8 +14,8 @@
         ));
         $this->endWidget();
         
-        if ($this->hasAdminSearch) {
-            $this->renderPartial();
+        if ($this->hasActionSearch) {
+            $this->renderPartial($this->actionSearchForm);
         } ?>
     </div><!-- sidebar -->
 

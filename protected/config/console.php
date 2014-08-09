@@ -15,13 +15,14 @@ return array(
     ),
     // application components
     'components'=>array(
-        'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=rpd',
+        'db' => array(
+            //'connectionString' => 'mysql:host=localhost;dbname=rpd',
+            'connectionString' => 'mysql:host=127.0.0.1;dbname=tracks',
             'emulatePrepare' => true,
-            'username' => 'rpd',
-            'password' => 'rpd',
+            'username' => 'tracks',
+            'password' => 'tracks',
             'charset' => 'utf8',
-            'tablePrefix' => 'jos_',
+            'tablePrefix' => 'dpbfw_',
         ),
     ),
 );

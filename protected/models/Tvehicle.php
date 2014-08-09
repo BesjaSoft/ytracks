@@ -15,65 +15,61 @@
  * @property string $created
  * @property string $modified
  */
-class Tvehicle extends BaseModel
-{
+class Tvehicle extends BaseModel {
+
     /**
      * Returns the static model of the specified AR class.
      * @return Tvehicle the static model class
      */
-    public static function model($className=__CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
     /**
      * @return string the associated database table name
      */
-    public function tableName()
-    {
+    public function tableName() {
         return '{{tracks_tvehicles}}';
     }
 
     /**
      * @return array validation rules for model attributes.
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
             array('created', 'required'),
-            array('make_id, type_id, vehicle_id, engine_id', 'numerical', 'integerOnly'=>true),
-            array('tvehicle', 'length', 'max'=>255),
-            array('tchassis, tlicenseplate', 'length', 'max'=>50),
+            array('make_id, type_id, vehicle_id, engine_id', 'numerical', 'integerOnly' => true),
+            array('tvehicle', 'length', 'max' => 255),
+            array('tchassis, tlicenseplate', 'length', 'max' => 50),
             array('modified', 'safe'),
             // foreign key checks:
-            array('make_id', 'exist','attributeName' => 'id', 'className' => 'Make'),
-            array('type_id', 'exist','attributeName' => 'id', 'className' => 'Type'),
-            array('vehicle_id', 'exist','attributeName' => 'id', 'className' => 'Vehicle'),
-            array('engine_id', 'exist','attributeName' => 'id', 'className' => 'Engine'),
+            array('make_id', 'exist', 'attributeName' => 'id', 'className' => 'Make'),
+            array('type_id', 'exist', 'attributeName' => 'id', 'className' => 'Type'),
+            array('vehicle_id', 'exist', 'attributeName' => 'id', 'className' => 'Vehicle'),
+            array('engine_id', 'exist', 'attributeName' => 'id', 'className' => 'Engine'),
             // Unique multi column:
             array(
                 'tvehicle+tchassis',
-                'application.extensions.uniqueMultiColumnValidator',
+                'uniqueMultiColumnValidator',
                 'allowEmpty' => true,
                 'caseSensitive' => false
             ),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, tvehicle, tmake, ttype, tchassis, tlicenseplate, make_id, type_id, vehicle_id, engine_id, created, modified', 'safe', 'on'=>'search'),
+            array('id, tvehicle, tmake, ttype, tchassis, tlicenseplate, make_id, type_id, vehicle_id, engine_id, created, modified', 'safe', 'on' => 'search'),
         );
     }
 
     /**
      * @return array relational rules.
      */
-    public function relations()
-    {
+    public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-        	'make' => array(self::BELONGS_TO, 'Make', 'make_id'),
+            'make' => array(self::BELONGS_TO, 'Make', 'make_id'),
             'type' => array(self::BELONGS_TO, 'Type', 'type_id'),
             'vehicle' => array(self::BELONGS_TO, 'Vehicle', 'vehicle_id'),
             'engine' => array(self::BELONGS_TO, 'Engine', 'engine_id'),
@@ -83,8 +79,7 @@ class Tvehicle extends BaseModel
     /**
      * @return array customized attribute labels (name=>label)
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'id' => 'ID',
             'tvehicle' => 'Tvehicle',
@@ -99,8 +94,7 @@ class Tvehicle extends BaseModel
         );
     }
 
-    public function beforeSave()
-    {
+    public function beforeSave() {
 
         if (!empty($this->type_id)) {
             $type = Type::model()->findByPk($this->type_id);
@@ -120,21 +114,17 @@ class Tvehicle extends BaseModel
         return parent::beforeSave();
     }
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return array('AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'),
             'ERememberFiltersBehavior' => array(
                 'class' => 'application.components.ERememberFiltersBehavior',
-                'defaults'=>array(),           /* optional line */
-                'defaultStickOnClear'=>false   /* optional line */
+                'defaults' => array(), /* optional line */
+                'defaultStickOnClear' => false /* optional line */
             ),
         );
     }
 
-
-
-    public function export($fullcheck = true)
-    {
+    public function export($fullcheck = true) {
         if (empty($this->make_id) && empty($this->type_id)) {
             $this->convertTvehicle($fullcheck);
         }
@@ -146,20 +136,16 @@ class Tvehicle extends BaseModel
                 if ($tchassis == $this->tchassis) {
                     // check if the Vehicle already exists:
                     $vehicle = Vehicle::model()->find(
-                        'type_id=:type_id and chassisnumber=:chassis',
-                        array('type_id'=>$this->type_id,'chassis' => $tchassis)
+                            'type_id=:type_id and chassisnumber=:chassis', array('type_id' => $this->type_id, 'chassis' => $tchassis)
                     );
                     $this->vehicle_id = $vehicle->id;
-
                 } else {
                     //
                     $new = Vehicle::model()->find(
-                        'type_id=:type_id and chassisnumber=:chassis',
-                        array('type_id'=>$this->type_id,'chassis' => $tchassis)
+                            'type_id=:type_id and chassisnumber=:chassis', array('type_id' => $this->type_id, 'chassis' => $tchassis)
                     );
                     $old = Vehicle::model()->find(
-                        'type_id=:type_id and chassisnumber=:chassis',
-                        array('type_id'=>$this->type_id,'chassis' => $this->tchassis)
+                            'type_id=:type_id and chassisnumber=:chassis', array('type_id' => $this->type_id, 'chassis' => $this->tchassis)
                     );
 
                     if (!empty($new->id)) {
@@ -203,8 +189,8 @@ class Tvehicle extends BaseModel
                         return false;
                     }
                 }
-            } catch(Exception $ex){
-                echo 'make:'.$item->tmake.', type:'.$item->ttype.', chassis:'.$item->tchassis.'error:'.$ex->getMessage()."\n";
+            } catch (Exception $ex) {
+                echo 'make:' . $item->tmake . ', type:' . $item->ttype . ', chassis:' . $item->tchassis . 'error:' . $ex->getMessage() . "\n";
                 return false;
             }
         } else {
@@ -214,47 +200,45 @@ class Tvehicle extends BaseModel
     }
 
     //
-    public function exportVehicles()
-    {
+    public function exportVehicles() {
         $error = 0;
         $list = Tvehicle::model()->findAll('tvehicle is not null and done=0');
-        echo 'Gevonden:'.count($list)."\n";
+        echo 'Gevonden:' . count($list) . "\n";
         foreach ($list as $item) {
             if (!$item->export(false)) {
                 $error++;
-                echo 'make:'.$item->tmake.', type:'.$item->ttype.', chassis:'.$item->tchassis."\n";
+                echo 'make:' . $item->tmake . ', type:' . $item->ttype . ', chassis:' . $item->tchassis . "\n";
             };
         }
-        echo 'Error : '.$error."\n";
+        echo 'Error : ' . $error . "\n";
     }
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-        $criteria->compare('tvehicle', $this->tvehicle,true);
-        $criteria->compare('tmake', $this->tmake,true);
-        $criteria->compare('ttype', $this->ttype,true);
-        $criteria->compare('tchassis', $this->tchassis,true);
-        $criteria->compare('tlicenseplate', $this->tlicenseplate,true);
+        $criteria->compare('tvehicle', $this->tvehicle, true);
+        $criteria->compare('tmake', $this->tmake, true);
+        $criteria->compare('ttype', $this->ttype, true);
+        $criteria->compare('tchassis', $this->tchassis, true);
+        $criteria->compare('tlicenseplate', $this->tlicenseplate, true);
         $criteria->compare('make_id', $this->make_id);
         $criteria->compare('type_id', $this->type_id);
         $criteria->compare('vehicle_id', $this->vehicle_id);
         $criteria->compare('engine_id', $this->engine_id);
         $criteria->compare('done', 0);
-        $criteria->compare('created', $this->created,true);
-        $criteria->compare('modified', $this->modified,true);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('modified', $this->modified, true);
 
         return new CActiveDataProvider(get_class($this), array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
@@ -292,21 +276,18 @@ class Tvehicle extends BaseModel
             $chassis = substr($chassis, 4, 10);
         } elseif (in_array(substr($chassis, 0, 3), array('S7-'))) {
             $chassis = substr($chassis, 3, 10);
-        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t290 series', 'lola t220 series', 'lola group c and imsa gtp:'))
-                && in_array(substr($chassis, 0, 3), array('T22', 'T29', 'T60', 'T61', 'T71', 'T81'))
+        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t290 series', 'lola t220 series', 'lola group c and imsa gtp:')) && in_array(substr($chassis, 0, 3), array('T22', 'T29', 'T60', 'T61', 'T71', 'T81'))
         ) {
             $tvehicle->ttype = 'Lola ' . substr($chassis, 0, 4);
             $chassis = substr($chassis, 5, 10);
-        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t160 series'))
-                && in_array(substr($chassis, 0, 4), array('SL16'))
+        } elseif (in_array(strtolower(trim($tvehicle->ttype)), array('lola t160 series')) && in_array(substr($chassis, 0, 4), array('SL16'))
         ) {
             $tvehicle->ttype = 'Lola T' . substr($chassis, 2, 3);
         } elseif ($tvehicle->tmake == 'Courage') {
             if (in_array(substr($chassis, 0, 4), array('LC70'))) {
                 $chassis = substr($chassis, 5, 20);
             }
-        } elseif (trim($tvehicle->ttype) == 'Ferrari 166 MM'
-                && in_array(substr($chassis, 0, 8), array('166MM/53'))
+        } elseif (trim($tvehicle->ttype) == 'Ferrari 166 MM' && in_array(substr($chassis, 0, 8), array('166MM/53'))
         ) {
             $chassis = substr($chassis, 9, 20);
         } elseif (in_array(substr($chassis, 0, 5), array('166MM'))) {
@@ -317,8 +298,7 @@ class Tvehicle extends BaseModel
             if (in_array(substr($chassis, 0, 5), array('206S-'))) {
                 $chassis = '0' . substr($chassis, 6, 20);
             }
-        } elseif (trim($tvehicle->ttype) == 'Ferrari 365 GTB/4 Daytona'
-                && in_array(substr($chassis, 0, 8), array('365GTB4-'))) {
+        } elseif (trim($tvehicle->ttype) == 'Ferrari 365 GTB/4 Daytona' && in_array(substr($chassis, 0, 8), array('365GTB4-'))) {
             $chassis = substr($chassis, 8, 20);
         } elseif (trim($tvehicle->tmake) == 'Mosler') {
             if (trim($ttype) == 'Mosler MT900R GT3') {
@@ -342,8 +322,8 @@ class Tvehicle extends BaseModel
             $ttype = $this->convertType($this);
             $chassis = $this->convertChassis($this, $ttype);
 
-            echo 'ttype: '.$ttype."\n";
-            echo 'chassis: '.$chassis."\n";
+            echo 'ttype: ' . $ttype . "\n";
+            echo 'chassis: ' . $chassis . "\n";
             //die;
 
             if (empty($this->type_id)) {
@@ -352,21 +332,21 @@ class Tvehicle extends BaseModel
                     $this->type_id = $type->id;
                     $this->make_id = $type->make_id;
                 } else {
-		    echo 'Make/type not found';		
+                    echo 'Make/type not found';
                     return false;
                 }
             }
 
-		
+
             if (empty($this->vehicle_id)) {
-		echo 'empty this->vehicle_id';
+                echo 'empty this->vehicle_id';
                 if ($chassis == $this->tchassis) {
                     // check if the Vehicle already exists:
                     $vehicle = Vehicle::model()->find(
                             'type_id=:type_id and chassisnumber=:chassis', array('type_id' => $this->type_id, 'chassis' => $chassis)
                     );
                     $this->vehicle_id = $vehicle->id;
-echo "vehicle found on type {$this->type_id} and chassis {$this->vehicle_id}";
+                    echo "vehicle found on type {$this->type_id} and chassis {$this->vehicle_id}";
                 } else {
                     //
                     $new = Vehicle::model()->find(
@@ -383,9 +363,9 @@ echo "vehicle found on type {$this->type_id} and chassis {$this->vehicle_id}";
                     }
                 }
             }
-   		echo 'Before check on new vehicle or not'+"\n";
-echo ' type:'+$this->type_id+ "\n";
-echo ',vehicle:'+$this->vehicle_id+'x';
+            echo 'Before check on new vehicle or not' + "\n";
+            echo ' type:' + $this->type_id + "\n";
+            echo ',vehicle:' + $this->vehicle_id + 'x';
             if (empty($this->vehicle_id)) {
                 $vehicle = new Vehicle();
                 $vehicle->type_id = $this->type_id;
@@ -443,7 +423,7 @@ echo ',vehicle:'+$this->vehicle_id+'x';
                     if ($vehicle->save()) {
                         $this->done = 1;
                         echo 'beforeSave -> this';
-die;
+                        die;
                         return $this->save();
                     } else {
                         return false;
@@ -458,11 +438,10 @@ die;
             'type:' . $this->ttype . "\n" .
             'chassis:' . $this->tchassis . "\n" .
             'error:' . $ex->getMessage() . "\n";
-die;
+            die;
             return false;
         }
     }
-
 
     private function convertType($tvehicle) {
 
@@ -471,12 +450,13 @@ die;
         $ttype = trim(str_replace('numbers', '', $ttype));
         $ttype = trim(str_replace('number', '', $ttype));
 
-        if (in_array(substr($ttype, 0, 11), array('Chevron B16', 'Chevron B19', 'Chevron B21', 'Chevron B23', 'Chevron B26', 'Chevron B31', 'Chevron B36'))) {
+        if (in_array(substr($ttype, 0, 11), array('Chevron B16', 'Chevron B19', 'Chevron B21', 'Chevron B23', 'Chevron B26', 'Chevron B31', 'Chevron B36'))
+        ) {
             $ttype = substr($ttype, 0, 11);
         } elseif (substr($ttype, 0, 20) == 'Chrysler Viper GTS-R') {
             $ttype = 'Chrysler Viper GTS-R';
-	} elseif (trim($ttype) == 'Shelby and A.C. Cobra') {
-		$ttype = 'AC Cobra';
+        } elseif (trim($ttype) == 'Shelby and A.C. Cobra') {
+            $ttype = 'AC Cobra';
         } elseif (trim($ttype) == 'Ferrari 250 GT SWB Competition') {
             $ttype = 'Ferrari 250 GT SWB';
         } elseif (trim($ttype) == 'Ferrari 250 TR58') {
@@ -576,42 +556,42 @@ die;
         return $ttype;
     }
 
-    public function convertTvehicle($fullcheck = true)
-    {
+    public function convertTvehicle($fullcheck = true) {
         if (!empty($this->tvehicle)) {
-            $type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name',array('name' => $this->tvehicle));
+            $type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name', array('name' => $this->tvehicle));
             if (!empty($type->id)) {
                 $this->type_id = $type->id;
                 $this->make_id = $type->make_id;
                 $this->save();
-
             } else {
-				if ($fullcheck){
-					$vehicle = explode(' ', $this->tvehicle);
-					$search = '';
-					$cnt = count($vehicle);
-					print_r($vehicle);
-					for ($i = 1; $i <= $cnt; $i++) {
-						$search .= ' '.$vehicle[$i-1];
-						$type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name',array('name' => trim($search)));
-						if (!empty($type->id)) {
-							$this->type_id = $type->id;
-							$this->make_id = $type->make_id;
-							$this->save();
-						} else {
-							$make = Make::model()->find('name=:name',array('name' => trim($search)));
-							if (!empty($make->id)) {
-								$this->make_id = $make->id;
-								$this->save();
-							}
-						}
-						$search = trim(str_replace($vehicle[$cnt],'',$search));
-					}
-				}
+                if ($fullcheck) {
+                    $vehicle = explode(' ', $this->tvehicle);
+                    $search = '';
+                    $cnt = count($vehicle);
+                    print_r($vehicle);
+                    for ($i = 1; $i <= $cnt; $i++) {
+                        $search .= ' ' . $vehicle[$i - 1];
+                        echo 'search:' . $search . "\n";
+                        $type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name', array('name' => trim($search)));
+                        if (!empty($type->id)) {
+                            $this->type_id = $type->id;
+                            $this->make_id = $type->make_id;
+                            $this->save();
+                        } else {
+                            $make = Make::model()->find('name=:name', array('name' => trim($search)));
+                            if (!empty($make->id)) {
+                                $this->make_id = $make->id;
+                                $this->save();
+                            }
+                        }
+                        //$search = trim(str_replace($vehicle[$cnt - 1], '', $search));
+                    }
+                }
             }
         } else {
             $this->convertTmakeTtype();
         }
         return true;
     }
+
 }

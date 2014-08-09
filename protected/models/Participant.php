@@ -54,7 +54,7 @@ class Participant extends BaseModel
             array( 'project_id', 'exist', 'attributeName' => 'id', 'className' => 'Project'),
             array( 'team_id', 'exist', 'attributeName' => 'id', 'className' => 'Team'),
             // unique key on foreign keys:
-    		array('individual_id+project_id+team_id', 'application.extensions.uniqueMultiColumnValidator'),
+    		array('individual_id+project_id+team_id', 'uniqueMultiColumnValidator'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, individual_id, project_id, team_id, number, initial_points, raceclass_id, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on'=>'search'),

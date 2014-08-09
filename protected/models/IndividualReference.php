@@ -58,8 +58,8 @@ class IndividualReference extends BaseModel {
             array('source_id', 'exist', 'attributeName' => 'id', 'className' => 'Source'),
             array('individual_id', 'exist', 'attributeName' => 'id', 'className' => 'Individual'),
             // unique key constraint:
-            array('individual_id+source_id', 'application.extensions.uniqueMultiColumnValidator'),
-            array('source_id+source_reference', 'application.extensions.uniqueMultiColumnValidator'),
+            array('individual_id+source_id', 'uniqueMultiColumnValidator'),
+            array('source_id+source_reference', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, individual_id, internal_reference, source_id, source_reference, full_name, first_name, last_name', 'safe', 'on' => 'search'),

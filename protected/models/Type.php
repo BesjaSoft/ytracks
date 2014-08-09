@@ -42,7 +42,7 @@ class Type extends BaseModel {
             array('constructor_id', 'exist', 'attributeName' => 'id', 'className' => 'Constructor'),
             array('motortype_id', 'exist', 'attributeName' => 'id', 'className' => 'Motortype'),
             // unique field combination:
-            array('make_id+name', 'application.extensions.uniqueMultiColumnValidator'),
+            array('make_id+name', 'uniqueMultiColumnValidator'),
             // Search array:
             array('id, make_id, name, alias, description, chassiscode, cartype_id, constructor_id, bodywork_id, from, untill, motortype_id, engineposition_id, propulsion_id, topspeed, length, width, height, weight, wheelbase, spoorbreedte_voor, spoorbreedte_achter, production_number, registered, published, ordering, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
         );

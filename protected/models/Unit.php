@@ -53,7 +53,7 @@ class Unit extends BaseModel {
             array('description', 'length', 'max' => 255),
             array('delete_date', 'safe'),
             // unique on domain+code:
-            array('domain+code', 'application.extensions.uniqueMultiColumnValidator'),
+            array('domain+code', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, domain, code, description, published, ordering, checked_out, checked_out_time, created, modified, deleted, delete_date', 'safe', 'on' => 'search'),

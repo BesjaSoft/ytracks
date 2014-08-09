@@ -1,4 +1,5 @@
 <?php
+
 class Tresult extends BaseModel {
 
     public $cnt = 0;
@@ -746,6 +747,7 @@ class Tresult extends BaseModel {
                     } catch (Exception $ex) {
                         echo $ex->getMessage() . "\n";
                         print_r($tresult->getErrors() . "\n");
+                        print_r($tresult . "\n");
                     }
                     unset($tresult);
                 }

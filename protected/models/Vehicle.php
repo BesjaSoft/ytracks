@@ -98,7 +98,7 @@ class Vehicle extends BaseModel {
             //array('condition_id', 'exist','attributeName' => 'id', 'className' => 'Condition'),
             array('bodywork_id', 'exist', 'attributeName' => 'id', 'className' => 'Bodywork'),
             // unique key constraint:
-            array('type_id+chassisnumber', 'application.extensions.uniqueMultiColumnValidator'),
+            array('type_id+chassisnumber', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, type_id, reference, chassisnumber, alias, year, color_id, condition_id, modifications, licenseplate, remarks, bodywork_id, carrosseriesoort_id, model, options, history, engine, group, first_owner, next_owners, carrossier, comment, published, ordering, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),

@@ -41,6 +41,7 @@
 class Individual extends BaseModel {
 
     public static $displayField = 'full_name';
+
     public static function getDisplayField($class = __CLASS__) {
         return parent::getDisplayField($class);
     }
@@ -138,9 +139,10 @@ class Individual extends BaseModel {
             array('last_name, nickname', 'oneOfThese', 'last_name', 'nickname'),
             // referential checks:
             array('user_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
-            array('nationality, country_of_birth, country_of_death', 'exist','attributeName' => 'iso3', 'className' => 'Country'),
+            array('nationality, country_of_birth, country_of_death', 'exist', 'attributeName' => 'iso3', 'className' => 'Country'),
             // unique key constraint:
-            array('last_name+first_name+nationality+date_of_birth', 'application.extensions.uniqueMultiColumnValidator'),
+            array('nickname', 'unique'),
+            array('last_name+first_name+nationality+date_of_birth', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, last_name, first_name, full_name, alias, nickname, height, weight, gender, date_of_birth, place_of_birth, country_of_birth, nationality, date_of_death, place_of_death, country_of_death, user_id, picture, picture_small, address, postcode, city, state, country, description, published, checked_out, checked_out_time, created, modified, deleted, deleted_date',
@@ -182,12 +184,12 @@ class Individual extends BaseModel {
      * Before saving to database
      */
     public function beforeSave() {
-	// Set the fullname of the individual when empty:
+        // Set the fullname of the individual when empty:
         if (empty($this->full_name)) {
             if (empty($this->last_name)) {
-                $this->full_name = '"'.$this->nickname.'"';
+                $this->full_name = '"' . $this->nickname . '"';
             } else {
-                if (empty($this->first_name)){
+                if (empty($this->first_name)) {
                     $this->full_name = $this->last_name;
                 } else {
                     $this->full_name = $this->first_name . ' ' . $this->last_name;
@@ -197,8 +199,8 @@ class Individual extends BaseModel {
 
 
 
-	// corect some  of the fields with invalid data:
-	// date of birth:
+        // corect some  of the fields with invalid data:
+        // date of birth:
         if ($this->date_of_birth == '0000-00-00' || empty($this->date_of_birth)) {
             $this->date_of_birth = null;
         }
@@ -215,22 +217,22 @@ class Individual extends BaseModel {
             $this->nickname = null;
         }
 
-	if (empty($this->nationality)) {
-	    $this->nationality = null;
-	}
+        if (empty($this->nationality)) {
+            $this->nationality = null;
+        }
 
         return parent::beforeSave();
     }
 
-	protected function beforeValidate(){
+    protected function beforeValidate() {
 
-		// check the nationality when its length is not 3 long:
+        // check the nationality when its length is not 3 long:
         if (!empty($this->nationality) && strlen(trim($this->nationality)) != 3) {
             $this->nationality = Countries::convertToIso3($this->nationality);
         }
 
-		return parent::beforeValidate();
-	}
+        return parent::beforeValidate();
+    }
 
     /**
      * replaces where possible the id of indivuald $id with the current Individual.
@@ -358,7 +360,6 @@ class Individual extends BaseModel {
         //if (!is_dir($album)) {
         //    mkdir($album, 0777, true);
         //}
-
         // do some nice stuff in the parent afterSave
         return parent::afterSave();
     }
@@ -457,9 +458,9 @@ class Individual extends BaseModel {
         $list = TresultIndividual::model()->find('individual_id=:individual', array('individual' => $id));
 
         foreach ($list as $result) {
-            try{
-            $result->individual_id = $this->id;
-            $result->save();
+            try {
+                $result->individual_id = $this->id;
+                $result->save();
             } catch (Exception $ex) {
                 echo $ex->getMessage();
                 $return = false;
@@ -470,15 +471,14 @@ class Individual extends BaseModel {
     }
 
     /**
-    * Should be called three times
-    *
-    * $attribute will be one of phone1, phone2 or phone3
-    * $params will always be array('phone1', 'phone2', 'phone3')
-    *
-    * (as far as I can remember...)
-    */
-    public function oneOfThese($attribute,$params)
-    {
+     * Should be called three times
+     *
+     * $attribute will be one of phone1, phone2 or phone3
+     * $params will always be array('phone1', 'phone2', 'phone3')
+     *
+     * (as far as I can remember...)
+     */
+    public function oneOfThese($attribute, $params) {
         $valid = false;
 
         foreach ($params as $param) {
@@ -489,9 +489,8 @@ class Individual extends BaseModel {
         }
 
         if ($valid === false) {
-            $this->addError( $attribute, 'Lastname or nickname should be entered' );
+            $this->addError($attribute, 'Lastname or nickname should be entered');
         }
     }
-
 
 }

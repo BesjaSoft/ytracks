@@ -47,7 +47,7 @@ class DriverScalemodel extends BaseModel
             array('individual_id', 'exist', 'attributeName' => 'id', 'className' => 'Individual'),
             array('scalemodel_id', 'exist', 'attributeName' => 'id', 'className' => 'Scalemodel'),
             // Unique key:
-            array('individual_id+scalemodel_id', 'application.extensions.uniqueMultiColumnValidator'),
+            array('individual_id+scalemodel_id', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, individual_id, scalemodel_id, ordering, created, modified, deleted, deleted_date', 'safe', 'on'=>'search'),

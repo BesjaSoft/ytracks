@@ -89,7 +89,7 @@ class Scalemodel extends BaseModel {
             array('material_id', 'exist', 'attributeName' => 'id', 'className' => 'Material'),
             array('scale_id', 'exist', 'attributeName' => 'id', 'className' => 'Scale'),
             // Unique key:
-            array('make_id+reference', 'application.extensions.uniqueMultiColumnValidator'),
+            array('make_id+reference', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, make_id, type_id, description, alias, reference, year, color, raceno, livery, event, drivers, category_id, scale_id, modeltype_id, material_id, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),

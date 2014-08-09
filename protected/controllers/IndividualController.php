@@ -51,8 +51,8 @@ class IndividualController extends Controller {
      * Displays a particular model.
      */
     public function actionView() {
-        $this->hasSearchForm = true;
-        $this->searchForm = '_actionsearch';
+        $this->hasActionSearch = true;
+        $this->actionSearchForm = '_actionsearch';
         $this->searchModel = new Individual();
 
         $this->render('view', array(

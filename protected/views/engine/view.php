@@ -28,15 +28,15 @@ if (!empty($model->parent_id)){
     $attributes[]='parent_id';
 }
 $attributes[]= 'tuner_id';
-$attributes[]= array('name' => 'enginetype_id','type'=>'raw','value'=>CHtml::Link( CHtml::encode($model->enginetype->name), array('enginetype/view','id'=>$model->enginetype_id)));
+$attributes[]= array('name' => 'enginetype_id','type'=>'raw','value'=>isset($model->enginetype_id) ? CHtml::Link( CHtml::encode($model->enginetype->name), array('enginetype/view','id'=>$model->enginetype_id)): $model->enginetype_id);
 $attributes[]= 'compression';
 $attributes[]= 'cams';
 $attributes[]= 'valves_cylinder';
 $attributes[]= 'bore';
 $attributes[]= 'stroke';
-$attributes[]= array('name' => 'capacity','type'=>'raw','value'=> CHtml::encode($model->capacity.' '.$model->capacityUnit->code));
-$attributes[]= array('name' => 'power'   ,'type'=>'raw','value'=> CHtml::encode($model->power   .' '.$model->powerUnit->code.' at '.$model->power_revs.' revs'));
-$attributes[]= array('name' => 'torque'  ,'type'=>'raw','value'=> CHtml::encode($model->torque  .' '.$model->torqueUnit->code.' at '.$model->torque_revs.' revs'));
+$attributes[]= array('name' => 'capacity','type'=>'raw','value'=> isset($model->capacity_id) ? CHtml::encode($model->capacity.' '.$model->capacityUnit->code) : $model->capacity_id);
+$attributes[]= array('name' => 'power'   ,'type'=>'raw','value'=> isset($model->power_id) ? CHtml::encode($model->power   .' '.$model->powerUnit->code.' at '.$model->power_revs.' revs') : $model->power_id);
+$attributes[]= array('name' => 'torque'  ,'type'=>'raw','value'=> isset($model->torque_id) ? CHtml::encode($model->torque  .' '.$model->torqueUnit->code.' at '.$model->torque_revs.' revs') : $model->torque_id);
 $attributes[]= 'induction';
 $attributes[]= 'ignition_id';
 $attributes[]= 'fuelsystem_id';

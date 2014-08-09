@@ -60,7 +60,7 @@ class Project extends BaseModel {
             array('competition_id', 'exist', 'attributeName' => 'id', 'className' => 'Competition'),
             array('season_id', 'exist', 'attributeName' => 'id', 'className' => 'Season'),
             // unique key constraint:
-            array('competition_id+season_id', 'application.extensions.uniqueMultiColumnValidator'),
+            array('competition_id+season_id', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, alias, competition_id, season_id, admin_id, type, params, ordering, checked_out, checked_out_time, published, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
