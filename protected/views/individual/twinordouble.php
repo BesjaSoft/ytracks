@@ -42,12 +42,15 @@ $('.search-form form').submit(function(){
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
-    'id' => 'individual-grid',
+    'id' => 'twindouble-grid',
     'dataProvider' => $model->getTwinsOrDoubles(),
     'filter' => $model,
     'columns' => array(
         'first_name',
         'last_name',
+        'cnt',
+        'min_id',
+        'max_id',
         array(
             'header' => 'nationality',
             'type' => 'image',
@@ -60,7 +63,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 'combine' => array(
                     'label' => 'combine',
                     'imageUrl' => Yii::app()->request->baseUrl . '/images/export.png',
-                    'url' => 'Yii::app()->createUrl("/individual/combine&id=$data->id")',
+                    'url' => 'Yii::app()->controller->createUrl("combine", array("min_id"=>$data->min_id,"max_id"=>$data->max_id))',
                 ),
             ),
             'template' => '{view}{update}{delete}{combine}',

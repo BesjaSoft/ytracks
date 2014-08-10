@@ -17,7 +17,7 @@
 class Tyre extends BaseModel
 {
 
-    public function getDisplayField(){
+    public static function getDisplayField(){
         return 'code';
     }
     /**

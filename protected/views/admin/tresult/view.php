@@ -50,9 +50,9 @@ $dateFormatter = new CDateFormatter('nl-NL');
                     array('name' => 'round', 'type' => 'raw', 'value' => $model->roundnum . '. ' . $model->round . ' ' . $model->rounddate),
                     array('name' => 'subround_id'
                         , 'type' => 'raw'
-                        , 'value' => CHtml::Link(CHtml::encode($model->subround->round->name . ' ' . $dateFormatter->format('dd-M-yyyy', $model->subround->round->start_date))
-                                , array('subround/view', 'id' => $model->subround_id)
-                        )
+                        , 'value' => isset($model->subround_id) ? CHtml::Link(CHtml::encode($model->subround->round->name . ' ' . $dateFormatter->format('dd-M-yyyy', $model->subround->round->start_date))
+                                        , array('subround/view', 'id' => $model->subround_id)
+                                ) : $model->subround_id
                     ),
                     array('name' => 'tvehicle',
                         'type' => 'raw',
@@ -62,25 +62,25 @@ $dateFormatter = new CDateFormatter('nl-NL');
                         , 'type' => 'raw'
                         , 'value' => (isset($model->make_id) ? CHtml::Link(CHtml::encode($model->make->name)
                                         , array('make/view', 'id' => $model->make_id)) : "")
-                                . ' '
-                                . (isset($model->type_id) ? CHtml::Link(CHtml::encode($model->type->name)
-                                                , array('type/view', 'id' => $model->type_id)) : "")
-                                        . ' '
-                                        . (isset($model->vehicle_id) ? CHtml::Link(CHtml::encode($model->vehicle->chassisnumber)
-                                                        , array('vehicle/view', 'id' => $model->vehicle_id)) : "")
+                        . ' '
+                        . (isset($model->type_id) ? CHtml::Link(CHtml::encode($model->type->name)
+                                        , array('type/view', 'id' => $model->type_id)) : "")
+                        . ' '
+                        . (isset($model->vehicle_id) ? CHtml::Link(CHtml::encode($model->vehicle->chassisnumber)
+                                        , array('vehicle/view', 'id' => $model->vehicle_id)) : "")
                     ),
                     array(
                         'name' => 'engine_id',
                         'type' => 'raw',
                         'value' => (isset($model->engine_id) ? CHtml::Link(CHtml::encode($model->engine->make->name . ' ' . $model->engine->name)
-                                , array('engine/view', 'id' => $model->engine_id)) : $model->engine_id)
+                                        , array('engine/view', 'id' => $model->engine_id)) : $model->engine_id)
                     ),
                     'tteam',
                     array('name' => 'team_id'
                         , 'type' => 'raw'
-                        , 'value' => CHtml::Link(CHtml::encode($model->team->name)
+                        , 'value' => isset($model->team_id) ? CHtml::Link(CHtml::encode($model->team->name)
                                 , array('team/view', 'id' => $model->team_id)
-                        )
+                        ) : $model->team_id 
                     ),
                     'deleted',
                     'error',

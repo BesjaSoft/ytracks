@@ -10,6 +10,8 @@
 class BaseModel extends CActiveRecord {
 
     public $cnt;
+    public $min_id;
+    public $max_id;
     private $thumbnailWidth = 80;
     private $thumbnailHeight = 60;
     private $activeImage = 'images/icons/accept.png';

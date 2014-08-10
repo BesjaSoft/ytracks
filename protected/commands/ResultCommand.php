@@ -10,7 +10,7 @@ class ResultCommand extends CConsoleCommand
         'gelf1' => array('path' => '../../../../webcopier/GELMotorsport/archive/f1/*/*.html', 'category' => 2, 'section' => 9),
     );
 
-    public function actionIndex($section, $vehicle = "")
+    public function actionIndex($section, $vehicle = "", $error=0)
     {
         if (in_array($section, array_keys($this->content))) {
             $this->key = $section;
@@ -18,19 +18,19 @@ class ResultCommand extends CConsoleCommand
 
             if ($section == 'wsrp') {
                 $this->convertWsrpContent(false);
-                $this->convertTresult(true, $vehicle);
+                $this->convertTresult(true, $vehicle, $error);
 
             } else if ($section == 'chassis') {
                 $this->convertChassisContent($do);
-                $this->convertTvehicle($do);
+                $this->convertTvehicle($do, $error);
 
             } else if ($section ==  "formula2"){
                 $this->convertFormula2Content($do);
-                $this->convertTresult(true, $vehicle);
+                $this->convertTresult(true, $vehicle, $error);
 
             } else if ($section ==  "gelf1"){
                 $this->convertGelf1Content($do);
-                $this->convertTresult(true, $vehicle);
+                $this->convertTresult(true, $vehicle, $error);
 
             }
         } else {
@@ -55,12 +55,12 @@ class ResultCommand extends CConsoleCommand
         }
     }
 
-    private function convertTresult($do = false, $vehicle)
+    private function convertTresult($do = false, $vehicle, $error)
     {
         echo '**** Convert tresults => results ****'."\n";
         if ($do) {
             //Tresult::model()->reorderResults(true);
-            Tresult::model()->convertResults(true, $vehicle);
+            Tresult::model()->convertResults(true, $vehicle, $error);
         }
     }
 

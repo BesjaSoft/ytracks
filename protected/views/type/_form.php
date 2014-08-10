@@ -21,7 +21,7 @@
             $this->widget('zii.widgets.jui.CJuiAutoComplete'
                     , array('id' => 'make_id'
                 , 'name' => 'make_id'
-                , 'value' => $model->make->name
+                , 'value' => isset($model->make_id) ? $model->make->name : $model->make_id
                 , 'source' => $this->createUrl('make/autoComplete')
                 , 'options' => array('showAnim' => 'fold'
                     , 'minLength' => 2

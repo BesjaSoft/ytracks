@@ -82,7 +82,7 @@ class Individual extends BaseModel {
 
     public function getDieHards() {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'date_of_birth is not null and date_of_death is null and datediff(curdate(),date_of_birth) >= 80';
+        $criteria->condition = 'date_of_birth is not null and date_of_death is null and datediff(curdate(),date_of_birth) >= 90';
         $criteria->order = 'date_of_birth asc';
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
@@ -90,12 +90,16 @@ class Individual extends BaseModel {
 
     public function getTwinsOrDoubles() {
         $criteria = new CDbCriteria;
+        $criteria->select = 'first_name, last_name, count(id) AS cnt,min(id) as min_id,max(id)as max_id';
         $criteria->group = 'first_name, last_name';
         $criteria->having = 'count(id) >= 2';
         $criteria->order = 'last_name asc';
-        $criteria->condition = 'first_name is not null and last_name is not null';
+        $criteria->condition = 'first_name is not null and last_name is not null and deleted=0';
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'Pagination' => array('pageSize' => 20,),
+        ));
     }
 
     public static function getClassName() {
@@ -239,22 +243,35 @@ class Individual extends BaseModel {
      * @param int $id
      * @return boolean
      */
-    public function combineId($id) {
-        $return = true;
-        try {
-            $this->combineRankings($id);
-            $this->combineResults($id);
-            $this->combineParticipants($id);
-            $this->combineTresults($id);
-            $this->combineMakes($id);
-            $this->combineOwners($id);
-            $this->combineUsers($id);
-            $this->combineScaleModels($id);
-        } catch (Exception $ex) {
-            echo $ex->getMessage();
-            $return = false;
-        }
+    public function combine($id) {
+        $return = false;
+        if (!empty($id)) {
+            $transaction = Yii::app()->db->beginTransaction();
 
+            try {
+                $this->combineRankings($id);
+                $this->combineResults($id);
+                $this->combineParticipants($id);
+                $this->combineTresults($id);
+                $this->combineMakes($id);
+                $this->combineOwners($id);
+                //$this->combineUsers($id);
+                //$this->combineScaleModels($id);
+                // ok: now delete it:
+                $doubleIndividual = Individual::model()->findByPk($id);
+                $doubleIndividual->deleted = 1;
+                if ($doubleIndividual->save()) {
+                    $return = true;
+                    $transaction->commit();
+                } else {
+                    $transaction->rollback();
+                }
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
+                $return = false;
+                $transaction->rollback();
+            }
+        }
         return $return;
     }
 
@@ -342,7 +359,10 @@ class Individual extends BaseModel {
         $criteria->compare('deleted', 0);
         $criteria->compare('deleted_date', $this->deleted_date, true);
 
-        return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'Pagination' => array('pageSize' => 20,),
+        ));
     }
 
     public function getAlbum() {
@@ -368,17 +388,24 @@ class Individual extends BaseModel {
 
         $return = true;
         $list = Make::model()->find('founder_id=:founder', array('founder' => $id));
-
-        foreach ($list as $make) {
-            try {
-                $make->founder_id = $this->id;
-                $make->save();
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $return = false;
+        echo 'count founder : ' . count($list) . "\n";
+        if (count($list) > 0) {
+            foreach ($list as $listId) {
+                try {
+                    $make = Make::model()->findByPk($listId);
+                    $make->founder_id = $this->id;
+                    if (!$make->save()) {
+                        echo 'listid : ' . $listId . "\n";
+                        echo 'thisid : ' . $this->id . "\n";
+                        print_r($make->getErrors());
+                        die;
+                    };
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    $return = false;
+                }
             }
         }
-
         return $return;
     }
 
@@ -386,14 +413,22 @@ class Individual extends BaseModel {
 
         $return = true;
         $list = Owner::model()->find('individual_id=:individual', array('individual' => $id));
-
-        foreach ($list as $owner) {
-            try {
-                $owner->individual_id = $this->id;
-                $owner->save();
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $return = false;
+        echo 'count owners : ' . count($list) . "\n";
+        if (count($list) > 0) {
+            foreach ($list as $listId) {
+                try {
+                    $owner = Owner::model()->findByPk($listId);
+                    $owner->individual_id = $this->id;
+                    if (!$owner->save()) {
+                        echo 'listid : ' . $listId . "\n";
+                        echo 'thisid : ' . $this->id . "\n";
+                        print_r($owner->getErrors());
+                        die;
+                    };
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    $return = false;
+                }
             }
         }
 
@@ -404,13 +439,22 @@ class Individual extends BaseModel {
 
         $return = true;
         $list = Participant::model()->find('individual_id=:individual', array('individual' => $id));
-        foreach ($list as $participant) {
-            try {
-                $participant->individual_id = $this->id;
-                $participant->save();
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $return = false;
+        echo 'count participants : ' . count($list) . "\n";
+        if (count($list) > 0) {
+            foreach ($list as $listId) {
+                try {
+                    $participant = Participant::model()->findByPk($listId);
+                    $participant->individual_id = $this->id;
+                    if (!$participant->save()) {
+                        echo 'listid : ' . $listId . "\n";
+                        echo 'thisid : ' . $this->id . "\n";
+                        print_r($participant->getErrors());
+                        die;
+                    };
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    $return = false;
+                }
             }
         }
 
@@ -421,14 +465,22 @@ class Individual extends BaseModel {
 
         $return = true;
         $list = Ranking::model()->find('individual_id=:individual', array('individual' => $id));
-
-        foreach ($list as $ranking) {
-            try {
-                $ranking->individual_id = $this->id;
-                $ranking->save();
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $return = false;
+        echo 'count rankings : ' . count($list) . "\n";
+        if (count($list) > 0) {
+            foreach ($list as $listId) {
+                try {
+                    $ranking = Ranking::model()->findByPk($listId);
+                    $ranking->individual_id = $this->id;
+                    if (!$ranking->save()) {
+                        echo 'listid : ' . $listId . "\n";
+                        echo 'thisid : ' . $this->id . "\n";
+                        print_r($ranking->getErrors());
+                        die;
+                    };
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    $return = false;
+                }
             }
         }
 
@@ -439,16 +491,26 @@ class Individual extends BaseModel {
 
         $return = true;
         $list = Result::model()->find('individual_id=:individual', array('individual' => $id));
-        foreach ($list as $result) {
-            try {
-                $result->individual_id = $this->id;
-                $result->save();
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $return = false;
+        echo 'count results : ' . count($list) . "\n";
+        if (count($list) > 0) {
+            foreach ($list as $listId) {
+                $result = Result::model()->findByPk($listId);
+                try {
+                    $result->individual_id = $this->id;
+                    if (!$result->save()) {
+                        echo 'listid : ' . $listId . "\n";
+                        echo 'thisid : ' . $this->id . "\n";
+                        print_r($result->getErrors());
+                        die;
+                    };
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    print_r($result->getErrors());
+                    $return = false;
+                    die;
+                }
             }
         }
-
         return $return;
     }
 
@@ -456,17 +518,24 @@ class Individual extends BaseModel {
 
         $return = true;
         $list = TresultIndividual::model()->find('individual_id=:individual', array('individual' => $id));
-
-        foreach ($list as $result) {
-            try {
-                $result->individual_id = $this->id;
-                $result->save();
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-                $return = false;
+        echo 'count tresults : ' . count($list) . "\n";
+        if (count($list) > 0) {
+            foreach ($list as $listId) {
+                try {
+                    $tresult = TresultIndividual::model()->findByPk($listId);
+                    $tresult->individual_id = $this->id;
+                    if (!$tresult->save()) {
+                        echo 'listid : ' . $listId . "\n";
+                        echo 'thisid : ' . $this->id . "\n";
+                        print_r($tresult->getErrors());
+                        die;
+                    };
+                } catch (Exception $ex) {
+                    echo $ex->getMessage();
+                    $return = false;
+                }
             }
         }
-
         return $return;
     }
 

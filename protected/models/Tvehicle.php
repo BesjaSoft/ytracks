@@ -96,6 +96,15 @@ class Tvehicle extends BaseModel {
 
     public function beforeSave() {
 
+        if (empty($this->tvehicle)) {
+            $this->tvehicle = null;
+        }
+        if (empty($this->tmake)) {
+            $this->tmake = null;
+        }
+        if (empty($this->ttype)) {
+            $this->ttype = null;
+        }
         if (!empty($this->type_id)) {
             $type = Type::model()->findByPk($this->type_id);
             $this->make_id = $type->make_id;

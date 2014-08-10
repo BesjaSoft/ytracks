@@ -70,26 +70,26 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
                     , array('type/view', 'id' => $model->type_id)
             )
             . ' '
-            . CHtml::Link(CHtml::encode($model->vehicle->chassisnumber)
-                    , array('vehicle/view', 'id' => $model->vehicle_id)
+            . (isset($model->vehicle_id) ? CHtml::Link(CHtml::encode($model->vehicle->chassisnumber)
+                    , array('vehicle/view', 'id' => $model->vehicle_id)) : ''
             )
         ),
         array('name' => 'engine_id'
             , 'type' => 'raw'
-            , 'value' => CHtml::Link(CHtml::encode($model->engine->make->name . ' ' . $model->engine->name)
-                    , array('engine/view', 'id' => $model->engine_id)
+            , 'value' => (isset($model->engine_id) ? CHtml::Link(CHtml::encode($model->engine->make->name . ' ' . $model->engine->name)
+                    , array('engine/view', 'id' => $model->engine_id)) : $model->engine_id
             )
         ),
         array('name' => 'tyre_id'
             , 'type' => 'raw'
-            , 'value' => CHtml::Link(CHtml::encode($model->tyre->make->name)
-                    , array('tyre/view', 'id' => $model->tyre_id)
+            , 'value' => (isset($model->tyre_id) ? CHtml::Link(CHtml::encode($model->tyre->make->name)
+                    , array('tyre/view', 'id' => $model->tyre_id)) : $model->tyre_id
             )
         ),
         array('label' => $model->getAttributeLabel('outreason_id')
             , 'type' => 'raw'
-            , 'value' => CHtml::Link(CHtml::encode($model->outreason->name)
-                    , array('outreason/view', 'id' => $model->outreason_id)
+            , 'value' => (isset($model->outreason_id) ? CHtml::Link(CHtml::encode($model->outreason->name)
+                    , array('outreason/view', 'id' => $model->outreason_id)) :$model->outreason_id
             )
         ),
         'comment',

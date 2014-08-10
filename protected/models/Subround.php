@@ -7,6 +7,7 @@
  * @property integer $id
  * @property integer $round_id
  * @property integer $subroundtype_id
+ * @property integer $raceclass_id
  * @property string $name
  * @property integer $ordering
  * @property string $start_date
@@ -53,12 +54,13 @@ class Subround extends BaseModel {
         // will receive user inputs.
         return array(
             array('round_id, subroundtype_id, ordering, created', 'required'),
-            array('round_id, subroundtype_id, ordering, checked_out, published, deleted', 'numerical', 'integerOnly' => true),
+            array('round_id, subroundtype_id, raceclass_id, ordering, checked_out, published, deleted', 'numerical', 'integerOnly' => true),
             array('factor', 'length', 'max' => 8),
             array('start_date, end_date, name, description, comment, modified, deleted_date', 'safe'),
             // foreign key checks:
             array('round_id', 'exist', 'attributeName' => 'id', 'className' => 'Round'),
             array('subroundtype_id', 'exist', 'attributeName' => 'id', 'className' => 'Subroundtype'),
+            array('raceclass_id', 'exist', 'attributeName' => 'id', 'className' => 'Raceclass'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, round_id, subroundtype_id, name, ordering, start_date, end_date, description, comment, factor, checked_out, checked_out_time, published, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
@@ -73,6 +75,7 @@ class Subround extends BaseModel {
         // class name for the relations automatically generated below.
         return array('round' => array(self::BELONGS_TO, 'Round', 'round_id'),
             'subroundtype' => array(self::BELONGS_TO, 'Subroundtype', 'subroundtype_id'),
+            'raceclass' => array(self::BELONGS_TO, 'Raceclass', 'raceclass_id'),
             'results' => array(self::HAS_MANY, 'Result', 'subround_id')
         );
     }
@@ -85,6 +88,7 @@ class Subround extends BaseModel {
             'id' => 'ID',
             'round_id' => 'Projectround',
             'subroundtype_id' => 'Subroundtype',
+            'raceclass_id' => 'Raceclass',
             'ordering' => 'Ordering',
             'name' => 'Name',
             'start_date' => 'Start Date',

@@ -33,8 +33,10 @@ class Tresult extends BaseModel {
     public function rules() {
         return array(
             array('round', 'required'),
-            array('row, subround_id, make_id, type_id, vehicle_id, engine_id, team_id, driver_id, codriver_id, deleted, error', 'numerical', 'integerOnly' => true),
-            array('round, num, tdriver, tcodriver, tvehicle, tteam, laps, performance, classification, raceclass, grid, laptime, Livery', 'length',
+            array('row, subround_id, make_id, type_id, vehicle_id, engine_id, team_id, driver_id, codriver_id, deleted, error',
+                'numerical', 'integerOnly' => true),
+            array('round, num, tdriver, tcodriver, tvehicle, tteam, laps, performance, classification, raceclass, grid, laptime, Livery',
+                'length',
                 'max' => 255),
             array('Field4Question, Field4Or, Field4Evo, Field4_2', 'length', 'max' => 10),
             array('individuals', 'safe'),
@@ -416,7 +418,8 @@ class Tresult extends BaseModel {
             ) {
                 $isNickname = true;
                 $nickname = substr($tindividual, 1, strlen($tindividual) - 2);
-                $individual = Individual::model()->find('nickname=:name', array('name' => $nickname));
+                $individual = Individual::model()->find('nickname=:name', array(
+                    'name' => $nickname));
             }
             // search on lastname
             if (empty($individual->id)) {
@@ -533,7 +536,8 @@ class Tresult extends BaseModel {
         $this->printStartTijd();
         $catid = 5;
         $sectionid = 2;
-        $list = Content::model()->findAll('catid=:catid and sectionid=:sectionid', array('catid' => $catid, 'sectionid' => $sectionid));
+        $list = Content::model()->findAll('catid=:catid and sectionid=:sectionid', array(
+            'catid' => $catid, 'sectionid' => $sectionid));
 
         foreach ($list as $item) {
             //
@@ -669,19 +673,22 @@ class Tresult extends BaseModel {
      * @name convert
      * @abstract converts all not converted Tresults into Result
      */
-    public function convertResults($store = false, $tvehicle = "") {
+    public function convertResults($store = false, $tvehicle = "", $error = 0) {
 
         echo '***** Start ConvertResults *****' . "\n";
         $this->printStarttijd();
         $update = new CDbCriteria;
         $criteria = new CDbCriteria;
-        if (empty($tvehicle)) {
+        if (empty($tvehicle) && empty($error)) {
             echo 'Update all!' . "\n";
             $update->condition = 'error <> 0 and deleted=0';
-            $condition = 'deleted=0 and error=0'; // and tvehicle is not null and make_id is null';
-        } else {
+            $condition = 'deleted=0 and error=0';
+        } else if (!empty($tvehicle)) {
             $update->condition = 'error <> 0 and deleted=0 and tvehicle like \'' . $tvehicle . '%\'';
             $condition = 'deleted=0 and error=0 and tvehicle like \'' . $tvehicle . '%\'';
+        } else {
+            $update->condition = 'error =' . $error . ' and deleted=0';
+            $condition = 'deleted=0 and error=0';
         }
         Tresult::model()->updateAll(array('error' => '0'), $update);
 
@@ -777,22 +784,23 @@ class Tresult extends BaseModel {
         $season = substr($title, -4);
         $competition = str_replace($season, '', $title);
 
-        if (empty($season) || empty($competition) || empty($tresult->sub) || empty($tresult->roundnum)
-        ) {
-
+        if (empty($season) || empty($competition) || empty($tresult->sub) || empty($tresult->roundnum)) {
             echo 'Invalid round! pk:' . $tresult->id . ', title:' . $title . "\n";
         } else {
             $project = Project::model()->with(array('season', 'competition'))->find(
-                    'season.name=:season and competition.code=:code', array('season' => $season, 'code' => $competition)
+                    'season.name=:season and competition.code=:code', array('season' => $season,
+                'code' => $competition)
             );
             if (!empty($project->id)) {
-                $round = Round::model()->find('name=:name and project_id=:projectid and ordering=:roundnum', array('name' => trim($tresult->round),
+                $round = Round::model()->find('name=:name and project_id=:projectid and ordering=:roundnum', array(
+                    'name' => trim($tresult->round),
                     'projectid' => $project->id,
                     'roundnum' => $tresult->roundnum
                         )
                 );
                 if (empty($round->id)) {
-                    $round = Round::model()->with('event')->find('event.name=:name and project_id=:projectid and t.ordering=:roundnum', array('name' => trim($tresult->round),
+                    $round = Round::model()->with('event')->find('event.name=:name and project_id=:projectid and t.ordering=:roundnum', array(
+                        'name' => trim($tresult->round),
                         'projectid' => $project->id,
                         'roundnum' => $tresult->roundnum
                             )
@@ -802,10 +810,11 @@ class Tresult extends BaseModel {
                 if (!empty($round->id)) {
                     // determine the subroundtype:
                     $subroundtype = $this->getSubroundType($tresult);
-                    //$raceclass = $this->getRaceclass($tresult);
+                    $raceclass = $this->getRaceclass($tresult);
                     //echo 'subroundtype:'.$subroundtype."\n";
                     // find the subround
-                    $subround = Subround::model()->find('projectround_id=:round and subroundtype_id=:subroundtype and ordering=:ordering', array('round' => $round->id,
+                    $subround = Subround::model()->find('round_id=:round and subroundtype_id=:subroundtype and ordering=:ordering', array(
+                        'round' => $round->id,
                         'ordering' => $tresult->sub,
                         'subroundtype' => $subroundtype
                             )
@@ -813,19 +822,30 @@ class Tresult extends BaseModel {
                     if (!empty($subround->id)) {
                         $result = $subround->id;
                     } else {
-                        echo "No subround found!" . "\n";
-                        echo 'Round : ' . $tresult->round . ', id:' . $round->id . "\n";
-                        echo ', ordering: ' . $tresult->sub . "\n";
-                        echo ', subroundtype:' . $subroundtype . "\n";
-                        die;
+                        $subround = Subround::model()->find('round_id=:round and subroundtype_id=:subroundtype and raceclass_id=:raceclass and ordering=:ordering', array(
+                            'round' => $round->id,
+                            'ordering' => $tresult->sub,
+                            'subroundtype' => $subroundtype,
+                            'raceclass' => $raceclass->id,
+                                )
+                        );
+                        if (empty($subround->id)) {
+                            echo "No subround found for " . $tresult->id . "\n";
+                            echo 'Round : ' . $tresult->round . ', id:' . $round->id . "\n";
+                            echo ', project_id: ' . $project->id . "\n";
+                            echo ', ordering: ' . $tresult->sub . "\n";
+                            echo ', subroundtype:' . $subroundtype . "\n";
+                            echo ', raceclass:' . $raceclass->id . "\n";
+                            die;
+                        }
                     }
                 } else {
                     echo "Round not found!";
                     die;
                 }
             } else {
-                //echo "Project not found!";
-                //die;
+                echo "Project not found!";
+                die;
             }
 
             //echo 'project:'.$project->id."\n";
@@ -845,7 +865,8 @@ class Tresult extends BaseModel {
             return $tresult->team_id;
         }
         $result = null;
-        if (empty($tresult->tteam) || in_array(trim(strtolower($tresult->tteam)), array('did not finish:',
+        if (empty($tresult->tteam) || in_array(trim(strtolower($tresult->tteam)), array(
+                    'did not finish:',
                     'did not start:',
                     'in entry list:',
                     'other starters:',
@@ -876,7 +897,10 @@ class Tresult extends BaseModel {
     private function findTvehicle($vehicle, $chassis) {
         $result = new StdClass();
         // not found anywhere? Then check the conversion table:
-        $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and tchassis=:chassis and done=1', array('tvehicle' => $vehicle, 'chassis' => $chassis)
+        $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and tchassis=:chassis and done=1', array(
+            'tvehicle' => $vehicle,
+            'chassis' => $chassis
+                )
         );
 
         //print_r($tvehicle);
@@ -889,9 +913,11 @@ class Tresult extends BaseModel {
             return $result;
         }
 
-        $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and done=1', array('tvehicle' => $vehicle));
+        $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and done=1', array(
+            'tvehicle' => $vehicle));
         if (!empty($tvehicle->type_id)) {
-            $vehicle = Vehicle::model()->find('type_id=:type and chassisnumber=:chassis', array('type' => $tvehicle->type_id, 'chassis' => $chassis)
+            $vehicle = Vehicle::model()->find('type_id=:type and chassisnumber=:chassis', array(
+                'type' => $tvehicle->type_id, 'chassis' => $chassis)
             );
             if (!empty($vehicle->id)) {
                 $result->make_id = $tvehicle->make_id;
@@ -915,6 +941,7 @@ class Tresult extends BaseModel {
         $vehicle->make_id = null;
         $vehicle->type_id = null;
         $vehicle->vehicle_id = null;
+        $vehicle->engine_id = null;
 
         if (empty($tresult->tvehicle) || $tresult->tvehicle == '?' || $tresult->tvehicle == '-') {
             $make = Make::model()->find('name=:name', array('name' => 'Unknown'));
@@ -1024,7 +1051,8 @@ class Tresult extends BaseModel {
             }
 
             // not found anywhere? Then check the conversion table:
-            $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and done=1', array('tvehicle' => $tresult->tvehicle));
+            $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and done=1', array(
+                'tvehicle' => $tresult->tvehicle));
             if (!empty($tvehicle->make_id)) {
                 $vehicle->make_id = $tvehicle->make_id;
                 $vehicle->type_id = $tvehicle->type_id;
@@ -1059,10 +1087,12 @@ class Tresult extends BaseModel {
     private function findVehicleByName($searchType, $chassis) {
         $found = false;
         $loop = true;
-        $type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name', array('name' => $searchType));
+        $type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name', array(
+            'name' => $searchType));
         if (!empty($type->id)) {
             while ($loop) {
-                $vehicle = Vehicle::model()->find('type_id=:type and chassisnumber=:chassis', array('type' => $type->id, 'chassis' => $chassis)
+                $vehicle = Vehicle::model()->find('type_id=:type and chassisnumber=:chassis', array(
+                    'type' => $type->id, 'chassis' => $chassis)
                 );
                 if ($vehicle->id >= 1) {
                     $found = true;
@@ -1084,12 +1114,7 @@ class Tresult extends BaseModel {
     }
 
     private function getRaceClass($tresult) {
-        $roundtype = $tresult->roundtype;
-        $rpos = strrpos($roundtype, ':');
-        $type = substr($type, 0, $rpos);
-        $result = Raceclass::model()->find('name=:name', array('name' => $roundtype));
-
-        return $result->id;
+        return Raceclass::model()->find('name=:name', array('name' => trim($tresult->raceclass)));
     }
 
     private function getSlug($title) {
@@ -1275,8 +1300,10 @@ class Tresult extends BaseModel {
             $chars['out'] = "EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyyo";
 
             $string = strtr($string, $chars['in'], $chars['out']);
-            $double_chars['in'] = array(chr(140), chr(156), chr(198), chr(208), chr(222), chr(223), chr(230), chr(240), chr(254));
-            $double_chars['out'] = array('OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th');
+            $double_chars['in'] = array(chr(140), chr(156), chr(198), chr(208),
+                chr(222), chr(223), chr(230), chr(240), chr(254));
+            $double_chars['out'] = array('OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae',
+                'dh', 'th');
             $string = str_replace($double_chars['in'], $double_chars['out'], $string);
         }
 
@@ -1298,7 +1325,8 @@ class Tresult extends BaseModel {
     public function readContent($key, $sectionId, $catId) {
 
         $this->list = Content::model()->findAll(
-                'catid = :cat and sectionid = :section', array('section' => $sectionId, 'cat' => $catId)
+                'catid = :cat and sectionid = :section', array('section' => $sectionId,
+            'cat' => $catId)
         );
 
         echo 'Key : ' . $key . "\n";
@@ -1330,7 +1358,8 @@ class Tresult extends BaseModel {
 
     public function convertRallybaseChampionships($key, $sectionId, $catId) {
 
-        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%Results by championship%\'', array('catid' => $catId, 'sectionid' => $sectionId)
+        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%Results by championship%\'', array(
+            'catid' => $catId, 'sectionid' => $sectionId)
         );
 
         echo 'Found : ' . count($this->list) . ' articles' . "\n";
@@ -1378,7 +1407,8 @@ class Tresult extends BaseModel {
 
     public function convertRallybaseDrivers($key, $sectionId, $catId) {
 
-        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%Drivers and codrivers from%\'', array('catid' => $catId, 'sectionid' => $sectionId)
+        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%Drivers and codrivers from%\'', array(
+            'catid' => $catId, 'sectionid' => $sectionId)
         );
 
         echo 'Found : ' . count($this->list) . ' articles' . "\n";
@@ -1406,7 +1436,8 @@ class Tresult extends BaseModel {
                             $headerStart = strpos($line, '<h1>') + strlen('Drivers and codrivers from') + 4;
                             $headerEnd = strpos($line, '</h1>');
                             $countryName = $this->convertCountryName(trim(substr($line, $headerStart, $headerEnd - $headerStart)));
-                            $country = Country::model()->find('name=:name', array('name' => $countryName));
+                            $country = Country::model()->find('name=:name', array(
+                                'name' => $countryName));
                             if (!empty($country->id)) {
                                 echo 'article : ' . $article->title . ', country : ' . $countryName . ', id : ' . $country->id . "\n";
                             } else {
@@ -1466,7 +1497,8 @@ class Tresult extends BaseModel {
 
     public function convertRallybaseRallies($key, $sectionId, $catId) {
 
-        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%List of available rallies%\'', array('catid' => $catId, 'sectionid' => $sectionId)
+        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%List of available rallies%\'', array(
+            'catid' => $catId, 'sectionid' => $sectionId)
         );
 
         foreach ($this->list as $article) {
@@ -1648,7 +1680,8 @@ class Tresult extends BaseModel {
         if (empty($this->project->id)) {
             $code = substr($title, 0, strlen($title) - 9);
             $year = substr(str_replace('.html', '', $title), -4, 4);
-            $this->project = Project::model()->with(array('competition', 'season'))->find('season.name=:season and competition.code=:code', array('season' => $year, 'code' => $code));
+            $this->project = Project::model()->with(array('competition', 'season'))->find('season.name=:season and competition.code=:code', array(
+                'season' => $year, 'code' => $code));
             if (empty($this->project->id)) {
                 echo 'project not found:' . $name . '/' . $title . '(' . $code . '/' . $year . ')' . "\n";
             }
@@ -1677,7 +1710,8 @@ class Tresult extends BaseModel {
         foreach ($results as $result) {
             $this->results++;
             $row++;
-            $tresult = Tresult::model()->find('round=:round and rounddate=:rounddate and roundnum=:roundnum and sub=:sub and row=:row and content_id=:content', array('round' => $round['Race'],
+            $tresult = Tresult::model()->find('round=:round and rounddate=:rounddate and roundnum=:roundnum and sub=:sub and row=:row and content_id=:content', array(
+                'round' => $round['Race'],
                 'rounddate' => $round['Date'],
                 'roundnum' => $currentRound,
                 'sub' => $this->subround,

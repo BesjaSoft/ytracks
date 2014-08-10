@@ -23,6 +23,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'dataProvider' => $dataProvider,
     'columns' => array('ordering',
         array('name' => 'subroundtype_id', 'value' => '$data->subroundtype->name'),
+        array('name' => 'raceclass_id', 'value' => 'isset($data->raceclass_id) ? $data->raceclass->name : $data->raceclass_id'),
         'start_date',
         'end_date',
         array('class' => 'CButtonColumn',

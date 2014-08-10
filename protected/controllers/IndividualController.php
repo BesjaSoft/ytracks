@@ -38,7 +38,7 @@ class IndividualController extends Controller {
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'combine', 'twinsOrDoubles'),
+                'actions' => array('admin', 'delete', 'combine', 'twinordouble'),
                 'users' => array('admin'),
             ),
             array('deny', // deny all users
@@ -178,45 +178,22 @@ class IndividualController extends Controller {
         $this->render("geochart");
     }
 
-    public function actionTwinOrDoubles() {
+    public function actionTwinOrDouble() {
         $model = new Individual('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Individual'])) {
             $model->attributes = $_GET['Individual'];
         }
 
-        $this->render('twinordoubles', array('model' => $model,));
+        $this->render('twinordouble', array('model' => $model,));
     }
 
-    /**
-     * action : Combine
-     * purpose : combines two individuals into one. 
-     */
-    /*
-      public function actionCombine()
-      {
-      $model=$this->loadModel();
-
-      // Uncomment the following line if AJAX validation is needed
-      // $this->performAjaxValidation($model);
-
-      if(isset($_POST['combineId']))
-      {
-      $combineId=$_POST['combineId'];
-      if($model->combine($combineId)) {
-      $this->redirect(array('view','id'=>$model->id));
-      }
-      }
-
-      $this->render('combine',array('model' => $model,));
-      } */
-
-    public function actionCombine($id, $combineId) {
-        $model = Individual::model()->findbyPk($id);
-        if ($model->combine($combineId)) {
-            $this->redirect("twinsordoubles");
+    public function actionCombine($min_id, $max_id) {
+        $model = Individual::model()->findbyPk($min_id);
+        if ($model->combine($max_id)) {
+            $this->redirect(array('individual/twinordouble'));
         } else {
-            $this->errorpage();
+            $this->render('view', array('model' => $model,));
         }
     }
 

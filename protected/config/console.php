@@ -9,8 +9,8 @@ return array(
     'import'=>array(
         'application.models.*',
         'application.models.behaviours.*',
+        'application.models.validators.*',
         'application.components.*',
-        'application.components.ERememberFiltersBehavior',
         'application.extensions.Countries',
     ),
     // application components
