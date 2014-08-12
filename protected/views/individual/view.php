@@ -6,11 +6,11 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
     array('label' => 'List Individual', 'url' => array('index')),
+    array('label' => 'Twin or Double', 'url' => array('twinordouble')),    
     array('label' => 'Create Individual', 'url' => array('create')),
     array('label' => 'Update Individual', 'url' => array('update', 'id' => $model->id)),
     array('label' => 'Delete Individual', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
     array('label' => 'Manage Individual', 'url' => array('admin')),
-    array('label' => 'Search Individual', )
 );
 ?>
 

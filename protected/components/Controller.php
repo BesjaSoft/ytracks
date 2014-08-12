@@ -23,7 +23,6 @@ class Controller extends CController {
      * for more details on how to specify this property.
      */
     public $breadcrumbs = array();
-    
     // some search related variables
     public $hasAdminSearch = false;
     public $hasActionSearch = false;
@@ -53,18 +52,22 @@ class Controller extends CController {
     }
 
     protected function setResultVehicleColumn() {
-        return array('name' => 'vehicle_id'
-            , 'type' => 'raw'
-            , 'value' => 'CHTML::link( CHTML::encode($data->make->name)
+        return array('name' => 'vehicle_id',
+            'type' => 'raw',
+            'value' => '(isset($data->make_id) ? CHTML::link( CHTML::encode($data->make->name)
                                               , array("/make/view","id"=>$data->make_id)
-                                              )'
-                //." ".
-                //CHTML::link( CHTML::encode($data->type->name)
-                //           , array("/type/view","id"=>$data->type_id)
-                //           )." ".
-                //CHTML::link( CHTML::tag(\'div\', array(\'class\'=>\'chassisnumber\'), CHTML::encode($data->vehicle->chassisnumber))
-                //           , array("/vehicle/view","id"=>$data->vehicle_id)
-                //           )'
+                                              ) : "")
+                ." ".
+                (isset($data->type_id) ? CHTML::link( CHTML::encode($data->type->name)
+                           , array("/type/view","id"=>$data->type_id)
+                           ) : "")." ".
+                (isset($data->vehicle_id) ? CHTML::link( CHTML::tag(\'div\', array(\'class\'=>\'chassisnumber\'), CHTML::encode($data->vehicle->chassisnumber))
+                           , array("/vehicle/view","id"=>$data->vehicle_id)
+                           ): "").
+                (isset($data->engine_id) ? " - ".CHTML::link(CHTML::encode($data->engine->getFullname()), array("/engine/view","id"=>$data->engine_id)
+                           ): "")
+                '
+                          
         );
     }
 

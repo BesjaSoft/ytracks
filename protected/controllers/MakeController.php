@@ -103,9 +103,7 @@ class MakeController extends Controller {
                 $this->redirect(array('view', 'id' => $model->id));
         }
 
-        $this->render('update', array(
-            'model' => $model, 'founders' => $founders,
-        ));
+        $this->render('update', array('model' => $model,));
     }
 
     /**

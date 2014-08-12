@@ -64,12 +64,11 @@ class Participant extends BaseModel {
     public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array
-            ('individual'  => array(self::BELONGS_TO, 'Individual', 'individual_id')
-            , 'project'     => array(self::BELONGS_TO, 'Project', 'project_id')
-            , 'team'        => array(self::BELONGS_TO, 'Team', 'team_id')
-            , 'raceclass'   => array(self::BELONGS_TO, 'Raceclass', 'raceclass_id')
-            , 'checked_out' => array(self::BELONGS_TO, 'User', 'user_id')
+        return array('individual' => array(self::BELONGS_TO, 'Individual', 'individual_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+            'team' => array(self::BELONGS_TO, 'Team', 'team_id'),
+            'raceclass' => array(self::BELONGS_TO, 'Raceclass', 'raceclass_id'),
+            'checked_out' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -78,19 +77,19 @@ class Participant extends BaseModel {
      */
     public function attributeLabels() {
         return array(
-            'id'               => 'ID',
-            'individual_id'    => 'Individual',
-            'project_id'       => 'Project',
-            'team_id'          => 'Team',
-            'number'           => 'Number',
-            'initial_points'   => 'Initial Points',
-            'raceclass_id'     => 'Raceclass',
-            'checked_out'      => 'Checked Out',
+            'id' => 'ID',
+            'individual_id' => 'Individual',
+            'project_id' => 'Project',
+            'team_id' => 'Team',
+            'number' => 'Number',
+            'initial_points' => 'Initial Points',
+            'raceclass_id' => 'Raceclass',
+            'checked_out' => 'Checked Out',
             'checked_out_time' => 'Checked Out Time',
-            'created'          => 'Created',
-            'modified'         => 'Modified',
-            'deleted'          => 'Deleted',
-            'deleted_date'     => 'Deleted Date',
+            'created' => 'Created',
+            'modified' => 'Modified',
+            'deleted' => 'Deleted',
+            'deleted_date' => 'Deleted Date',
         );
     }
 
@@ -105,29 +104,17 @@ class Participant extends BaseModel {
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
-
         $criteria->compare('individual_id', $this->individual_id);
-
         $criteria->compare('project_id', $this->project_id);
-
         $criteria->compare('team_id', $this->team_id);
-
         $criteria->compare('number', $this->number, true);
-
         $criteria->compare('initial_points', $this->initial_points);
-
         $criteria->compare('raceclass_id', $this->raceclass_id);
-
         $criteria->compare('checked_out', $this->checked_out);
-
         $criteria->compare('checked_out_time', $this->checked_out_time, true);
-
         $criteria->compare('created', $this->created, true);
-
         $criteria->compare('modified', $this->modified, true);
-
         $criteria->compare('deleted', $this->deleted);
-
         $criteria->compare('deleted_date', $this->deleted_date, true);
 
         return new CActiveDataProvider(get_class($this), array(
@@ -136,9 +123,11 @@ class Participant extends BaseModel {
     }
 
     public function behaviors() {
-        return array
-            ('AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior')
-        );
+        return array('AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'));
     }
 
+    public function isValid(){
+        return false;
+    }
+    
 }

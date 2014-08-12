@@ -51,10 +51,7 @@ class IndividualController extends Controller {
      * Displays a particular model.
      */
     public function actionView() {
-        $this->hasActionSearch = true;
-        $this->actionSearchForm = '_actionsearch';
-        $this->searchModel = new Individual();
-
+        $this->setActionSearch();
         $this->render('view', array(
             'model' => $this->loadModel(),
         ));
@@ -77,7 +74,7 @@ class IndividualController extends Controller {
         } else {
             $model->published = true;
         }
-
+        $this->setActionSearch();
         $this->render('create', array(
             'model' => $model,
         ));
@@ -99,7 +96,7 @@ class IndividualController extends Controller {
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
-
+        $this->setActionSearch();
         $this->render('update', array(
             'model' => $model,
         ));
@@ -193,15 +190,10 @@ class IndividualController extends Controller {
         if ($model->combine($max_id)) {
             $this->redirect(array('individual/twinordouble'));
         } else {
+            $this->setActionSearch();
             $this->render('view', array('model' => $model,));
         }
     }
-
-    /*
-      public function actionTwinsOrDoubles() {
-
-      }
-     * */
 
     /**
      * Returns the data model based on the primary key given in the GET variable.
@@ -243,6 +235,12 @@ class IndividualController extends Controller {
 
         echo CJSON::encode($res);
         Yii::app()->end();
+    }
+
+    private function setActionSearch() {
+        $this->hasActionSearch = true;
+        $this->actionSearchForm = '_actionsearch';
+        $this->searchModel = new Individual();
     }
 
 }

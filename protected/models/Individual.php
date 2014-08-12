@@ -90,8 +90,8 @@ class Individual extends BaseModel {
 
     public function getTwinsOrDoubles() {
         $criteria = new CDbCriteria;
-        $criteria->select = 'first_name, last_name, count(id) AS cnt,min(id) as min_id,max(id)as max_id';
-        $criteria->group = 'first_name, last_name';
+        $criteria->select = 'first_name, last_name, nationality, count(id) AS cnt,min(id) as min_id,max(id)as max_id';
+        $criteria->group = 'first_name, last_name, nationality, ordering';
         $criteria->having = 'count(id) >= 2';
         $criteria->order = 'last_name asc';
         $criteria->condition = 'first_name is not null and last_name is not null and deleted=0';
@@ -249,22 +249,32 @@ class Individual extends BaseModel {
             $transaction = Yii::app()->db->beginTransaction();
 
             try {
-                $this->combineRankings($id);
-                $this->combineResults($id);
-                $this->combineParticipants($id);
-                $this->combineTresults($id);
-                $this->combineMakes($id);
-                $this->combineOwners($id);
-                //$this->combineUsers($id);
-                //$this->combineScaleModels($id);
-                // ok: now delete it:
-                $doubleIndividual = Individual::model()->findByPk($id);
-                $doubleIndividual->deleted = 1;
-                if ($doubleIndividual->save()) {
-                    $return = true;
-                    $transaction->commit();
-                } else {
-                    $transaction->rollback();
+                if ($this->combineRankings($id) &&
+                        $this->combineResults($id) &&
+                        $this->combineParticipants($id) &&
+                        $this->combineTresults($id) &&
+                        $this->combineMakes($id) &&
+                        $this->combineOwners($id)) {
+                    //$this->combineUsers($id);
+                    //$this->combineScaleModels($id);
+                    // now update the current one:
+                    $this->full_name = null;
+                    $this->alias = null;
+                    if ($this->save()) {
+                        // ok: now delete it:                  
+                        $doubleIndividual = Individual::model()->findByPk($id);
+                        $doubleIndividual->deleted = 1;
+                        if ($doubleIndividual->save()) {
+                            $return = true;
+                            $transaction->commit();
+                        } else {
+                            print_r($doubleIndividual->getErrors());
+                            $transaction->rollback();
+                        }
+                    } else {
+                        print_r($this->getErrors());
+                        $transaction->rollback();
+                    }
                 }
             } catch (Exception $ex) {
                 echo $ex->getMessage();
@@ -387,19 +397,23 @@ class Individual extends BaseModel {
     private function combineMakes($id) {
 
         $return = true;
-        $list = Make::model()->find('founder_id=:founder', array('founder' => $id));
+        $list = Make::model()->findAll('founder_id=:founder', array('founder' => $id));
         echo 'count founder : ' . count($list) . "\n";
         if (count($list) > 0) {
-            foreach ($list as $listId) {
+            foreach ($list as $make) {
                 try {
-                    $make = Make::model()->findByPk($listId);
                     $make->founder_id = $this->id;
-                    if (!$make->save()) {
-                        echo 'listid : ' . $listId . "\n";
-                        echo 'thisid : ' . $this->id . "\n";
+                    if ($make->validate()) {
+                        if (!$make->save()) {
+                            echo 'listid : ' . $listId . "\n";
+                            echo 'thisid : ' . $this->id . "\n";
+                            print_r($make->getErrors());
+                            die;
+                        }
+                    } else {
                         print_r($make->getErrors());
-                        die;
-                    };
+                        return false;
+                    }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
                     $return = false;
@@ -412,19 +426,23 @@ class Individual extends BaseModel {
     private function combineOwners($id) {
 
         $return = true;
-        $list = Owner::model()->find('individual_id=:individual', array('individual' => $id));
+        $list = Owner::model()->findAll('individual_id=:individual', array('individual' => $id));
         echo 'count owners : ' . count($list) . "\n";
         if (count($list) > 0) {
-            foreach ($list as $listId) {
+            foreach ($list as $owner) {
                 try {
-                    $owner = Owner::model()->findByPk($listId);
                     $owner->individual_id = $this->id;
-                    if (!$owner->save()) {
-                        echo 'listid : ' . $listId . "\n";
-                        echo 'thisid : ' . $this->id . "\n";
+                    if ($owner->validate()) {
+                        if (!$owner->save()) {
+                            echo 'listid : ' . $listId . "\n";
+                            echo 'thisid : ' . $this->id . "\n";
+                            print_r($owner->getErrors());
+                            die;
+                        }
+                    } else {
                         print_r($owner->getErrors());
-                        die;
-                    };
+                        return false;
+                    }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
                     $return = false;
@@ -438,19 +456,22 @@ class Individual extends BaseModel {
     private function combineParticipants($id) {
 
         $return = true;
-        $list = Participant::model()->find('individual_id=:individual', array('individual' => $id));
-        echo 'count participants : ' . count($list) . "\n";
+        $list = Participant::model()->findAll('individual_id=:individual', array('individual' => $id));
+        echo 'count participants : ' . count($list) . ', id:' . $id . "\n";
         if (count($list) > 0) {
-            foreach ($list as $listId) {
+            foreach ($list as $participant) {
                 try {
-                    $participant = Participant::model()->findByPk($listId);
                     $participant->individual_id = $this->id;
-                    if (!$participant->save()) {
-                        echo 'listid : ' . $listId . "\n";
-                        echo 'thisid : ' . $this->id . "\n";
+                    if ($participant->validate()) {
+                        if (!$participant->save()) {
+                            echo 'listid : ' . $listId . "\n";
+                            echo 'thisid : ' . $this->id . "\n";
+                            print_r($participant->getErrors());
+                        }
+                    } else {
                         print_r($participant->getErrors());
-                        die;
-                    };
+                        return false;
+                    }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
                     $return = false;
@@ -464,19 +485,23 @@ class Individual extends BaseModel {
     private function combineRankings($id) {
 
         $return = true;
-        $list = Ranking::model()->find('individual_id=:individual', array('individual' => $id));
+        $list = Ranking::model()->findAll('individual_id=:individual', array('individual' => $id));
         echo 'count rankings : ' . count($list) . "\n";
         if (count($list) > 0) {
-            foreach ($list as $listId) {
+            foreach ($list as $ranking) {
                 try {
-                    $ranking = Ranking::model()->findByPk($listId);
                     $ranking->individual_id = $this->id;
-                    if (!$ranking->save()) {
-                        echo 'listid : ' . $listId . "\n";
-                        echo 'thisid : ' . $this->id . "\n";
+                    if ($ranking->validate()) {
+                        if (!$ranking->save()) {
+                            echo 'listid : ' . $listId . "\n";
+                            echo 'thisid : ' . $this->id . "\n";
+                            print_r($ranking->getErrors());
+                            die;
+                        }
+                    } else {
                         print_r($ranking->getErrors());
-                        die;
-                    };
+                        return false;
+                    }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
                     $return = false;
@@ -490,19 +515,23 @@ class Individual extends BaseModel {
     private function combineResults($id) {
 
         $return = true;
-        $list = Result::model()->find('individual_id=:individual', array('individual' => $id));
+        $list = Result::model()->findAll('individual_id=:individual', array('individual' => $id));
         echo 'count results : ' . count($list) . "\n";
         if (count($list) > 0) {
-            foreach ($list as $listId) {
-                $result = Result::model()->findByPk($listId);
+            foreach ($list as $result) {
                 try {
                     $result->individual_id = $this->id;
-                    if (!$result->save()) {
-                        echo 'listid : ' . $listId . "\n";
-                        echo 'thisid : ' . $this->id . "\n";
+                    if ($result->validate()) {
+                        if (!$result->save()) {
+                            echo 'listid : ' . $listId . "\n";
+                            echo 'thisid : ' . $this->id . "\n";
+                            print_r($result->getErrors());
+                            die;
+                        }
+                    } else {
                         print_r($result->getErrors());
-                        die;
-                    };
+                        return false;
+                    }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
                     print_r($result->getErrors());
@@ -517,19 +546,23 @@ class Individual extends BaseModel {
     private function combineTresults($id) {
 
         $return = true;
-        $list = TresultIndividual::model()->find('individual_id=:individual', array('individual' => $id));
+        $list = TresultIndividual::model()->findAll('individual_id=:individual', array('individual' => $id));
         echo 'count tresults : ' . count($list) . "\n";
         if (count($list) > 0) {
-            foreach ($list as $listId) {
+            foreach ($list as $tresult) {
                 try {
-                    $tresult = TresultIndividual::model()->findByPk($listId);
                     $tresult->individual_id = $this->id;
-                    if (!$tresult->save()) {
-                        echo 'listid : ' . $listId . "\n";
-                        echo 'thisid : ' . $this->id . "\n";
+                    if ($tresult->validate()) {
+                        if (!$tresult->save()) {
+                            echo 'listid : ' . $listId . "\n";
+                            echo 'thisid : ' . $this->id . "\n";
+                            print_r($tresult->getErrors());
+                            die;
+                        }
+                    } else {
                         print_r($tresult->getErrors());
-                        die;
-                    };
+                        return false;
+                    }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
                     $return = false;

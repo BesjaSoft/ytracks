@@ -77,6 +77,8 @@ class Result extends BaseModel
             array('tyre_id', 'exist','attributeName' => 'id', 'className' => 'Tyre'),
             array('raceclass_id', 'exist','attributeName' => 'id', 'className' => 'Raceclass'),
             array('tresult_id', 'exist','attributeName' => 'id', 'className' => 'Tresult'),
+            // unique key check:
+            array('individual_id+team_id+subround_id+rank', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, participant_id, individual_id, team_id, subround_id, raceclass_id, number, rank, classification, performance, laps, bonus_points, shared_drive, make_id, type_id, vehicle_id, engine_id, tyre_id, outreason_id, comment, tresult_id, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on'=>'search'),
