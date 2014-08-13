@@ -54,7 +54,7 @@ class Content extends BaseModel {
         return array(
             'AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'),
             'SlugBehavior' => array('class' => 'application.models.behaviours.SlugBehavior',
-                'slug_col' => 'title_alias',
+                'slug_col' => 'alias',
                 'title_col' => 'title',
                 'overwrite' => false //, 'max_slug_chars' => 125
             ),
@@ -72,7 +72,8 @@ class Content extends BaseModel {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('introtext, fulltext, images, urls, attribs, metakey, metadesc, metadata, language, xreference', 'required'),
+            //array('introtext, fulltext, images, urls, attribs, metakey, metadesc, metadata, language, xreference', 'required'),
+            array('fulltext, images, urls, attribs, language', 'required'),
             array('state, ordering, featured, old_id', 'numerical', 'integerOnly' => true),
             array('asset_id, catid, created_by, modified_by, checked_out, version, access, hits', 'length', 'max' => 10),
             array('title, alias, created_by_alias', 'length', 'max' => 255),
@@ -80,6 +81,8 @@ class Content extends BaseModel {
             array('language', 'length', 'max' => 7),
             array('xreference', 'length', 'max' => 50),
             array('created, modified, checked_out_time, publish_up, publish_down', 'safe'),
+            // multicolumn unique validator
+            array('title+catid', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, asset_id, title, alias, introtext, fulltext, state, catid, created, created_by, created_by_alias, modified, modified_by, checked_out, checked_out_time, publish_up, publish_down, images, urls, attribs, version, ordering, metakey, metadesc, access, hits, metadata, featured, language, xreference, old_id', 'safe', 'on' => 'search'),
@@ -207,6 +210,7 @@ class Content extends BaseModel {
 
     public static function readfile($file, $catId) {
 
+        echo "- file " . $file . "\n";
         if (file_exists($file)) {
             $config = array('output-xhtml' => true,
                 'wrap' => 200
@@ -232,8 +236,8 @@ class Content extends BaseModel {
                     $text = str_replace('<!-- IClista -->', '', $text);
                     $text = str_replace('<!-- /IClista -->', '', $text);
                     // remove the scripts:
-                    $text = $this->removeTags($text, 'script');
-                    $text = $this->removeTags($text, 'noscript');
+                    $text = self::removeTags($text, 'script');
+                    $text = self::removeTags($text, 'noscript');
                     // encode the text to utf8
                     //$text = utf8_encode($text);
                     $content = Content::model()->find('title=:title and catid=:cat', array('title' => $title, 'cat' => $catId));
@@ -242,15 +246,23 @@ class Content extends BaseModel {
                         $content = new Content();
                     }
                     $content->title = $title;
-                    $content->introtext = '';
+                    $content->introtext = ' ';
                     $content->fulltext = trim($text);
                     $content->catid = $catId;
                     $content->state = 1;
                     $content->created_by_alias = 'Administrator';
                     $content->access = 5; // guest
                     $content->language = '*'; // all languages
+                    $content->images = '{"image_intro":"","float_intro":"","image_intro_alt":"","image_intro_caption":"","image_fulltext":"","float_fulltext":"","image_fulltext_alt":"","image_fulltext_caption":""}';
+                    $content->urls = '{"urla":false,"urlatext":"","targeta":"","urlb":false,"urlbtext":"","targetb":"","urlc":false,"urlctext":"","targetc":""}';
+                    $content->attribs = '{"show_title":"","link_titles":"","show_tags":"","show_intro":"","info_block_position":"","show_category":"","link_category":"","show_parent_category":"","link_parent_category":"","show_author":"","link_author":"","show_create_date":"","show_modify_date":"","show_publish_date":"","show_item_navigation":"","show_icons":"","show_print_icon":"","show_email_icon":"","show_vote":"","show_hits":"","show_noauth":"","urls_position":"","alternative_readmore":"","article_layout":"","show_publishing_options":"","show_article_options":"","show_urls_images_backend":"","show_urls_images_frontend":""}';
+                    $content->metakey = '{"metakey":""}';
+                    $content->metadesc = '{"metadesc":""}';
+                    $content->metadata = '{"robots":"","author":"","rights":"","xreference":""}';
                     if (!$content->save()) {
                         echo 'file ' . $title . ', invalid fields' . "\n";
+                        print_r($content->getErrors());
+                        die;
                     }
                     unset($content);
                 } else {
@@ -262,6 +274,21 @@ class Content extends BaseModel {
         } else {
             echo 'File ' . $file . ' bestaat niet!';
         }
+    }
+
+    // private functions:
+    private static function removeTags($text, $tag) {
+        $loop = true;
+        while ($loop) {
+            $startPos = strpos($text, '<' . $tag);
+            $endPos = strpos($text, '</' . $tag . '>');
+            if (!$startPos && !$endPos) {
+                $loop = false;
+            } else {
+                $text = substr($text, 0, $startPos) . substr($text, $endPos + strlen('</' . $tag . '>'), strlen($text));
+            }
+        }
+        return $text;
     }
 
 }

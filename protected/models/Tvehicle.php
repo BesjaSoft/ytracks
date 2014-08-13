@@ -248,6 +248,7 @@ class Tvehicle extends BaseModel {
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'Pagination' => array('pageSize' => 20,),
         ));
     }
 
@@ -601,7 +602,7 @@ class Tvehicle extends BaseModel {
                         $tengine = substr($this->tvehicle, $pos + 3);
                         $alias = $this->getSlug($tengine);
                         $engine = Engine::model()->find('alias=:alias', array('alias' => $alias));
-                        echo 'engine : ' . $tengine . ' id : '.(isset($engine->id)?$engine->getFullname() : '')."\n";
+                        echo 'engine : ' . $tengine . ' id : ' . (isset($engine->id) ? $engine->getFullname() : '') . "\n";
                         if (!empty($engine->id)) {
                             $this->engine_id = $engine->id;
                             $this->save();

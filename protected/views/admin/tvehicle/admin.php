@@ -63,7 +63,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'tvehicle-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
-    'selectableRows' => '20',
+    'selectableRows' => '25',
     'columns' => array(
         array('class' => 'CCheckBoxColumn'),
         array('name' => 'id', 'header' => '#', 'value' => '$data->id', 'htmlOptions' => array('style' => 'text-align: right; width:40px;')),

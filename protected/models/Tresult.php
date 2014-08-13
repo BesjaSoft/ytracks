@@ -721,6 +721,9 @@ class Tresult extends BaseModel {
         }
 
         $str = strlen((string) $count);
+        if ($str >= 5) {
+            $str = 5;
+        }
         $limit = str_pad('1', $str, 0);
         $criteria->limit = $limit;
         while ($found) {
@@ -752,12 +755,12 @@ class Tresult extends BaseModel {
                             //    $tresult->error = 6;
                             //    $tresult->save();
                         } else {
-                            $vehicle = $this->findVehicle($tresult);
+                            /*$vehicle = $this->findVehicle($tresult);
                             $tresult->make_id = $vehicle->make_id;
                             $tresult->type_id = $vehicle->type_id;
                             $tresult->vehicle_id = $vehicle->vehicle_id;
                             $tresult->engine_id = $vehicle->engine_id;
-                            $tresult->save();
+                            $tresult->save();*/
                             if ($store || empty($tresult->error)) {
                                 if ($this->addIndividuals($tresult, false)) {
                                     if ($this->export($tresult->id)) {
@@ -937,10 +940,10 @@ class Tresult extends BaseModel {
                 $result->make_id = $tvehicle->make_id;
                 $result->type_id = $tvehicle->type_id;
                 $result->vehicle_id = $vehicle->id;
+                $result->engine_id = $tvehicle->engine_id;
                 return $result;
             }
         }
-
 
         return false;
     }
@@ -1172,16 +1175,12 @@ class Tresult extends BaseModel {
      * @name readContent
      * @abstract reads the contenttable and converts them into tResult
      */
-    public function readContent($key, $sectionId, $catId) {
+    public function readContent($key, $catId) {
 
-        $this->list = Content::model()->findAll(
-                'catid = :cat and sectionid = :section', array('section' => $sectionId,
-            'cat' => $catId)
-        );
+        $this->list = Content::model()->findAll('catid = :cat', array('cat' => $catId));
 
         echo 'Key : ' . $key . "\n";
         echo 'Category : ' . $catId . "\n";
-        echo 'Section : ' . $sectionId . "\n";
         echo 'Articles:' . count($this->list) . "\n";
 
         if ($key == 'wsrp') {
@@ -1452,7 +1451,7 @@ class Tresult extends BaseModel {
 
                             // convert the Seasontable into an xml-document
                             unset($rounds);
-                            $rounds = $this->table2array($seasonTable, false);
+                            $rounds = $this->table2array($seasonTable, true);
                             //
                             // now do something usefull with the rounds within the table
 
@@ -1474,7 +1473,7 @@ class Tresult extends BaseModel {
                             $result = false;
                             // convert the resultTable into an xml-document
                             unset($results);
-                            $results = $this->table2array($resultTable, false);
+                            $results = $this->table2array($resultTable, true);
 
                             // now do something smart with the data....
                             $this->addResults($article, $rounds, $this->round, $results, $roundType);
@@ -1583,8 +1582,21 @@ class Tresult extends BaseModel {
                 $updated = true;
             } else {
                 $this->found++;
-                if ($tresult->pos != $result['Pos.'] || $tresult->num != $result['No.'] || $tresult->individuals != $this->convertIndividuals($result['Driver / Nationality']) || (is_array($tchassis) && ( $tresult->tvehicle != $tchassis['vehicle'] || $tresult->tchassis != $tchassis['chassis'] || $tresult->tlicenseplate != $tchassis['licenseplate']
-                        )) || (!is_array($tchassis) && $tresult->tvehicle != $tchassis) || $tresult->tteam != $result['Entrant'] || $tresult->laps != $result['Laps'] || $tresult->performance != $result['Time/retired'] || $tresult->classification != $result['Pos. (2)'] || $tresult->raceclass != $result['Group'] || $tresult->grid != $result['Pos. (3)'] || $tresult->laptime != $result['Practice']
+                if ($tresult->pos != $result['Pos.'] ||
+                        $tresult->num != $result['No.'] ||
+                        $tresult->individuals != $this->convertIndividuals($result['Driver / Nationality']) ||
+                        (is_array($tchassis) && ( $tresult->tvehicle != $tchassis['vehicle'] ||
+                        $tresult->tchassis != $tchassis['chassis'] ||
+                        $tresult->tlicenseplate != $tchassis['licenseplate']
+                        )) ||
+                        (!is_array($tchassis) && $tresult->tvehicle != $tchassis) ||
+                        $tresult->tteam != $result['Entrant'] ||
+                        $tresult->laps != $result['Laps'] ||
+                        $tresult->performance != $result['Time/retired'] ||
+                        $tresult->classification != $result['Pos. (2)'] ||
+                        (array_key_exists('Group', $result) && $tresult->raceclass != $result['Group']) ||
+                        $tresult->grid != $result['Pos. (3)'] ||
+                        $tresult->laptime != $result['Practice']
                 ) {
                     $updated = true;
                     $this->updated++;
@@ -1605,7 +1617,9 @@ class Tresult extends BaseModel {
             $tresult->laps = $result['Laps'];
             $tresult->performance = $result['Time/retired'];
             $tresult->classification = $result['Pos. (2)'];
-            $tresult->raceclass = $result['Group'];
+            if (array_key_exists('Group', $result)) {
+                $tresult->raceclass = $result['Group'];
+            }
             $tresult->grid = $result['Pos. (3)'];
             $tresult->laptime = $result['Practice'];
             if ($updated) {
@@ -1658,8 +1672,10 @@ class Tresult extends BaseModel {
         } else if ($chassis !== false) {
             $result['vehicle'] = substr($vehicle, 0, $chassis);
             $result['chassis'] = strip_tags(substr($vehicle, $chassis));
+            $result['licenseplate'] = '';
         } else if ($licenseplate !== false) {
             $result['vehicle'] = substr($vehicle, 0, $licenseplate);
+            $result['chassis'] = '';
             $result['licenseplate'] = strip_tags(substr($vehicle, $licenseplate));
         } else {
             $result = strip_tags($vehicle);
