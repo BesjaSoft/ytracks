@@ -49,7 +49,7 @@ class Project extends BaseModel {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, competition_id, season_id, admin_id, ordering, published, created', 'required'),
+            array('name, competition_id, season_id, ordering, published, created', 'required'),
             array('competition_id, season_id, admin_id, type, ordering, checked_out, published, deleted', 'numerical', 'integerOnly' => true),
             array('name, alias', 'length', 'max' => 200),
             array('modified, deleted_date', 'safe'),
@@ -60,7 +60,7 @@ class Project extends BaseModel {
             array('competition_id', 'exist', 'attributeName' => 'id', 'className' => 'Competition'),
             array('season_id', 'exist', 'attributeName' => 'id', 'className' => 'Season'),
             // unique key constraint:
-            array('competition_id+season_id', 'uniqueMultiColumnValidator'),
+            array('competition_id+season_id', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, alias, competition_id, season_id, admin_id, type, params, ordering, checked_out, checked_out_time, published, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
@@ -146,7 +146,7 @@ class Project extends BaseModel {
         return strtolower($this->getBaseImagePath()
                 . '/races'
                 . '/' . isset($this->competition_id) ? $this->competition->code : 'xax'
-                . '/' . isset($this->season_id) ? $this->season->name : 'zaz'
+                        . '/' . isset($this->season_id) ? $this->season->name : 'zaz'
         ); // The directory to display
     }
 
@@ -160,50 +160,50 @@ class Project extends BaseModel {
 
         // add the project to the menu
         // first find the parent if applicable
-        $criteriaParent = new CDbCriteria();
-        $criteriaParent->condition = 'name=:name';
-        $criteriaParent->params = array(':name' => $this->competition->name);
-        $parent = Menu::model()->find($criteriaParent);
+        /* $criteriaParent = new CDbCriteria();
+          $criteriaParent->condition = 'name=:name';
+          $criteriaParent->params = array(':name' => $this->competition->name);
+          $parent = Menu::model()->find($criteriaParent);
 
-        $criteriaComponent = new CDbCriteria();
-        $criteriaComponent->condition = 'name=:name';
-        $criteriaComponent->params = array(':name' => 'Tracks');
-        $component = Extension::model()->find($criteriaComponent);
+          $criteriaComponent = new CDbCriteria();
+          $criteriaComponent->condition = 'name=:name';
+          $criteriaComponent->params = array(':name' => 'Tracks');
+          $component = Extension::model()->find($criteriaComponent);
 
-        // look for the menu item:
-        $criteriaMenu = new CDbCriteria();
-        $criteriaMenu->condition = 'name=:name and parent=:parentid and componentid=:componentid';
-        $criteriaMenu->params = array(':name' => $this->name, ':parentid' => $parent->id, ':componentid' => $component->id);
-        $menuItem = Menu::model()->find($criteriaMenu);
+          // look for the menu item:
+          $criteriaMenu = new CDbCriteria();
+          $criteriaMenu->condition = 'name=:name and parent=:parentid and componentid=:componentid';
+          $criteriaMenu->params = array(':name' => $this->name, ':parentid' => $parent->id, ':componentid' => $component->id);
+          $menuItem = Menu::model()->find($criteriaMenu);
 
-        if ($menuItem == null && $this->published = 1) {
-            //
-            $criteriaOrdering = new CDbCriteria();
-            $criteriaOrdering->condition = 'parent=:parentid';
-            $criteriaOrdering->params = array(':parentid' => $parent->id);
-            //
-            $menu = new Menu();
-            $menu->menutype = 'mainmenu';
-            $menu->name = $this->name;
-            $menu->parent = $parent->id;
-            $menu->ordering = Menu::model()->count($criteriaOrdering) + 1;
-            $menu->componentid = $component->id;
-            $menu->link = 'index.php?option=com_tracks&view=project&p=' . $this->id;
-            $menu->type = 'component';
-            $menu->published = '1';
-            $menu->sublevel = $parent->sublevel + 1;
-            $menu->params = "cb_integration=\n user_registration=\n image_max_size=120\n indview_showresults=\n " .
-                    "indview_results_showteam=\n indview_results_showproject=\n indview_results_showcompetition=\n " .
-                    "indview_results_showseason=\n indview_results_showrace=\n indview_results_onlypointssubrounds=\n " .
-                    "indview_results_showperformance=\n indview_results_showrank=\n page_title=\n " .
-                    "show_page_title=1\n pageclass_sfx=\n menu_image=-1\n secure=0\n";
-            $menu->save();
-        } elseif ($menuItem != null and $this->published == 0) {
-            // unpublish the menuitem
-            $menuItem->published = 0;
-            $menuItem->save();
-        }
-
+          if ($menuItem == null && $this->published = 1) {
+          //
+          $criteriaOrdering = new CDbCriteria();
+          $criteriaOrdering->condition = 'parent=:parentid';
+          $criteriaOrdering->params = array(':parentid' => $parent->id);
+          //
+          $menu = new Menu();
+          $menu->menutype = 'mainmenu';
+          $menu->name = $this->name;
+          $menu->parent = $parent->id;
+          $menu->ordering = Menu::model()->count($criteriaOrdering) + 1;
+          $menu->componentid = $component->id;
+          $menu->link = 'index.php?option=com_tracks&view=project&p=' . $this->id;
+          $menu->type = 'component';
+          $menu->published = '1';
+          $menu->sublevel = $parent->sublevel + 1;
+          $menu->params = "cb_integration=\n user_registration=\n image_max_size=120\n indview_showresults=\n " .
+          "indview_results_showteam=\n indview_results_showproject=\n indview_results_showcompetition=\n " .
+          "indview_results_showseason=\n indview_results_showrace=\n indview_results_onlypointssubrounds=\n " .
+          "indview_results_showperformance=\n indview_results_showrank=\n page_title=\n " .
+          "show_page_title=1\n pageclass_sfx=\n menu_image=-1\n secure=0\n";
+          $menu->save();
+          } elseif ($menuItem != null and $this->published == 0) {
+          // unpublish the menuitem
+          $menuItem->published = 0;
+          $menuItem->save();
+          }
+         */
         // do some nice stuff in the parent afterSave
         return parent::afterSave();
     }

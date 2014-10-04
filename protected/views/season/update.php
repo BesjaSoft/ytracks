@@ -6,13 +6,13 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Season', 'url'=>array('index')),
-	array('label'=>'Create Season', 'url'=>array('create')),
-	array('label'=>'View Season', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Season', 'url'=>array('admin')),
+	array('label'=>'List Season','url'=>array('index')),
+	array('label'=>'Create Season','url'=>array('create')),
+	array('label'=>'View Season','url'=>array('view','id'=>$model->id)),
+	array('label'=>'Manage Season','url'=>array('admin')),
 );
 ?>
 
 <h1>Update Season <?php echo $model->id; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

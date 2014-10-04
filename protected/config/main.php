@@ -18,10 +18,9 @@ return array(
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
-        'application.models.behaviours.*',
+        'application.models.behaviors.*',
         'application.models.validators.*',
         'application.components.*',
-        'application.components.ERememberFiltersBehavior',
         'application.components.helpers.*',
         'application.extensions.*',
         'application.extensions.GalleryManager.*',
@@ -76,7 +75,7 @@ return array(
             'username' => 'tracks',
             'password' => 'tracks',
             'charset' => 'utf8',
-            'tablePrefix' => 'dpbfw_',
+            'tablePrefix' => 'k4ezl_',
         ),
         'errorHandler' => array(
             // use 'site/error' action to display errors
@@ -87,6 +86,13 @@ return array(
             'routes' => array(
                 array(
                     'class' => 'CFileLogRoute',
+                    'levels' => 'error, warning',
+                ),
+                array(
+                    'class' => 'CDbLogRoute',
+                    'autoCreateLogTable' => true,
+                    'logTableName' => 'k4ezl_yii_logging',
+                    'connectionID' => 'db',
                     'levels' => 'error, warning',
                 ),
                 // uncomment the following to show log messages on web pages

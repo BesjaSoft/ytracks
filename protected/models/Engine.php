@@ -5,7 +5,7 @@
  */
 class Engine extends BaseModel {
 
-    public static $displayField = 'fullname';
+    public static $displayField = 'enginename';
 
     /**
      * Returns the static model of the specified AR class.
@@ -37,12 +37,15 @@ class Engine extends BaseModel {
     }
 
     public function getFullname() {
-        return trim($this->make->name . ' ' . $this->name);
+        return $this->make->name . ' ' . $this->name;
     }
 
     public function findList($conditions = '', $params = array()) {
-
-        $data = $this->list()->findAll($conditions, $params);
+        $criteria = new CDbCriteria;
+        $criteria->select = 'id,make.name,t.name';
+        $criteria->condition = 't.deleted=0';
+        $criteria->order = 'make.name,t.name';
+        $data = $this->with('make')->findAll($criteria);
 
         return CHtml::listData($data, 'id', 'fullname');
     }
@@ -67,7 +70,7 @@ class Engine extends BaseModel {
             array('enginetype_id', 'exist', 'attributeName' => 'id', 'className' => 'EngineType'),
             array('parent_id', 'exist', 'attributeName' => 'id', 'className' => 'Engine'),
             // multicolumn unique validator
-            array('make_id+name', 'uniqueMultiColumnValidator'),
+            array('make_id+name', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
             //array('make_id+code','uniqueMultiColumnValidator'),
             //// The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -93,15 +96,14 @@ class Engine extends BaseModel {
     }
 
     public function behaviors() {
-        return array
-            ('AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior')
-            , 'SlugBehavior' => array('class' => 'application.models.behaviours.SlugBehavior'
-                , 'slug_col' => 'alias'
-                , 'title_col' => array(array('make', 'name'), 'name')
-                , 'overwrite' => true
+        return array('AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
+            'SlugBehavior' => array('class' => 'SlugBehavior',
+                'slug_col' => 'alias',
+                'title_col' => array(array('make', 'name'), 'name'),
+                'overwrite' => true,
             //, 'max_slug_chars' => 125
-            )
-            , 'CAdvancedArBehavior', array('class' => 'ext.CAdvancedArBehavior')
+            ),
+            'CAdvancedArBehavior', array('class' => 'CAdvancedArBehavior')
         );
     }
 
@@ -158,7 +160,7 @@ class Engine extends BaseModel {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('make.name', $this->make_id, true);
-        $criteria->compare('name', $this->name, true);
+        $criteria->compare('t.name', $this->name, true);
         $criteria->compare('alias', $this->alias, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('code', $this->code, true);
@@ -189,7 +191,7 @@ class Engine extends BaseModel {
         $criteria->compare('modified', $this->modified, true);
         $criteria->compare('deleted', $this->deleted);
         $criteria->compare('deleted_date', $this->deleted_date, true);
-        
+
         $criteria->with = array('make');
 
         return new CActiveDataProvider(get_class($this), array(
@@ -205,15 +207,6 @@ class Engine extends BaseModel {
         $criteria->compare('code', $this->code, true);
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
-    }
-
-    public function scopes() {
-        return array(
-            'list' => array(
-                'condition' => 'published=1 and deleted=0',
-                'order' => $this->getDisplayField(),
-                'select' => 'id,make_id,' . $this->getDisplayField()
-        ));
     }
 
 }

@@ -193,9 +193,9 @@ class Scalemodel extends BaseModel {
 
     public function behaviors() {
         return array(
-            'AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'),
+            'AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
             'ERememberFiltersBehavior' => array(
-                'class' => 'application.components.ERememberFiltersBehavior',
+                'class' => 'ERememberFiltersBehavior',
                 'defaults' => array(), /* optional line */
                 'defaultStickOnClear' => false /* optional line */
             ),

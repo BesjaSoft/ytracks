@@ -1,19 +1,6 @@
 <?php
 
-class ConvertCommand extends CConsoleCommand {
-
-    private $key = null;
-    private $content = array(
-        'wsrp' => array('path' => '../../../../webcopier/wsrp/*.html', 'category' => 14),
-        'chassis' => array('path' => '../../../../webcopier/wsrp/chassis/*.html', 'category' => 15),
-        'formula2' => array('path' => '../../../../webcopier/Formula2/*.htm', 'category' => 16),
-        'gelf1' => array('path' => '../../../../webcopier/GELMotorsport/archive/f1/*/*.html', 'category' => 20),
-        'gelpeople' => array('path' => '../../../../webcopier/GELMotorsportPeople/*.html', 'category' => 22),
-        'geldrivers' => array('path' => '../../../../webcopier/GELMotorsport/drivers/*.html', 'category' => 21),
-        'geltracks' => array('path' => '../../../../webcopier/GELMotorsport/tracks/*.html', 'category' => 23),
-        'rallybase' => array('path' => '../../../webcopier/Rallybase/*.html', 'category' => 24),
-        'urh' => array('path' => '../../../webcopier/ultimateracinghistory/*.html', 'category' => 25),
-    );
+class ConvertCommand extends BaseConsole {
 
     public function actionIndividual($section, $step) {
 

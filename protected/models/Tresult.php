@@ -1,14 +1,57 @@
 <?php
 
+/**
+ * This is the model class for table "{{tracks_tresults}}".
+ *
+ * The followings are the available columns in table '{{tracks_tresults}}':
+ * @property integer $id
+ * @property integer $content_id
+ * @property integer $roundnum
+ * @property string $round
+ * @property string $rounddate
+ * @property string $roundtype
+ * @property integer $sub
+ * @property integer $row
+ * @property string $pos
+ * @property string $num
+ * @property string $individuals
+ * @property string $tdriver
+ * @property string $tcodriver
+ * @property string $tvehicle
+ * @property string $tchassis
+ * @property string $tlicenseplate
+ * @property string $tteam
+ * @property string $laps
+ * @property string $performance
+ * @property string $classification
+ * @property string $raceclass
+ * @property string $grid
+ * @property string $laptime
+ * @property string $Livery
+ * @property string $Field4Question
+ * @property string $Field4Or
+ * @property string $Field4Evo
+ * @property string $Field4_2
+ * @property integer $subround_id
+ * @property integer $make_id
+ * @property integer $type_id
+ * @property integer $vehicle_id
+ * @property integer $engine_id
+ * @property integer $team_id
+ * @property integer $driver_id
+ * @property integer $codriver_id
+ * @property integer $deleted
+ * @property integer $error
+ */
 class Tresult extends BaseModel {
 
-    public $cnt = 0;
     private $project = null;
-    private $found = 0;
-    private $added = 0;
-    private $updated = 0;
-    private static $classifications = array('DNS', 'DNF', 'DNA', 'DNP', 'DND', 'DNQ');
-    private static $noValidResults = array('in entry list:',
+    protected $found = 0;
+    protected $added = 0;
+    protected $updated = 0;
+    protected $results = 0;
+    protected static $classifications = array('DNS', 'DNF', 'DNA', 'DNP', 'DND', 'DNQ');
+    protected static $noValidResults = array('in entry list:',
         'in entry list only:',
         'did not start:',
         'did not finish:',
@@ -22,26 +65,30 @@ class Tresult extends BaseModel {
         'other starters:',
     );
 
-    public static function model($className = __CLASS__) {
-        return parent::model($className);
-    }
-
+    /**
+     * @return string the associated database table name
+     */
     public function tableName() {
         return '{{tracks_tresults}}';
     }
 
+    /**
+     * @return array validation rules for model attributes.
+     */
     public function rules() {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
         return array(
-            array('round', 'required'),
-            array('row, subround_id, make_id, type_id, vehicle_id, engine_id, team_id, driver_id, codriver_id, deleted, error',
-                'numerical', 'integerOnly' => true),
-            array('round, num, tdriver, tcodriver, tvehicle, tteam, laps, performance, classification, raceclass, grid, laptime, Livery',
-                'length',
-                'max' => 255),
-            array('Field4Question, Field4Or, Field4Evo, Field4_2', 'length', 'max' => 10),
+            array('content_id, roundnum, round', 'required'),
+            array('content_id, roundnum, sub, row, subround_id, make_id, type_id, vehicle_id, engine_id, team_id, driver_id, codriver_id, deleted, error', 'numerical', 'integerOnly' => true),
+            array('round, num, tvehicle, tteam, laps, performance, classification, raceclass, grid, laptime, Livery', 'length', 'max' => 255),
+            array('rounddate', 'length', 'max' => 20),
+            array('roundtype, tchassis, tlicenseplate', 'length', 'max' => 50),
+            array('pos, Field4Question, Field4Or, Field4Evo, Field4_2', 'length', 'max' => 10),
+            array('tdriver, tcodriver', 'length', 'max' => 200),
             array('individuals', 'safe'),
-            array('id, round, rounddate, num, individuals, tvehicle, tteam, laps, performance, classification, raceclass, grid, laptime, Livery, Field4Question, Field4Or, Field4Evo, Field4_2, subround_id, make_id, type_id, vehicle_id, engine_id, team_id, deleted',
-                'safe', 'on' => 'search'),
+            // unique key checks:
+            array('content_id+roundnum+sub+row', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
             // foreign key checks:
             array('subround_id', 'exist', 'attributeName' => 'id', 'className' => 'Subround'),
             array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'Content'),
@@ -52,6 +99,9 @@ class Tresult extends BaseModel {
             array('engine_id', 'exist', 'attributeName' => 'id', 'className' => 'Engine'),
             array('driver_id', 'exist', 'attributeName' => 'id', 'className' => 'Individual'),
             array('codriver_id', 'exist', 'attributeName' => 'id', 'className' => 'Individual'),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array('id, content_id, roundnum, round, rounddate, roundtype, sub, row, pos, num, individuals, tdriver, tcodriver, tvehicle, tchassis, tlicenseplate, tteam, laps, performance, classification, raceclass, grid, laptime, Livery, Field4Question, Field4Or, Field4Evo, Field4_2, subround_id, make_id, type_id, vehicle_id, engine_id, team_id, driver_id, codriver_id, deleted, error', 'safe', 'on' => 'search'),
         );
     }
 
@@ -75,63 +125,92 @@ class Tresult extends BaseModel {
     public function behaviors() {
         return array(
             'ERememberFiltersBehavior' => array(
-                'class' => 'application.components.ERememberFiltersBehavior',
+                'class' => 'ERememberFiltersBehavior',
                 'defaults' => array(), /* optional line */
                 'defaultStickOnClear' => false /* optional line */
             ),
         );
     }
 
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
     public function attributeLabels() {
         return array(
-            'id' => Yii::t('app', 'ID'),
-            'content_id' => Yii::t('app', 'Article'),
-            'round' => Yii::t('app', 'Round'),
-            'rounddate' => Yii::t('app', 'Date'),
-            'sub' => Yii::t('app', 'Sub'),
-            'row' => Yii::t('app', 'Row'),
-            'num' => Yii::t('app', 'Num'),
-            'individuals' => Yii::t('app', 'Individuals'),
-            'tdriver' => Yii::t('app', 'Tdriver'),
-            'tcodriver' => Yii::t('app', 'Tcodriver'),
-            'tvehicle' => Yii::t('app', 'Tvehicle'),
-            'tchassis' => Yii::t('app', 'Tchassis'),
-            'tteam' => Yii::t('app', 'Tteam'),
-            'laps' => Yii::t('app', 'Laps'),
-            'performance' => Yii::t('app', 'Performance'),
-            'classification' => Yii::t('app', 'Classification'),
-            'raceclass' => Yii::t('app', 'Raceclass'),
-            'grid' => Yii::t('app', 'Grid'),
-            'laptime' => Yii::t('app', 'Laptime'),
-            'Livery' => Yii::t('app', 'Livery'),
-            'Field4Question' => Yii::t('app', 'Field4 Question'),
-            'Field4Or' => Yii::t('app', 'Field4 Or'),
-            'Field4Evo' => Yii::t('app', 'Field4 Evo'),
-            'Field4_2' => Yii::t('app', 'Field4 2'),
-            'subround_id' => Yii::t('app', 'Subround'),
-            'make_id' => Yii::t('app', 'Make'),
-            'type_id' => Yii::t('app', 'Type'),
-            'vehicle_id' => Yii::t('app', 'Vehicle'),
-            'engine_id' => Yii::t('app', 'Engine'),
-            'team_id' => Yii::t('app', 'Team'),
-            'driver_id' => Yii::t('app', 'Driver'),
-            'codriver_id' => Yii::t('app', 'Co-driver'),
-            'deleted' => Yii::t('app', 'Deleted'),
-            'error' => Yii::t('app', 'Error'),
+            'id' => 'ID',
+            'content_id' => 'Content',
+            'roundnum' => 'Roundnum',
+            'round' => 'Round',
+            'rounddate' => 'Rounddate',
+            'roundtype' => 'Roundtype',
+            'sub' => 'Sub',
+            'row' => 'Row',
+            'pos' => 'Pos',
+            'num' => 'Num',
+            'individuals' => 'Individuals',
+            'tdriver' => 'Tdriver',
+            'tcodriver' => 'Tcodriver',
+            'tvehicle' => 'Tvehicle',
+            'tchassis' => 'Tchassis',
+            'tlicenseplate' => 'Tlicenseplate',
+            'tteam' => 'Tteam',
+            'laps' => 'Laps',
+            'performance' => 'Performance',
+            'classification' => 'Classification',
+            'raceclass' => 'Raceclass',
+            'grid' => 'Grid',
+            'laptime' => 'Laptime',
+            'Livery' => 'Livery',
+            'Field4Question' => 'Field4 Question',
+            'Field4Or' => 'Field4 Or',
+            'Field4Evo' => 'Field4 Evo',
+            'Field4_2' => 'Field4 2',
+            'subround_id' => 'Subround',
+            'make_id' => 'Make',
+            'type_id' => 'Type',
+            'vehicle_id' => 'Vehicle',
+            'engine_id' => 'Engine',
+            'team_id' => 'Team',
+            'driver_id' => 'Driver',
+            'codriver_id' => 'Codriver',
+            'deleted' => 'Deleted',
+            'error' => 'Error',
         );
     }
 
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     *
+     * Typical usecase:
+     * - Initialize the model fields with values from filter form.
+     * - Execute this method to get CActiveDataProvider instance which will filter
+     * models according to data in model fields.
+     * - Pass data provider to CGridView, CListView or any similar widget.
+     *
+     * @return CActiveDataProvider the data provider that can return the models
+     * based on the search/filter conditions.
+     */
     public function search() {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
         $criteria = new CDbCriteria;
 
         $criteria->compare('id', $this->id);
+        $criteria->compare('content_id', $this->content_id);
+        $criteria->compare('roundnum', $this->roundnum);
         $criteria->compare('round', $this->round, true);
         $criteria->compare('rounddate', $this->rounddate, true);
+        $criteria->compare('roundtype', $this->roundtype, true);
+        $criteria->compare('sub', $this->sub);
+        $criteria->compare('row', $this->row);
+        $criteria->compare('pos', $this->pos, true);
         $criteria->compare('num', $this->num, true);
         $criteria->compare('individuals', $this->individuals, true);
         $criteria->compare('tdriver', $this->tdriver, true);
         $criteria->compare('tcodriver', $this->tcodriver, true);
         $criteria->compare('tvehicle', $this->tvehicle, true);
+        $criteria->compare('tchassis', $this->tchassis, true);
+        $criteria->compare('tlicenseplate', $this->tlicenseplate, true);
         $criteria->compare('tteam', $this->tteam, true);
         $criteria->compare('laps', $this->laps, true);
         $criteria->compare('performance', $this->performance, true);
@@ -144,15 +223,31 @@ class Tresult extends BaseModel {
         $criteria->compare('Field4Or', $this->Field4Or, true);
         $criteria->compare('Field4Evo', $this->Field4Evo, true);
         $criteria->compare('Field4_2', $this->Field4_2, true);
-        $criteria->compare('error', $this->error, true); //array(1,2,3,4,5,6));
+        $criteria->compare('subround_id', $this->subround_id);
+        $criteria->compare('make_id', $this->make_id);
+        $criteria->compare('type_id', $this->type_id);
+        $criteria->compare('vehicle_id', $this->vehicle_id);
+        $criteria->compare('engine_id', $this->engine_id);
+        $criteria->compare('team_id', $this->team_id);
+        $criteria->compare('driver_id', $this->driver_id);
+        $criteria->compare('codriver_id', $this->codriver_id);
         $criteria->compare('deleted', 0);
+        $criteria->compare('error', $this->error);
 
-        //$criteria->order = 'round,row';
-
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'Pagination' => array('pageSize' => 20,),
         ));
+    }
+
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return Tresult the static model class
+     */
+    public static function model($className = __CLASS__) {
+        return parent::model($className);
     }
 
     /**
@@ -177,49 +272,57 @@ class Tresult extends BaseModel {
 
         // ====
         // Export the Tresults into Results
-        $trindividuals = $tresult->trindividuals;
         $raceclass_id = null;
+
+
+        // Get the raceclass:
+        $raceclass = null;
+        if (isset($tresult->raceclass)) {
+            $raceclass = Raceclass::model()->find('name=:name', array(':name' => $tresult->raceclass));
+        }
+        // Get the outreason:
+        $outreason = null;
+        $performance = null;
+        if (isset($tresult->performance)) {
+            $slash = strpos($tresult->performance, '/');
+            $searchReason = $tresult->performance;
+            if ($slash > 0) {
+                $performance = substr($tresult->performance, 0, $slash - 1);
+                $searchReason = substr($tresult->performance, $slash);
+            }
+            $outreason = Outreason::model()->find('name=:name', array(':name' => $searchReason));
+        }
+        // check if the team_id is not null.
+        if (empty($tresult->team_id)) {
+            $tresult->team_id = $this->findTeam($tresult);
+            $tresult->save();
+        }
+
+        if (empty($tresult->subround_id)) {
+            $result = $this->findSubround($tresult);
+            if (is_bool($result) && $result === false) {
+                $tresult->error = 7;
+                $tresult->save();
+                return;
+            } else {
+                $tresult->subround_id = $result;
+            }
+            $tresult->save();
+        }
+
+        if (empty($tresult->make_id) ||
+                (empty($tresult->engine_id) && (strpos($tresult->tvehicle, 'Turbo') > 0 || strpos($tresult->tvehicle, ' - ') > 0 ))
+        ) {
+            $vehicle = $this->findVehicle($tresult);
+            $tresult->make_id = $vehicle->make_id;
+            $tresult->type_id = $vehicle->type_id;
+            $tresult->vehicle_id = $vehicle->vehicle_id;
+            $tresult->engine_id = $vehicle->engine_id;
+            $tresult->save();
+        }
+
+        $trindividuals = $tresult->trindividuals;
         foreach ($trindividuals as $trindividual) {
-
-            // Get the raceclass:
-            $raceclass = null;
-            if (isset($tresult->raceclass)) {
-                $raceclass = Raceclass::model()->find('name=:name', array(':name' => $tresult->raceclass));
-            }
-            // Get the outreason:
-            $outreason = null;
-            $performance = null;
-            if (isset($tresult->performance)) {
-                $slash = strpos($tresult->performance, '/');
-                $searchReason = $tresult->performance;
-                if ($slash > 0) {
-                    $performance = substr($tresult->performance, 0, $slash - 1);
-                    $searchReason = substr($tresult->performance, $slash);
-                }
-                $outreason = Outreason::model()->find('name=:name', array(':name' => $searchReason));
-            }
-            // check if the team_id is not null.
-            if (empty($tresult->team_id)) {
-                $tresult->team_id = $this->findTeam($tresult);
-                $tresult->save();
-            }
-
-            if (empty($tresult->subround_id)) {
-                $tresult->subround_id = $this->findSubround($tresult);
-                $tresult->save();
-            }
-
-            if (empty($tresult->make_id) ||
-                    (empty($tresult->engine_id) && (strpos($tresult->tvehicle, 'Turbo') > 0 || strpos($tresult->tvehicle, ' - ') > 0 ))
-            ) {
-                $vehicle = $this->findVehicle($tresult);
-                $tresult->make_id = $vehicle->make_id;
-                $tresult->type_id = $vehicle->type_id;
-                $tresult->vehicle_id = $vehicle->vehicle_id;
-                $tresult->engine_id = $vehicle->engine_id;
-                $tresult->save();
-            }
-
             if (empty($tresult->subround_id) ||
                     empty($tresult->team_id) ||
                     empty($trindividual->individual->id) ||
@@ -232,16 +335,12 @@ class Tresult extends BaseModel {
                 $return = false;
             } else {
                 // try to find the result:
-                $criteria = new CDbCriteria();
-                $criteria->condition = 'individual_id=:individual and team_id=:team and subround_id=:subround and rank=:rank';
-                $criteria->params = array(
-                    'individual' => $trindividual->individual->id,
-                    'team' => $tresult->team_id,
-                    'subround' => $tresult->subround_id,
-                    'rank' => $tresult->row,
-                );
-
-                $result = Result::model()->find($criteria);
+                $rcriteria = new CDbCriteria();
+                $rcriteria->compare('individual_id', $trindividual->individual->id);
+                $rcriteria->compare('team_id', $tresult->team_id);
+                $rcriteria->compare('subround_id', $tresult->subround_id);
+                $rcriteria->compare('rank', $tresult->row);
+                $result = Result::model()->find($rcriteria);
                 // create the result record if not found
                 if (empty($result->id)) {
                     //echo'Na afvraging';
@@ -391,7 +490,6 @@ class Tresult extends BaseModel {
             $isNickname = false;
             $nationality = NULL;
 
-
             // check the number of matching individuals:
             $count = $matchingIndividuals[$tindividual];
             if ($count >= 2) {
@@ -421,7 +519,7 @@ class Tresult extends BaseModel {
             }
 
             $fullNameCriteria = new CdbCriteria;
-            $fullNameCriteria->compare('trim(concat(first_name, " ", last_name))', $tindividual);
+            $fullNameCriteria->compare('full_name', $tindividual);
             if ($matchOrdering) {
                 $fullNameCriteria->compare('ordering', $ordering);
             }
@@ -429,8 +527,7 @@ class Tresult extends BaseModel {
             $individual = Individual::model()->find($fullNameCriteria);
 
             // search on nickname
-            if (empty($individual->id) && substr($tindividual, 0, 1) == '"' && substr($tindividual, -1) == '"'
-            ) {
+            if (empty($individual->id) && substr($tindividual, 0, 1) == '"' && substr($tindividual, -1) == '"') {
                 $isNickname = true;
                 $nickname = substr($tindividual, 1, strlen($tindividual) - 2);
                 $individual = Individual::model()->find('nickname=:name', array(
@@ -546,7 +643,7 @@ class Tresult extends BaseModel {
         return $return;
     }
 
-    public function addResultToTable() {
+    protected function addResultToTable() {
 
         $this->printStartTijd();
         $catid = 5;
@@ -609,7 +706,7 @@ class Tresult extends BaseModel {
         $criteria->order = 'content_id,roundnum,sub,row';
         $criteria->limit = $limit;
         $display = 0;
-        $round = '';
+        $round = new stdClass();
         $tclassification = '';
         $count = Tresult::model()->count();
         echo 'records:' . $count . "\n";
@@ -702,6 +799,7 @@ class Tresult extends BaseModel {
             $update->condition = 'error <> 0 and deleted=0 and tvehicle like \'' . $tvehicle . '%\'';
             $condition = 'deleted=0 and error=0 and tvehicle like \'' . $tvehicle . '%\'';
         } else {
+            echo 'Update error=' . $error . "\n";
             $update->condition = 'error =' . $error . ' and deleted=0';
             $condition = 'deleted=0 and error=0';
         }
@@ -724,9 +822,14 @@ class Tresult extends BaseModel {
         if ($str >= 5) {
             $str = 5;
         }
-        $limit = str_pad('1', $str, 0);
-        $criteria->limit = $limit;
+        $readlimit = str_pad('1', $str, 0);
+        $displaylimit = str_pad('1', $str, 0);
+        $criteria->limit = $readlimit;
+        $criteria->order = 'id';
+        $looper = 0;
         while ($found) {
+            $looper++;
+            //echo '- Loop : ' . $looper . ', done: ' . $display . ', tijd ' . date('Y-m-d H:i:s') . "\n";
             $list = Tresult::model()->findAll($criteria);
             $cnt++;
             //echo 'found:'.count($list).'('.$cnt.')'."\n";
@@ -737,12 +840,17 @@ class Tresult extends BaseModel {
                 foreach ($list as $id) {
                     $tresult = Tresult::model()->findByPk($id->id);
                     $display++;
-                    if (($display % $limit) == 0) {
-                        echo 'Pk :' . $id->id . ', tijd ' . date('Y-m-d H:i:s') . ', done: ' . $display . ' = ' . (sprintf('%01.2f', ($display * 100) / $count)) . "%\n";
+                    if (($display % $displaylimit) == 0) {
+                        echo '- Pk :' . $id->id . ', tijd ' . date('Y-m-d H:i:s') . ', done: ' . $display . ' = ' . (sprintf('%01.2f', ($display * 100) / $count)) . "%\n";
                     }
                     try {
                         // Check op id
-                        $tresult->subround_id = $this->findSubround($tresult);
+                        $subround = $this->findSubround($tresult);
+                        if (is_bool($subround) && $subround === false) {
+                            $tresult->error = 7;
+                        } else {
+                            $tresult->subround_id = $subround;
+                        }
                         $tresult->team_id = $this->findTeam($tresult);
                         if (empty($tresult->subround_id)) {
                             $tresult->error = 7;
@@ -755,25 +863,31 @@ class Tresult extends BaseModel {
                             //    $tresult->error = 6;
                             //    $tresult->save();
                         } else {
-                            /*$vehicle = $this->findVehicle($tresult);
-                            $tresult->make_id = $vehicle->make_id;
-                            $tresult->type_id = $vehicle->type_id;
-                            $tresult->vehicle_id = $vehicle->vehicle_id;
-                            $tresult->engine_id = $vehicle->engine_id;
-                            $tresult->save();*/
-                            if ($store || empty($tresult->error)) {
-                                if ($this->addIndividuals($tresult, false)) {
-                                    if ($this->export($tresult->id)) {
-                                        $tresult->deleted = 1;
+                            /* $vehicle = $this->findVehicle($tresult);
+                              $tresult->make_id = $vehicle->make_id;
+                              $tresult->type_id = $vehicle->type_id;
+                              $tresult->vehicle_id = $vehicle->vehicle_id;
+                              $tresult->engine_id = $vehicle->engine_id; */
+                            if ($tresult->save()) {
+                                if ($store || empty($tresult->error)) {
+                                    if ($this->addIndividuals($tresult, false)) {
+                                        if ($this->export($tresult->id)) {
+                                            $tresult->deleted = 1;
+                                            $tresult->save();
+                                        }
+                                    } else {
+                                        $tresult->error = 2;
                                         $tresult->save();
                                     }
                                 }
+                            } else {
+                                echo 'id : ' . $tresult->id . "\n";
+                                print_r($tresult->getErrors());
                             }
                         }
                     } catch (Exception $ex) {
                         echo $ex->getMessage() . "\n";
                         print_r($tresult->getErrors() . "\n");
-                        print_r($tresult . "\n");
                     }
                     unset($tresult);
                 }
@@ -791,8 +905,39 @@ class Tresult extends BaseModel {
         echo '***** Einde ConvertResults *****' . "\n";
     }
 
+    private function findEvent($tresult, $debug = false) {
+        $event = Event::model()->find('name=:name', array('name' => trim($tresult->round)));
+        if (empty($event->id)) {
+            if (strpos(trim($tresult->round), '[') > 0) {
+                $troundname = substr(trim($tresult->round), 0, (strpos(trim($tresult->round), '[') - 1));
+                if ($debug) {
+                    echo 'tname : ' . $troundname . "\n";
+                }
+                $event = Event::model()->find('name=:name', array('name' => trim($tresult->round)));
+                if (!empty($event->id)) {
+                    return $event;
+                }
+            }
+            $tevent = Tevent::model()->find('name=:name', array('name' => trim($tresult->round)));
+            if (empty($tevent->id)) {
+                $tevent = new Tevent();
+                $tevent->name = trim($tresult->round);
+                $tevent->done = 0;
+                if (!$tevent->save()) {
+                    print_r($tevent->getErrors());
+                } else {
+                    echo 'Event ' . trim($tresult->round) . ' added' . "\n";
+                }
+            } else if (!empty($tevent->event_id)) {
+                return Event::model()->findByPk($tevent->event_id);
+            }
+        }
+
+        return null;
+    }
+
     private function findSubround($tresult) {
-        // once found it seems to be ok....
+// once found it seems to be ok....
         if (!empty($tresult->subround_id)) {
             return $tresult->subround_id;
         }
@@ -841,35 +986,60 @@ class Tresult extends BaseModel {
                     if (!empty($subround->id)) {
                         $result = $subround->id;
                     } else {
-                        $subround = Subround::model()->find('round_id=:round and subroundtype_id=:subroundtype and raceclass_id=:raceclass and ordering=:ordering', array(
-                            'round' => $round->id,
-                            'ordering' => $tresult->sub,
-                            'subroundtype' => $subroundtype,
-                            'raceclass' => $raceclass->id,
-                                )
-                        );
+                        if (!empty($raceclass->id)) {
+                            $subround = Subround::model()->find('round_id=:round and subroundtype_id=:subroundtype and raceclass_id=:raceclass and ordering=:ordering', array(
+                                'round' => $round->id,
+                                'ordering' => $tresult->sub,
+                                'subroundtype' => $subroundtype,
+                                'raceclass' => $raceclass->id,
+                                    )
+                            );
+                        }
                         if (empty($subround->id)) {
                             echo "No subround found for " . $tresult->id . "\n";
                             echo 'Round : ' . $tresult->round . ', id:' . $round->id . "\n";
                             echo ', project_id: ' . $project->id . "\n";
                             echo ', ordering: ' . $tresult->sub . "\n";
                             echo ', subroundtype:' . $subroundtype . "\n";
-                            echo ', raceclass:' . $raceclass->id . "\n";
-                            die;
+                            echo ', raceclass:' . (isset($raceclass->id) ? $raceclass->id : $tresult->raceclass) . "\n";
+                            return false;
                         }
                     }
                 } else {
-                    echo "Round not found!";
-                    die;
+                    $tround = Tround::model()->find('content_id=:content and name=:name and ordering=:ordering', array(
+                        'content' => $tresult->content_id,
+                        'name' => trim($tresult->round),
+                        'ordering' => $tresult->roundnum,
+                    ));
+                    $event = $this->findEvent($tresult);
+
+                    if (empty($tround->id) && !empty($event->id)) {
+                        $date = strtotime($tresult->rounddate);
+                        $tround = new Tround();
+                        $tround->content_id = $tresult->content_id;
+                        $tround->event_id = $event->id;
+                        $tround->name = trim($tresult->round);
+                        $tround->start_date = date('Y-m-d', $date);
+                        $tround->end_date = date('Y-m-d', $date);
+                        $tround->ordering = $tresult->roundnum;
+                        $tround->published = 0;
+                        $tround->done = 0;
+                        if (!$tround->save()) {
+                            print_r($tround->getErrors());
+                        }
+                    }
+                    $result = false;
                 }
             } else {
-                echo "Project not found!";
-                die;
+                $tproject = Tproject::model()->find('content_id=:content', array('content' => $tresult->content_id));
+                if (empty($tproject->id)) {
+                    echo '- Project for contentId ' . $tresult->content->title . ' not found' . "\n";
+                    $tproject = new Tproject();
+                    $tproject->content_id = $tresult->content_id;
+                    $tproject->save();
+                }
+                $result = false;
             }
-
-            //echo 'project:'.$project->id."\n";
-            //echo 'round:'.$round->id."\n";
-            //echo 'subround:'.$subround->id."\n";
 
             unset($project);
             unset($round);
@@ -966,7 +1136,7 @@ class Tresult extends BaseModel {
             return $vehicle;
         }
 
-        // assume that if there was an chassisnumber entered and the vehicle is not empty, this is correct.
+// assume that if there was an chassisnumber entered and the vehicle is not empty, this is correct.
         if (!empty($tresult->make_id) && (!empty($tresult->tchassis) && !empty($tresult->vehicle_id))) {
             $vehicle->make_id = $tresult->make_id;
             $vehicle->type_id = $tresult->type_id;
@@ -977,7 +1147,7 @@ class Tresult extends BaseModel {
 
         if (!empty($tresult->tchassis)) {
 
-            // remove the last part, might be the engine....
+// remove the last part, might be the engine....
             $type = trim($tresult->tvehicle);
             if (substr($type, -5) == 'Turbo') {
                 $type = trim(str_replace('Turbo', '', $type));
@@ -988,7 +1158,7 @@ class Tresult extends BaseModel {
 
                 $tchassis = str_replace(' ', '', $tresult->tchassis);
 
-                // find by Alias - no changes
+// find by Alias - no changes
                 $fvehicle = $this->findVehicleByAlias($tresult->tvehicle, $tresult->tchassis);
                 if (!$vehicle)
                     $fvehicle = $this->findVehicleByAlias($tresult->tvehicle, $tchassis);
@@ -1010,7 +1180,7 @@ class Tresult extends BaseModel {
                     $vehicle->type_id = $fvehicle->type_id;
                     $vehicle->make_id = $fvehicle->type->make_id;
                     $vehicle->vehicle_id = $fvehicle->id;
-                    $vehicle->engine_id = $fvehicle->engine_id;
+//$vehicle->engine_id = $fvehicle->engine_id;
                     return $vehicle;
                 }
 
@@ -1025,9 +1195,9 @@ class Tresult extends BaseModel {
                     return $vehicle;
                 }
             } else {
-                // Ok! No space in the type, but there is an chassisnumber? look up in the Tvehicles:
+// Ok! No space in the type, but there is an chassisnumber? look up in the Tvehicles:
                 $tvehicle = $this->findTvehicle($tresult->tvehicle, $tresult->tchassis);
-                //print_r($tvehicle);
+//print_r($tvehicle);
                 if (!empty($tvehicle->vehicle_id)) {
                     $vehicle->make_id = $tvehicle->make_id;
                     $vehicle->type_id = $tvehicle->type_id;
@@ -1110,8 +1280,8 @@ class Tresult extends BaseModel {
     private function findVehicleByName($searchType, $chassis) {
         $found = false;
         $loop = true;
-        $type = Type::model()->with('make')->find('concat(make.name," ",t.name)=:name', array(
-            'name' => $searchType));
+        $search = $this->getSlug(trim($searchType));
+        $type = Type::model()->find('alias=:alias', array('alias' => $search));
         if (!empty($type->id)) {
             while ($loop) {
                 $vehicle = Vehicle::model()->find('type_id=:type and chassisnumber=:chassis', array(
@@ -1140,10 +1310,16 @@ class Tresult extends BaseModel {
         return Raceclass::model()->find('name=:name', array('name' => trim($tresult->raceclass)));
     }
 
+    /* getSubroundType:
+     * returns the subroundtype id based on the result:
+     */
+
     private function getSubroundType($tresult) {
         $subroundtype = 4; // default race
 
-        if (($tresult->round == '1000 km Okayama' && $tresult->rounddate == '1-11-2009' && empty($tresult->roundtype)) || ($tresult->round == 'UAE GT Yas Marina' && $tresult->rounddate == '27-1-2012' && empty($tresult->roundtype))
+        if (($tresult->round == '1000 km Okayama' && $tresult->rounddate == '1-11-2009' && empty($tresult->roundtype)) || 
+                ($tresult->round == 'UAE GT Yas Marina' && $tresult->rounddate == '27-1-2012' && empty($tresult->roundtype)) ||
+                ($tresult->round == 'IGT Magione [III-IV]' && $tresult->rounddate == '12-4-1993' && empty($tresult->roundtype))
         ) {
             $subroundtype = 13; // Overall result
         } elseif ($tresult->round == 'BRDC GT Knockhill' && $tresult->rounddate == '11-5-2003') {
@@ -1171,358 +1347,7 @@ class Tresult extends BaseModel {
         }
     }
 
-    /**
-     * @name readContent
-     * @abstract reads the contenttable and converts them into tResult
-     */
-    public function readContent($key, $catId) {
-
-        $this->list = Content::model()->findAll('catid = :cat', array('cat' => $catId));
-
-        echo 'Key : ' . $key . "\n";
-        echo 'Category : ' . $catId . "\n";
-        echo 'Articles:' . count($this->list) . "\n";
-
-        if ($key == 'wsrp') {
-            $this->convertContentWsrp();
-        } elseif ($key == 'formula2') {
-            $this->convertContentFormula2();
-        }
-    }
-
-    /**
-     * function to convert the content of Formula 2.net into tresults.
-     */
-    private function convertContentFormula2() {
-        foreach ($this->list as $article) {
-            echo 'article:' . $article->title . "\n";
-
-            if (lower(substr($article->title, 0, 2)) == 'f2') {
-                
-            } elseif (lower(substr($article->title, 0, 2)) == 'f3') {
-                
-            }
-        }
-    }
-
-    public function convertRallybaseChampionships($key, $sectionId, $catId) {
-
-        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%Results by championship%\'', array(
-            'catid' => $catId, 'sectionid' => $sectionId)
-        );
-
-        echo 'Found : ' . count($this->list) . ' articles' . "\n";
-        foreach ($this->list as $article) {
-            echo 'article : ' . $article->title . "\n";
-            $text = $article->introtext . $article->fulltext;
-            $lines = explode('<table', $text);
-            //
-            $rally = false;
-            $header = false;
-            $table = false;
-            $country = null;
-            $countryName = null;
-            $countryCode = null;
-            $line = null;
-            if (count($lines) > 1) {
-                try {
-                    foreach ($lines as $line) {
-                        //echo 'line:'.substr($line,1,80). "\n";
-                        if (strpos(strtolower($line), 'results by championship') > 0) {
-                            $header = true;
-                            //echo 'header!'."\n";
-                        } elseif ($header) {
-                            $endOfTable = strpos($line, '</table>');
-                            $table = '<table ' . substr($line, 1, $endOfTable + 8);
-                            $championships = $this->table2array($table, true);
-                            //print_r(array_keys($championships));
-                            foreach ($championships as $championship) {
-                                print_r($championship);
-                            }
-                        }
-                    }
-                } catch (Exception $ex) {
-                    echo $ex;
-                    echo $ex->getMessage() . "\n";
-                    //echo 'line:' . $line . "\n";
-                    die;
-                }
-            } else {
-                echo 'Just 1 line!' . "\n";
-                //echo 'text : '.$text;
-            }
-        }
-    }
-
-    public function convertRallybaseDrivers($key, $sectionId, $catId) {
-
-        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%Drivers and codrivers from%\'', array(
-            'catid' => $catId, 'sectionid' => $sectionId)
-        );
-
-        echo 'Found : ' . count($this->list) . ' articles' . "\n";
-
-        foreach ($this->list as $article) {
-            // echo 'article : ' . $article->title . "\n";
-            $text = $article->introtext . $article->fulltext;
-            $lines = explode('<table', $text);
-
-            // some booleans to help reading the content:
-            $rally = false;
-            $header = false;
-            $table = false;
-            $country = null;
-            $countryName = null;
-            $countryCode = null;
-            $line = null;
-            if (count($lines) > 1) {
-                try {
-                    foreach ($lines as $line) {
-                        // we only need the table with the rallies:
-                        //echo 'pos : '.strpos(strtolower($line),'list of available rallies')."\n";
-                        //echo 'line : '.substr($line, 1, 100)."\n";
-                        if (strpos(strtolower($line), 'matches found') > 0) {
-                            $headerStart = strpos($line, '<h1>') + strlen('Drivers and codrivers from') + 4;
-                            $headerEnd = strpos($line, '</h1>');
-                            $countryName = $this->convertCountryName(trim(substr($line, $headerStart, $headerEnd - $headerStart)));
-                            $country = Country::model()->find('name=:name', array(
-                                'name' => $countryName));
-                            if (!empty($country->id)) {
-                                echo 'article : ' . $article->title . ', country : ' . $countryName . ', id : ' . $country->id . "\n";
-                            } else {
-                                echo 'article : ' . $article->title . ', country : ' . $countryName . ' not found!' . "\n";
-                                die;
-                            }
-                            $header = true;
-                        } elseif ($header) {
-                            $endOfTable = strpos($line, '</table>');
-                            $table = '<table ' . substr($line, 1, $endOfTable + 8);
-                            $drivers = $this->table2array($table, false);
-
-                            foreach ($drivers as $driver) {
-                                $fullName = trim(strip_tags($driver[1]));
-                                //echo 'driver : '.$fullName."\n";
-                                $posComma = strpos($fullName, ',');
-                                $lastName = trim(substr($fullName, 0, $posComma));
-                                $firstName = trim(substr($fullName, $posComma + 1));
-
-                                $criteria = new CDbCriteria;
-                                $criteria->compare('first_name', $firstName);
-                                $criteria->compare('last_name', $lastName);
-                                $criteria->compare('nationality', $country->iso3);
-                                $individual = Individual::Model()->find($criteria);
-                                if (!empty($individual->id)) {
-                                    //echo '==> Found! firstname : ' . $firstName . ', lastname : ' . $lastName . ', country : ' . $country->iso3 . "\n";
-                                } else {
-                                    $individual = new Individual();
-                                    $individual->first_name = $firstName;
-                                    $individual->last_name = $lastName;
-                                    $individual->nationality = $country->iso3;
-                                    $individual->published = 1;
-                                    //$individual->ordering = 1;
-                                    if (!$individual->save()) {
-                                        echo '=> Error firstname : ' . $firstName . ', lastname : ' . $lastName . ', country : ' . $country->iso3 . "\n";
-                                        print_r($individual->getErrors());
-                                        die;
-                                    } else {
-                                        echo 'Added! firstname : ' . $firstName . ', lastname : ' . $lastName . ', country : ' . $country->iso3 . "\n";
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception $ex) {
-                    echo $ex;
-                    echo $ex->getMessage() . "\n";
-                    //echo 'line:' . $line . "\n";
-                    die;
-                }
-            } else {
-                echo 'Just 1 line!' . "\n";
-                //echo 'text : '.$text;
-            }
-        }
-    }
-
-    public function convertRallybaseRallies($key, $sectionId, $catId) {
-
-        $this->list = Content::model()->findAll('t.catid=:catid and t.sectionid=:sectionid and t.fulltext like \'%List of available rallies%\'', array(
-            'catid' => $catId, 'sectionid' => $sectionId)
-        );
-
-        foreach ($this->list as $article) {
-            echo 'article : ' . $article->title . "\n";
-            $text = $article->introtext . $article->fulltext;
-            $lines = explode('<table', $text);
-            $line = null;
-            // some booleans to help reading the content:
-            $rally = false;
-            $header = false;
-            $table = false;
-
-            if (count($lines) > 1) {
-                try {
-                    foreach ($lines as $line) {
-                        // we only need the table with the rallies:
-                        //echo 'pos : '.strpos(strtolower($line),'list of available rallies')."\n";
-                        //echo 'line : '.substr($line, 1, 100)."\n";
-                        if (strpos(strtolower($line), 'list of available rallies') > 0) {
-                            $header = true;
-                        } elseif ($header) {
-                            $endOfTable = strpos($line, '</table>');
-                            $table = '<table ' . substr($line, 1, $endOfTable + 8);
-                            $events = $this->table2array($table);
-                            foreach ($events as $event) {
-                                //echo 'event : '.strip_tags($event['Rally']).'-'.$event['Country']."\n";
-                                $eventName = strip_tags($event['Rally']);
-                                $criteria = new CDbCriteria;
-                                $criteria->compare('name', $eventName);
-                                $record = Event::model()->find($criteria);
-                                if (empty($record->id)) {
-                                    $record = new Event();
-                                    $record->name = $eventName;
-                                    $record->country_code = $this->convertCountryCode(strtoupper($event['Country']));
-                                    $record->published = 1;
-                                    $record->ordering = 1;
-                                    if (!$record->save()) {
-                                        echo 'event : ' . strip_tags($event['Rally']) . '-' . $event['Country'] . "\n";
-                                        print_r($record->getErrors());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception $ex) {
-                    echo $ex->getMessage() . "\n";
-                    echo 'line:' . $line . "\n";
-                }
-            } else {
-                echo 'Just 1 line!' . "\n";
-                //echo 'text : '.$text;
-            }
-        }
-    }
-
-    /**
-     * method to convert the content of Wsrp into tResults:
-     */
-    private function convertContentWsrp() {
-        foreach ($this->list as $article) {
-            echo 'article:' . $article->title . "\n";
-
-            $this->round = 0;
-            //
-            $text = $article->introtext . $article->fulltext;
-            $lines = explode(chr(13), $text);
-
-            // booleans
-            $season = false;
-            $result = false;
-            $round = false;
-            // string
-            $roundType = '';
-            // arrays
-            $rounds = array();
-            if (count($lines) > 1) {
-                try {
-                    foreach ($lines as $line) {
-
-                        // do the right stuff...
-                        // ============================================================
-                        // line belongs to the project
-                        if (strpos(strtolower($line), '<a name="top"') > 0) {
-                            // Get the project
-                            $project = strip_tags($line);
-                            $this->addProject($project, $article->title);
-
-                            // ============================================================
-                            // start of the season table
-                        } elseif (!$season && strpos(strtolower($line), 'class="season"') > 0) {
-                            // the rounds in the season
-                            $season = true;
-                            $seasonTable = $line;
-
-                            // ============================================================
-                            // end of the season table
-                        } elseif ($season && strpos(strtolower($line), '</table>') > 0) {
-                            // end of season table
-                            $seasonTable = $seasonTable . $line;
-                            $season = false;
-
-                            // convert the Seasontable into an xml-document
-                            unset($rounds);
-                            $rounds = $this->table2array($seasonTable, true);
-                            //
-                            // now do something usefull with the rounds within the table
-
-                            $this->addRounds($rounds);
-
-                            // ============================================================
-                            // start of the result table
-                        } elseif (!$season && strpos(strtolower($line), '<table') > 0 && strpos(strtolower($line), 'cellspacing') > 0 && strpos(strtolower($line), 'cellpadding') > 0
-                        ) {
-
-                            $result = true;
-                            $resultTable = $line;
-
-                            // ============================================================
-                            // end of the result table
-                        } elseif ($result && strpos(strtolower($line), '</table>') > 0) {
-
-                            $resultTable = $resultTable . $line;
-                            $result = false;
-                            // convert the resultTable into an xml-document
-                            unset($results);
-                            $results = $this->table2array($resultTable, true);
-
-                            // now do something smart with the data....
-                            $this->addResults($article, $rounds, $this->round, $results, $roundType);
-                            $roundType = '';
-                            // ============================================================
-                            // start of the current round table
-                        } elseif (!$round && strpos(strtolower($line), 'class="race"') > 0) {
-
-                            $round = true;
-                            $roundTable = $line;
-
-                            // ============================================================
-                            // end of the current round table
-                        } elseif ($round && strpos(strtolower($line), '</table>') > 0) {
-
-                            $roundTable = $roundTable . $line;
-                            $round = false;
-                            // convert the current roundtable into an xml-document
-                            $currentRound = $this->table2array($roundTable, false);
-                            // ============================================================
-                        } elseif (strpos(strtolower($line), '<h2 class="brown"') > 0) {
-                            $roundType = strip_tags($line);
-                            // add the line to the field which has to be interpreted
-                        } elseif ($result) {
-                            $resultTable = $resultTable . $line;
-                        } elseif ($season) {
-                            $seasonTable = $seasonTable . $line;
-                        } elseif ($round) {
-                            if (strpos(strtolower($line), 'class="thround"') > 0) {
-                                $this->round++;
-                                $this->subround = 0;
-                            }
-                            $roundTable = $roundTable . $line;
-                        }
-                    } // foreach
-                } catch (Exception $ex) {
-                    echo $ex->getMessage() . "\n";
-                    echo 'project:' . $project . "\n";
-                }
-            } // count($lines)
-        } // foreach list
-
-        echo 'results : ' . $this->results . "\n";
-        echo 'found   : ' . $this->found . "\n";
-        echo 'added   : ' . $this->added . "\n";
-        echo '******** end of convert results **********' . "\n";
-    }
-
-    private function addProject($name, $title) {
+    protected function addProject($name, $title) {
         return true;
 
         $this->project = Project::model()->find('name=:name', array('name' => $name));
@@ -1532,7 +1357,7 @@ class Tresult extends BaseModel {
             $this->project = Project::model()->with(array('competition', 'season'))->find('season.name=:season and competition.code=:code', array(
                 'season' => $year, 'code' => $code));
             if (empty($this->project->id)) {
-                echo 'project not found:' . $name . '/' . $title . '(' . $code . '/' . $year . ')' . "\n";
+                echo 'project not found : ' . $name . '/' . $title . '(' . $code . '/' . $year . ')' . "\n";
             }
         }
     }
@@ -1540,14 +1365,10 @@ class Tresult extends BaseModel {
     /**
      *
      * */
-    private function addResults($content, $rounds, $currentRound, $results, $roundType) {
+    protected function addResults($content, $rounds, $currentRound, $results, $roundType) {
         // check if all is right to add the results to a certain round:
         if ($currentRound == 0 || $currentRound > count($rounds) || count($results) == 0) {
-            echo 'project:' . $content->title . "\n";
-            echo 'rounds:' . count($rounds) . "\n";
-            echo 'currentRound:' . $currentRound . "\n";
-            echo 'results:' . count($results) . "\n";
-
+            echo '- Round ' . $currentRound . ' of ' . count($rounds) . ', roundtype ' . $roundType . ' has no (' . count($results) . ') results' . "\n";
             return false;
         }
 
@@ -1631,7 +1452,21 @@ class Tresult extends BaseModel {
             //$tresult->Field4Or = $result[''];
             //$tresult->Field4Evo = $result[''];
             //$tresult->Field4_2 = $result[''];
-            $tresult->save();
+            if ($tresult->validate()) {
+                if (!$tresult->save()) {
+                    print_r($tresult->getErrors());
+                }
+            } else {
+                echo 'Round not found, but not valid either!' . "\n" .
+                '- Round => ' . $round['Race'] . "\n" .
+                '- Rounddate => ' . $round['Date'] . "\n" .
+                '- roundnum =>' . $currentRound . "\n" .
+                '- sub =>' . $this->subround . "\n" .
+                '- row =>' . $row . "\n" .
+                '- content => ' . $content->id . "\n";
+                //print_r($result);
+                //print_r($tresult->getErrors());
+            }
         }
 
         return true;
@@ -1643,7 +1478,7 @@ class Tresult extends BaseModel {
      * @param $project
      * @param $rounds
      */
-    private function addRounds($rounds) {
+    protected function addRounds($rounds) {
         return true;
 
         if (!empty($this->project->id)) {
@@ -1689,7 +1524,7 @@ class Tresult extends BaseModel {
      * @param $table
      * @param $debug
      */
-    private function table2array($table, $headerRow = true, $debug = false) {
+    protected function table2array($table, $headerRow = true, $debug = false) {
 
         if ($debug) {
             debug($table);
@@ -1704,7 +1539,7 @@ class Tresult extends BaseModel {
         return $data;
     }
 
-    private function convertCountryName($input) {
+    protected function convertCountryName($input) {
         if ($input == 'Russia') {
             return 'Russian Federation';
         } elseif ($input == 'Germany') {
@@ -1724,7 +1559,7 @@ class Tresult extends BaseModel {
         return $input;
     }
 
-    private function convertCountryCode($input) {
+    protected function convertCountryCode($input) {
         if ($input == "BAH") {
             return "BHR";
         } elseif ($input == "BUL") {

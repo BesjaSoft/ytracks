@@ -1,140 +1,61 @@
-<div class="form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'id' => 'tround-form',
+    'enableAjaxValidation' => false,
+    'type' => 'horizontal',
+    'htmlOptions' => array('class' => "well form-horizontal")
+        ));
+?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
+<p class="help-block">Fields with <span class="required">*</span> are required.</p>
 
-	'id'=>'tround-form',
-	'enableAjaxValidation'=>false,
-)); ?>
+<?php echo $form->errorSummary($model); ?>
+<div class="control-group">
+    <?php echo $form->labelEx($model, 'content_id', array('class' => 'control-label')); ?>
+    <div class="controls">
+        <b><?php echo CHtml::encode($model->content->title); ?></b>
+    </div>
+</div>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 200)); ?>
 
-	<?php echo $form->errorSummary($model); ?>
+<?php echo $form->dropDownListRow($model, 'event_id', Event::model()->findList()
+        , array('prompt' => '- Select an Event -', 'class' => 'span5'));
+?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>200)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
+<?php echo $form->dropDownListRow($model, 'project_id', Project::model()->findList()
+        , array('prompt' => '- Select a Project -', 'class' => 'span5'));
+?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'event_id'); ?>
-		<?php echo $form->textField($model,'event_id'); ?>
-		<?php echo $form->error($model,'event_id'); ?>
-	</div>
+<?php echo $form->dropDownListRow($model, 'circuit_id', Circuit::model()->findList()
+        , array('prompt' => '- Select a Circuit -', 'class' => 'span5'));
+?>
+<?php echo $form->textFieldRow($model, 'ordering', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'laps', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'length', array('class' => 'span5', 'maxlength' => 10)); ?>
+<?php echo $form->textFieldRow($model, 'distance_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'start_date', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'end_date', array('class' => 'span5')); ?>
+<?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php echo $form->textAreaRow($model, 'comment', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php echo $form->checkBoxRow($model, 'done'); ?>
+<?php /*echo $form->textFieldRow($model, 'checked_out', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'checked_out_time', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'published', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'manches', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'created', array('class' => 'span5')); ?>
+<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
+<?php echo $form->checkBoxRow($model, 'deleted'); ?>
+<?php echo $form->textFieldRow($model, 'deleted_date', array('class' => 'span5')); */ ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'tproject_id'); ?>
-		<?php echo $form->textField($model,'tproject_id'); ?>
-		<?php echo $form->error($model,'tproject_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'circuit_id'); ?>
-		<?php echo $form->textField($model,'circuit_id'); ?>
-		<?php echo $form->error($model,'circuit_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'ordering'); ?>
-		<?php echo $form->textField($model,'ordering'); ?>
-		<?php echo $form->error($model,'ordering'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'laps'); ?>
-		<?php echo $form->textField($model,'laps'); ?>
-		<?php echo $form->error($model,'laps'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'length'); ?>
-		<?php echo $form->textField($model,'length',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'length'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'distance_id'); ?>
-		<?php echo $form->textField($model,'distance_id'); ?>
-		<?php echo $form->error($model,'distance_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'start_date'); ?>
-		<?php echo $form->textField($model,'start_date'); ?>
-		<?php echo $form->error($model,'start_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'end_date'); ?>
-		<?php echo $form->textField($model,'end_date'); ?>
-		<?php echo $form->error($model,'end_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'description'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'comment'); ?>
-		<?php echo $form->textArea($model,'comment',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'comment'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'checked_out'); ?>
-		<?php echo $form->textField($model,'checked_out'); ?>
-		<?php echo $form->error($model,'checked_out'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'checked_out_time'); ?>
-		<?php echo $form->textField($model,'checked_out_time'); ?>
-		<?php echo $form->error($model,'checked_out_time'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'published'); ?>
-		<?php echo $form->textField($model,'published'); ?>
-		<?php echo $form->error($model,'published'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'manches'); ?>
-		<?php echo $form->textField($model,'manches'); ?>
-		<?php echo $form->error($model,'manches'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-		<?php echo $form->error($model,'created'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-		<?php echo $form->error($model,'modified'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'deleted'); ?>
-		<?php echo $form->textField($model,'deleted'); ?>
-		<?php echo $form->error($model,'deleted'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'deleted_date'); ?>
-		<?php echo $form->textField($model,'deleted_date'); ?>
-		<?php echo $form->error($model,'deleted_date'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+<div class="form-actions">
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => $model->isNewRecord ? 'Create' : 'Save',
+    ));
+    ?>
+</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

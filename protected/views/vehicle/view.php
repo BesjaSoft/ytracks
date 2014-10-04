@@ -1,8 +1,5 @@
 <?php
-$this->breadcrumbs = array(
-    'Vehicles' => array('index'),
-    $model->id,
-);
+$this->breadcrumbs = $model->getBreadcrumbs();
 
 $this->menu = array(
     array('label' => 'List Vehicle', 'url' => array('index')),

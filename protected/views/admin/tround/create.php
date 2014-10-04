@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tround', 'url'=>array('index')),
-	array('label'=>'Manage Tround', 'url'=>array('admin')),
+	array('label'=>'List Tround','url'=>array('index')),
+	array('label'=>'Manage Tround','url'=>array('admin')),
 );
 ?>
 

@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Tproject', 'url'=>array('index')),
-	array('label'=>'Manage Tproject', 'url'=>array('admin')),
+	array('label'=>'List Tproject','url'=>array('index')),
+	array('label'=>'Manage Tproject','url'=>array('admin')),
 );
 ?>
 

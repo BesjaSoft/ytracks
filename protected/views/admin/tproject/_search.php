@@ -1,61 +1,36 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+        ));
+?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
+<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5')); ?>
 
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+<?php echo $form->textFieldRow($model, 'content_id', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'project_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'content_id'); ?>
-		<?php echo $form->textField($model,'content_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'competition_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'project_id'); ?>
-		<?php echo $form->textField($model,'project_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'season_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'competition_id'); ?>
-		<?php echo $form->textField($model,'competition_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'created', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'season_id'); ?>
-		<?php echo $form->textField($model,'season_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'deleted', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-	</div>
+    <?php echo $form->textFieldRow($model, 'deleted_date', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'deleted'); ?>
-		<?php echo $form->textField($model,'deleted'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'deleted_date'); ?>
-		<?php echo $form->textField($model,'deleted_date'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+<div class="form-actions">
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => 'Search',
+    ));
+    ?>
+</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

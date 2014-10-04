@@ -1,121 +1,62 @@
-<div class="wide form">
+<?php
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+        ));
+?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
+<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5')); ?>
 
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+<?php echo $form->textFieldRow($model, 'content_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 200)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>200)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'event_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'event_id'); ?>
-		<?php echo $form->textField($model,'event_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'project_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'tproject_id'); ?>
-		<?php echo $form->textField($model,'tproject_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'circuit_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'circuit_id'); ?>
-		<?php echo $form->textField($model,'circuit_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'ordering', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'ordering'); ?>
-		<?php echo $form->textField($model,'ordering'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'laps', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'laps'); ?>
-		<?php echo $form->textField($model,'laps'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'length', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'length'); ?>
-		<?php echo $form->textField($model,'length',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'distance_id', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'distance_id'); ?>
-		<?php echo $form->textField($model,'distance_id'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'start_date', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'start_date'); ?>
-		<?php echo $form->textField($model,'start_date'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'end_date', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'end_date'); ?>
-		<?php echo $form->textField($model,'end_date'); ?>
-	</div>
+<?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+<?php echo $form->textAreaRow($model, 'comment', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'comment'); ?>
-		<?php echo $form->textArea($model,'comment',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'checked_out', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'checked_out'); ?>
-		<?php echo $form->textField($model,'checked_out'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'checked_out_time', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'checked_out_time'); ?>
-		<?php echo $form->textField($model,'checked_out_time'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'published', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'published'); ?>
-		<?php echo $form->textField($model,'published'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'manches', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'manches'); ?>
-		<?php echo $form->textField($model,'manches'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'created', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'created'); ?>
-		<?php echo $form->textField($model,'created'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'modified'); ?>
-		<?php echo $form->textField($model,'modified'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'deleted', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'deleted'); ?>
-		<?php echo $form->textField($model,'deleted'); ?>
-	</div>
+    <?php echo $form->textFieldRow($model, 'deleted_date', array('class' => 'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'deleted_date'); ?>
-		<?php echo $form->textField($model,'deleted_date'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+<div class="form-actions">
+    <?php
+    $this->widget('bootstrap.widgets.TbButton', array(
+        'buttonType' => 'submit',
+        'type' => 'primary',
+        'label' => 'Search',
+    ));
+    ?>
+</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

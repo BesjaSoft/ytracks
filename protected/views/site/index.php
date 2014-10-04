@@ -149,8 +149,8 @@
                 'template' => '{items}{pager}',
                 'dataProvider' => $twinsOrDoubles->getTwinsOrDoubles(),
                 'columns' => array(
-                    array('name' => 'full_name', 'type' => 'raw', 'value' => 'Chtml::link(Chtml::encode($data->full_name),array("individual/view", "id"=>$data->id))'),
-                    'date_of_birth',
+                    array('name' => 'full_name', 'type' => 'raw', 'value' => 'Chtml::link(Chtml::encode($data->full_name),array("individual/view", "id"=>$data->min_id))'),
+                    'cnt',
                 )
             ));
             ?>

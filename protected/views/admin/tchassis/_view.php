@@ -1,7 +1,7 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('filename')); ?>:</b>
@@ -24,11 +24,15 @@
 	<?php echo CHtml::encode($data->tengine); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('tengine_number')); ?>:</b>
+	<?php echo CHtml::encode($data->tengine_number); ?>
+	<br />
+
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('year')); ?>:</b>
 	<?php echo CHtml::encode($data->year); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('group')); ?>:</b>
 	<?php echo CHtml::encode($data->group); ?>
 	<br />
@@ -39,6 +43,22 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('next_owners')); ?>:</b>
 	<?php echo CHtml::encode($data->next_owners); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('original_color')); ?>:</b>
+	<?php echo CHtml::encode($data->original_color); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('original_registration_number')); ?>:</b>
+	<?php echo CHtml::encode($data->original_registration_number); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('later_registration_numbers')); ?>:</b>
+	<?php echo CHtml::encode($data->later_registration_numbers); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('competition_appearances')); ?>:</b>
+	<?php echo CHtml::encode($data->competition_appearances); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('comment')); ?>:</b>
@@ -57,8 +77,16 @@
 	<?php echo CHtml::encode($data->vehicle_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('engine_id')); ?>:</b>
+	<?php echo CHtml::encode($data->engine_id); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('published')); ?>:</b>
 	<?php echo CHtml::encode($data->published); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('done')); ?>:</b>
+	<?php echo CHtml::encode($data->done); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ordering')); ?>:</b>

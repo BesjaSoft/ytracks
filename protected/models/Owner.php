@@ -147,7 +147,7 @@ class Owner extends BaseModel
     public function behaviors()
     {
         return array
-               ( 'AutoTimestampBehavior' => array( 'class' => 'application.components.AutoTimestampBehavior')
+               ( 'AutoTimestampBehavior' => array( 'class' => 'AutoTimestampBehavior')
                );
     }
 }

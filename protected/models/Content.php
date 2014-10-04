@@ -52,13 +52,13 @@ class Content extends BaseModel {
 
     public function behaviors() {
         return array(
-            'AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'),
-            'SlugBehavior' => array('class' => 'application.models.behaviours.SlugBehavior',
+            'AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
+            'SlugBehavior' => array('class' => 'SlugBehavior',
                 'slug_col' => 'alias',
                 'title_col' => 'title',
                 'overwrite' => false //, 'max_slug_chars' => 125
             ),
-            'ERememberFiltersBehavior' => array('class' => 'application.components.ERememberFiltersBehavior',
+            'ERememberFiltersBehavior' => array('class' => 'ERememberFiltersBehavior',
                 'defaults' => array(), /* optional line */
                 'defaultStickOnClear' => false /* optional line */
             ),

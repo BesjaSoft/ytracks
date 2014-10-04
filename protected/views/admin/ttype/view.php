@@ -14,7 +14,7 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
         'id',
-        $this->ShowContentDetailView($model),
+        $this->ShowContentDetail($model),
         $this->ShowIndividualDetailView($model),
         'type_id',
         'engine_id',

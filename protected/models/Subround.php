@@ -139,7 +139,7 @@ class Subround extends BaseModel {
     }
 
     public function behaviors() {
-        return array('AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'));
+        return array('AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'));
     }
 
     public function addParticipants() {
@@ -182,7 +182,7 @@ class Subround extends BaseModel {
                     . ' inner join jos_tracks_projects_rounds pr on pr.id = sr.round_id '
                     . ' where  pr.project_id      = ' . $this->round->project_id
                     . ' and    sr.subroundtype_id = 4 ' // race
-                    . ' and    exists (select rr.id from dpbfw_tracks_results rr '
+                    . ' and    exists (select rr.id from k4ezl_tracks_results rr '
                     . '                where  rr.subround_id    = sr.id '
                     . '                and    rr.rank           = 1 '
                     . '                and    rr.classification = 1 '
@@ -211,6 +211,14 @@ class Subround extends BaseModel {
                 unset($result);
             }
         }
+    }
+
+    public function getBreadcrumbs() {
+        return array(
+            $this->round->project->name => array('project/view&id=' . $this->round->project_id),
+            $this->round->name => array('round/view&id=' . $this->round_id),
+            $this->subroundtype->name
+        );
     }
 
 }

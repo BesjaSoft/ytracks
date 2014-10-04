@@ -1,6 +1,6 @@
 <?php
-    $model = new Individual();
-    $list = $model->getCountNationalities();
+    //$model = new Individual();
+    //$list = $model->getCountNationalities();
 ?>
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
 <script type='text/javascript'>

@@ -31,9 +31,13 @@ class TresultController extends Controller {
         );
     }
 
-    public function actionView() {
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionView($id) {
         $this->render('view', array(
-            'model' => $this->loadModel(),
+            'model' => $this->loadModel($id),
         ));
     }
 
@@ -55,16 +59,17 @@ class TresultController extends Controller {
         ));
     }
 
-    public function actionUpdate() {
-        $model = $this->loadModel();
+    public function actionUpdate($id) {
+        $model = $this->loadModel($id);
 
         $this->performAjaxValidation($model);
 
         if (isset($_POST['Tresult'])) {
             $model->attributes = $_POST['Tresult'];
 
-            if ($model->save())
+            if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('update', array(
@@ -73,34 +78,33 @@ class TresultController extends Controller {
         ));
     }
 
-    public function actionDelete() {
+    /**
+     * @param integer $id the ID of the model to be displayed
+     */
+    public function actionDelete($id) {
         if (Yii::app()->request->isPostRequest) {
-            $this->loadModel()->delete();
+            $this->loadModel($id)->delete();
 
-            if (!isset($_GET['ajax']))
+            if (!isset($_GET['ajax'])) {
                 $this->redirect(array('index'));
-        } else
+            }
+        } else {
             throw new CHttpException(400, Yii::t('app', 'Invalid request. Please do not repeat this request again.'));
+        }
     }
 
-    public function actionExport() {
-        $model = $this->loadModel();
+    public function actionExport($id, $showUpdate = false) {
+        $model = $this->loadModel($id);
 
         if (Tresult::model()->addIndividuals($model, true)) {
             if (Tresult::model()->export($model)) {
                 $model->deleted = 1;
                 $model->save();
 
-                $model = new Tresult('search');
-                if (isset($_GET['Tresult'])) {
-                    $model->attributes = $_GET['Tresult'];
-                }
-
-                $this->render('admin', array('model' => $model,));
-            } else {
-                $this->render('update', array('model' => $model,));
+                $this->redirect(array('admin/tresult/admin'));
             }
-        } else {
+        }
+        if ($showUpdate) {
             $this->render('update', array('model' => $model,));
         }
     }
@@ -118,14 +122,17 @@ class TresultController extends Controller {
         $this->render('admin', array('model' => $model,));
     }
 
-    public function loadModel() {
-        if ($this->_model === null) {
-            if (isset($_GET['id']))
-                $this->_model = Tresult::model()->findbyPk($_GET['id']);
-            if ($this->_model === null)
-                throw new CHttpException(404, Yii::t('app', 'The requested page does not exist.'));
+    /**
+     * Returns the data model based on the primary key given in the GET variable.
+     * If the data model is not found, an HTTP exception will be raised.
+     * @param integer the ID of the model to be loaded
+     */
+    public function loadModel($id) {
+        $model = Tresult::model()->findByPk($id);
+        if ($model === null) {
+            throw new CHttpException(404, 'The requested page does not exist.');
         }
-        return $this->_model;
+        return $model;
     }
 
     protected function performAjaxValidation($model) {

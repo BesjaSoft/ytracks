@@ -1,0 +1,1158 @@
+**** Convert content => tindividual ****
+Key : geldrivers
+Category : 15
+Section : 2
+Articles:708
+article:abecassi.html contains 21lines.
+article:acheson.html contains 30lines.
+article:adamich.html contains 33lines.
+article:adams.html contains 22lines.
+article:adolff.html contains 13lines.
+article:ahrens.html contains 24lines.
+article:albers.html contains 99lines.
+article:alboreto.html contains 66lines.
+article:alesi.html contains 295lines.
+article:alguersuari.html contains 138lines.
+article:alliot.html contains 102lines.
+article:allison.html contains 22lines.
+article:alonso.html contains 228lines.
+article:amati.html contains 27lines.
+article:ambrosio.html contains 208lines.
+article:amon.html contains 33lines.
+article:anderson.html contains 29lines.
+article:andersso.html contains 22lines.
+article:andretmi.html contains 197lines.
+article:andretti.html contains 78lines.
+article:angelis.html contains 30lines.
+article:apicella.html contains 98lines.
+article:arnoux.html contains 45lines.
+article:arundell.html contains 31lines.
+article:ascari.html contains 45lines.
+article:ashdown.html contains 15lines.
+article:ashley.html contains 169lines.
+article:ashmore.html contains 8lines.
+article:aston.html contains 12lines.
+article:attwood.html contains 30lines.
+article:badoer.html contains 68lines.
+article:baghetti.html contains 28lines.
+article:bailey.html contains 89lines.
+article:baldi.html contains 36lines.
+article:balsa.html contains 12lines.
+article:bandini.html contains 32lines.
+article:barbazza.html contains 24lines.
+article:barberjo.html contains 13lines.
+article:barbersk.html contains 14lines.
+article:barilla.html contains 17lines.
+article:barriche.html contains 339lines.
+article:bartels.html contains 310lines.
+article:barth.html contains 21lines.
+article:bassi.html contains 11lines.
+article:bauer.html contains 12lines.
+article:baumgartner.html contains 120lines.
+article:bayardo.html contains 9lines.
+article:bayol.html contains 18lines.
+article:beaufort.html contains 24lines.
+article:beauman.html contains 15lines.
+article:bechem.html contains 11lines.
+Create  Bechem (Karl)
+birth:, death:
+Array
+(
+    [first_name] => Array
+        (
+            [0] => First Name cannot be blank.
+        )
+
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:behra.html contains 46lines.
+article:bell.html contains 45lines.
+article:bellof.html contains 31lines.
+article:belmondo.html contains 117lines.
+article:belso.html contains 17lines.
+article:beltoise.html contains 37lines.
+article:beretta.html contains 225lines.
+article:berg.html contains 24lines.
+article:bergeres.html contains 10lines.
+article:bergergd.html contains 72lines.
+article:bernard.html contains 84lines.
+article:bernoldi.html contains 169lines.
+article:bertaggi.html contains 17lines.
+article:beuttler.html contains 21lines.
+article:bianchi.html contains 33lines.
+article:bianco.html contains 9lines.
+article:binder.html contains 15lines.
+article:biondett.html contains 23lines.
+article:bira.html contains 23lines.
+Create B Bira (Prince Birabongse Bhanuban, Thailand)
+birth:1914-7-15, death:1985-12-23
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:birger.html contains 11lines.
+article:blanchar.html contains 13lines.
+article:bleekemo.html contains 44lines.
+article:blokdyk.html contains 16lines.
+article:blundell.html contains 145lines.
+article:boesel.html contains 156lines.
+article:bonduran.html contains 18lines.
+article:bonetto.html contains 19lines.
+article:bonnier.html contains 46lines.
+article:bonomi.html contains 9lines.
+article:bordeau.html contains 9lines.
+Create b 1934 - d 24/11/1990 b 1934 - d 24/11/1990 (Buenos Aires (Buenos Aires)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:borgudd.html contains 30lines.
+Create Slim Borgudd (Tommy)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:botha.html contains 10lines.
+article:bouillon.html contains 160lines.
+article:bourdais.html contains 257lines.
+article:boutsen.html contains 64lines.
+article:brabhamd.html contains 258lines.
+article:brabhamg.html contains 15lines.
+article:brabhamj.html contains 47lines.
+article:brack.html contains 14lines.
+article:brambilt.html contains 14lines.
+Create b 31/3/1934 b 31/3/1934 (Monza (Monza)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:brambilv.html contains 32lines.
+article:branca.html contains 10lines.
+Create Toni Branca (Antonio)
+birth:, death:1955-5-10
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:brancate.html contains 13lines.
+article:brandon.html contains 15lines.
+article:bridger.html contains 15lines.
+article:brise.html contains 23lines.
+article:bristow.html contains 17lines.
+article:broeker.html contains 9lines.
+article:brooks.html contains 26lines.
+article:brown.html contains 13lines.
+article:brownw.html contains 14lines.
+article:brudes.html contains 12lines.
+article:brundle.html contains 105lines.
+article:bruni.html contains 239lines.
+article:bucci.html contains 10lines.
+article:bucknum.html contains 24lines.
+article:bueb.html contains 19lines.
+article:buemi.html contains 179lines.
+article:bueno.html contains 13lines.
+article:burgess.html contains 19lines.
+article:burti.html contains 169lines.
+article:bussinel.html contains 13lines.
+article:button.html contains 278lines.
+article:byrne.html contains 14lines.
+article:cabianca.html contains 19lines.
+article:cabral.html contains 20lines.
+article:cade.html contains 10lines.
+article:caffi.html contains 127lines.
+article:campbell.html contains 13lines.
+article:campos.html contains 30lines.
+article:cannon.html contains 16lines.
+article:cantoni.html contains 11lines.
+article:capelli.html contains 49lines.
+article:carini.html contains 18lines.
+article:castello.html contains 20lines.
+article:caze.html contains 10lines.
+article:cecotto.html contains 115lines.
+Create Johnny Cecotto (Venezuela)
+birth:1956-1-25, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:cesaris.html contains 46lines.
+article:cevert.html contains 29lines.
+article:chaboud.html contains 18lines.
+article:chamberl.html contains 15lines.
+article:chandhok.html contains 201lines.
+article:changy.html contains 10lines.
+article:chapman.html contains 19lines.
+article:charlton.html contains 21lines.
+article:chaves.html contains 108lines.
+article:cheever.html contains 141lines.
+article:chiesa.html contains 70lines.
+article:chimeri.html contains 10lines.
+article:chiron.html contains 24lines.
+article:claes.html contains 20lines.
+article:clark.html contains 42lines.
+article:cogan.html contains 15lines.
+article:collins.html contains 38lines.
+article:collomb.html contains 17lines.
+article:colombo.html contains 17lines.
+article:comas.html contains 130lines.
+article:comotti.html contains 11lines.
+article:constant.html contains 12lines.
+article:cordts.html contains 9lines.
+article:coulthar.html contains 318lines.
+article:courage.html contains 26lines.
+article:craft.html contains 22lines.
+article:crawford.html contains 31lines.
+article:crespo.html contains 10lines.
+article:creus.html contains 10lines.
+Create b 28/10/1924 b 28/10/1924 (Madrid) - d 19/2/199 (Madrid)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:crook.html contains 10lines.
+article:crossley.html contains 9lines.
+article:daigh.html contains 15lines.
+article:dalmas.html contains 117lines.
+article:daly.html contains 28lines.
+article:danner.html contains 157lines.
+article:daponte.html contains 10lines.
+Create b 5/6/1923 b 5/6/1923 (Buenos Aires) - d 9/3/196 (Buenos Aires)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:davidson.html contains 112lines.
+article:davis.html contains 18lines.
+article:delarosa.html contains 130lines.
+article:deletraz.html contains 151lines.
+article:depaille.html contains 29lines.
+article:digrassi.html contains 183lines.
+article:diniz.html contains 128lines.
+Create b 22/5/1970 b 22/5/1970 (São Paulo (São Paulo)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:diresta.html contains 168lines.
+article:dochnal.html contains 7lines.
+Create b  ()
+birth:, death:
+Array
+(
+    [last_name] => Array
+        (
+            [0] => Last Name cannot be blank.
+        )
+
+)
+article:dolhem.html contains 21lines.
+article:donnelly.html contains 25lines.
+article:donohue.html contains 29lines.
+article:doornbos.html contains 209lines.
+article:downing.html contains 12lines.
+article:drake.html contains 9lines.
+article:driver.html contains 12lines.
+article:drivers.html contains 724lines.
+article:drogo.html contains 9lines.
+article:dryver.html contains 10lines.
+article:dumfries.html contains 16lines.
+article:dusio.html contains 11lines.
+article:eaton.html contains 17lines.
+article:ecclesto.html contains 13lines.
+article:edwards.html contains 12lines.
+article:elford.html contains 26lines.
+article:emery.html contains 11lines.
+article:enge.html contains 272lines.
+article:england.html contains 10lines.
+article:ertl.html contains 20lines.
+article:estefano.html contains 11lines.
+article:etanceli.html contains 25lines.
+article:evans.html contains 17lines.
+article:fabic.html contains 78lines.
+article:fabit.html contains 40lines.
+article:fabre.html contains 117lines.
+article:facetti.html contains 10lines.
+article:fagioli.html contains 29lines.
+article:fairman.html contains 17lines.
+article:fangio.html contains 53lines.
+article:farina.html contains 40lines.
+article:ferguson.html contains 10lines.
+Create b 6/3/1940 b 6/3/1940 (Johannesburg (Johannesburg)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:filippis.html contains 22lines.
+article:firman.html contains 281lines.
+article:fischer.html contains 14lines.
+article:fischerl.html contains 9lines.
+article:fisher.html contains 13lines.
+Create  b 13/3/1943 (Hollywood (Hollywood, California)
+birth:, death:
+Array
+(
+    [first_name] => Array
+        (
+            [0] => First Name cannot be blank.
+        )
+
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:fisichel.html contains 393lines.
+article:fitch.html contains 17lines.
+article:fittipac.html contains 289lines.
+article:fittipae.html contains 68lines.
+article:fittipaw.html contains 20lines.
+article:fitzau.html contains 9lines.
+article:flinterm.html contains 11lines.
+Create b 2/10/1919 - d 26/12/1992 b 2/10/1919 - d 26/12/1992 (Leiden (Leiden)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:flockhar.html contains 24lines.
+article:foitek.html contains 68lines.
+article:follmer.html contains 24lines.
+article:fontana.html contains 140lines.
+article:forini.html contains 14lines.
+article:fotherin.html contains 13lines.
+article:francia.html contains 79lines.
+article:frentzen.html contains 240lines.
+article:frere.html contains 24lines.
+article:friesacher.html contains 109lines.
+article:fry.html contains 11lines.
+Create b 26/10/1915 b 26/10/1915 (Chipping Sodbury) - d 29/7/1950 (Blandford Camp (Chipping Sodbury)
+birth:, death:
+Array
+(
+    [last_name] => Array
+        (
+            [0] => Last Name is too long (maximum is 50 characters).
+        )
+
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:fushida.html contains 11lines.
+article:gabbiani.html contains 57lines.
+article:gachot.html contains 38lines.
+article:gaillard.html contains 12lines.
+article:galica.html contains 29lines.
+article:galli.html contains 20lines.
+article:galvez.html contains 20lines.
+article:gamble.html contains 10lines.
+Create b 17/3/1932 b 17/3/1932 (Pittsburgh (Pittsburgh)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:ganley.html contains 28lines.
+article:gardner.html contains 23lines.
+article:gartner.html contains 15lines.
+article:gaze.html contains 11lines.
+article:geki.html contains 17lines.
+Create Giaco Geki (Russo (Russo, Giacomo)
+birth:1937-10-23, death:1967-6-18
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:gendebie.html contains 25lines.
+article:genem.html contains 122lines.
+article:gerard.html contains 20lines.
+article:gerini.html contains 14lines.
+Create b 10/8/1928 b 10/8/1928 (Rome (Rome)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:gethin.html contains 25lines.
+article:ghinzani.html contains 35lines.
+article:giacomel.html contains 57lines.
+article:gibson.html contains 10lines.
+article:gimax.html contains 42lines.
+Create 'Gimax' 'Gimax' (Carlo Virginio Franchi) (I (Carlo Virginio Franchi)
+birth:1938-1-1, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:ginther.html contains 50lines.
+article:giraud.html contains 19lines.
+article:giunti.html contains 18lines.
+article:glock.html contains 203lines.
+article:glockner.html contains 10lines.
+article:godia.html contains 15lines.
+Create b 21/3/1921 b 21/3/1921 (Barcelona) - d 28/11/1991 (Barcelona (Barcelona)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:goethals.html contains 13lines.
+article:gonzaleo.html contains 9lines.
+article:gonzalez.html contains 34lines.
+article:gordini.html contains 9lines.
+article:gould.html contains 17lines.
+article:gounon.html contains 153lines.
+article:graffenr.html contains 26lines.
+article:greene.html contains 13lines.
+article:gregory.html contains 29lines.
+article:grignard.html contains 14lines.
+article:grosjean.html contains 187lines.
+article:grouilla.html contains 39lines.
+article:gubby.html contains 9lines.
+Create b 17/4/1934 b 17/4/1934 (Epsom (Epsom)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:guelfi.html contains 9lines.
+article:guerra.html contains 61lines.
+article:guerrero.html contains 261lines.
+Create Roberto Guerrero (Col/USA)
+birth:1958-11-16, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:gugelmin.html contains 157lines.
+article:gurney.html contains 45lines.
+article:hahne.html contains 17lines.
+article:hailwood.html contains 32lines.
+article:hakkinen.html contains 183lines.
+article:halford.html contains 14lines.
+article:hall.html contains 20lines.
+article:hamilton.html contains 14lines.
+article:hamiltonl.html contains 199lines.
+article:hampshir.html contains 8lines.
+article:hansgen.html contains 12lines.
+article:harris.html contains 9lines.
+article:harrison.html contains 13lines.
+article:hart.html contains 15lines.
+article:hasemi.html contains 16lines.
+article:hattori.html contains 201lines.
+article:hawkins.html contains 16lines.
+article:hawthorn.html contains 31lines.
+article:hayje.html contains 13lines.
+article:heeks.html contains 10lines.
+article:heidfeld.html contains 242lines.
+article:helfrich.html contains 11lines.
+article:henton.html contains 26lines.
+article:herbert.html contains 234lines.
+article:herrmann.html contains 23lines.
+article:hesnault.html contains 13lines.
+article:heyerhan.html contains 23lines.
+Create b 16/3/1943 b 16/3/1943 (Mönchengladbach (Mönchengladbach)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:hilld.html contains 211lines.
+article:hillg.html contains 52lines.
+article:hillp.html contains 84lines.
+article:hirt.html contains 11lines.
+article:hobbs.html contains 17lines.
+article:hoffmann.html contains 178lines.
+article:hoshino.html contains 64lines.
+article:hulkenberg.html contains 144lines.
+article:hulme.html contains 53lines.
+article:hunt.html contains 36lines.
+article:hutchiso.html contains 11lines.
+article:ickx.html contains 67lines.
+article:iglesias.html contains 10lines.
+article:inoue.html contains 22lines.
+article:ireland.html contains 27lines.
+article:irvine.html contains 177lines.
+article:irwin.html contains 21lines.
+article:jabouill.html contains 39lines.
+article:james.html contains 9lines.
+article:jarier.html contains 161lines.
+article:johansso.html contains 210lines.
+article:johnson.html contains 13lines.
+article:johnston.html contains 13lines.
+article:jones.html contains 78lines.
+article:jonestom.html contains 9lines.
+article:jover.html contains 11lines.
+article:karch.html contains 10lines.
+Create b 6/3/1917 b 6/3/1917 (Ludwigshafen (Ludwigshafen)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:karthikeyan.html contains 244lines.
+article:katayama.html contains 93lines.
+article:kavanagh.html contains 10lines.
+article:keegan.html contains 24lines.
+article:keizan.html contains 14lines.
+article:kelly.html contains 10lines.
+article:kennedy.html contains 12lines.
+article:kessel.html contains 25lines.
+article:kessler.html contains 10lines.
+article:kiesa.html contains 115lines.
+article:kinnunen.html contains 16lines.
+article:klenk.html contains 20lines.
+article:klerk.html contains 13lines.
+article:klien.html contains 140lines.
+article:kling.html contains 21lines.
+article:klodwig.html contains 10lines.
+article:kobayashi.html contains 181lines.
+article:koinigg.html contains 11lines.
+article:kovalainen.html contains 217lines.
+article:kozarowi.html contains 9lines.
+article:krakau.html contains 11lines.
+article:krause.html contains 10lines.
+article:kubica.html contains 178lines.
+article:kuhnke.html contains 9lines.
+article:kuwashim.html contains 10lines.
+article:laffite.html contains 96lines.
+article:lagorce.html contains 109lines.
+article:lammers.html contains 158lines.
+article:lamy.html contains 150lines.
+article:landi.html contains 15lines.
+Create Chico Landi (Francisco)
+birth:, death:1989-6-7
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:lang.html contains 28lines.
+article:langes.html contains 14lines.
+article:larini.html contains 392lines.
+article:larrauri.html contains 72lines.
+article:larrouss.html contains 28lines.
+article:lauda.html contains 46lines.
+article:laurent.html contains 9lines.
+article:lavaggi.html contains 88lines.
+article:lawrence.html contains 10lines.
+article:leclere.html contains 15lines.
+article:lederle.html contains 11lines.
+article:lees.html contains 28lines.
+article:legat.html contains 10lines.
+article:lehto.html contains 174lines.
+Create JJ Lehto (Jyrki Jarvilehto)
+birth:1966-1-31, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:lennep.html contains 24lines.
+article:leoni.html contains 18lines.
+article:leston.html contains 16lines.
+article:levegh.html contains 17lines.
+Create Pierre" "Levegh (Pierre Bouillon)
+birth:1905-12-22, death:1955-6-11
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:lewis.html contains 15lines.
+article:lewiseva.html contains 19lines.
+article:ligier.html contains 19lines.
+article:lippi.html contains 11lines.
+article:liuzzi.html contains 169lines.
+article:lof.html contains 9lines.
+article:lombardi.html contains 24lines.
+article:londono.html contains 18lines.
+Create b 08/08/1949 b 08/08/1949 (Bogota) - d 18/07/200 (Bogota)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:loof.html contains 12lines.
+article:louveau.html contains 10lines.
+article:love.html contains 25lines.
+article:lovely.html contains 14lines.
+article:loyer.html contains 9lines.
+article:lucas.html contains 15lines.
+article:lucien.html contains 13lines.
+article:lunger.html contains 18lines.
+article:macdowel.html contains 15lines.
+article:mackay.html contains 10lines.
+article:macklin.html contains 19lines.
+article:magee.html contains 11lines.
+article:maggs.html contains 21lines.
+article:maglioli.html contains 22lines.
+article:magnusso.html contains 542lines.
+article:mairessg.html contains 16lines.
+article:mairessw.html contains 26lines.
+article:maldonado.html contains 213lines.
+article:mansell.html contains 492lines.
+article:mantovan.html contains 16lines.
+article:manzon.html contains 24lines.
+article:marimon.html contains 21lines.
+article:marko.html contains 19lines.
+article:marques.html contains 157lines.
+article:marr.html contains 13lines.
+article:marsh.html contains 14lines.
+article:martin.html contains 12lines.
+article:martini.html contains 56lines.
+article:mass.html contains 50lines.
+article:massa.html contains 206lines.
+article:matta.html contains 189lines.
+article:max.html contains 13lines.
+article:may.html contains 13lines.
+article:mayer.html contains 15lines.
+article:mazet.html contains 12lines.
+article:mazzacan.html contains 74lines.
+article:mcalpine.html contains 12lines.
+article:mccarthy.html contains 35lines.
+article:mcguire.html contains 12lines.
+article:mclaren.html contains 47lines.
+article:mcnish.html contains 159lines.
+article:mcrae.html contains 16lines.
+article:menditeg.html contains 17lines.
+article:merkel.html contains 9lines.
+article:merzario.html contains 56lines.
+article:mieres.html contains 19lines.
+article:migault.html contains 21lines.
+article:miles.html contains 17lines.
+article:milhoux.html contains 9lines.
+article:mitter.html contains 21lines.
+article:modena.html contains 231lines.
+article:monteiro.html contains 242lines.
+article:montermi.html contains 97lines.
+article:montgome.html contains 9lines.
+article:montoya.html contains 426lines.
+article:morbidel.html contains 197lines.
+article:moreno.html contains 186lines.
+article:morgan.html contains 23lines.
+article:moser.html contains 22lines.
+article:mossbill.html contains 10lines.
+article:mossstir.html contains 46lines.
+article:munaron.html contains 10lines.
+article:murray.html contains 11lines.
+article:musso.html contains 23lines.
+article:nakajima.html contains 27lines.
+article:nakajimak.html contains 175lines.
+article:nakano.html contains 183lines.
+article:nannini.html contains 138lines.
+article:naspetti.html contains 162lines.
+article:natili.html contains 13lines.
+article:naylor.html contains 14lines.
+article:needell.html contains 93lines.
+article:nelleman.html contains 12lines.
+article:neve.html contains 13lines.
+article:nicholso.html contains 14lines.
+article:niederma.html contains 9lines.
+article:niemann.html contains 10lines.
+article:nilsson.html contains 18lines.
+article:noda.html contains 114lines.
+article:nuckey.html contains 12lines.
+article:obrien.html contains 9lines.
+article:oliver.html contains 33lines.
+article:ongais.html contains 32lines.
+article:opel.html contains 18lines.
+article:oppitzha.html contains 10lines.
+article:orey.html contains 10lines.
+article:owen.html contains 9lines.
+article:pace.html contains 33lines.
+article:pagani.html contains 17lines.
+article:paletti.html contains 16lines.
+article:palm.html contains 14lines.
+article:palmer.html contains 27lines.
+article:panis.html contains 215lines.
+article:pantano.html contains 228lines.
+article:papis.html contains 351lines.
+article:parkes.html contains 23lines.
+article:parnellr.html contains 19lines.
+article:parnellt.html contains 14lines.
+article:patrese.html contains 56lines.
+article:pease.html contains 14lines.
+article:penske.html contains 18lines.
+article:perdisa.html contains 17lines.
+article:perezserg.html contains 182lines.
+article:perkins.html contains 32lines.
+article:perrot.html contains 18lines.
+article:pescarol.html contains 63lines.
+article:pesenti.html contains 17lines.
+article:peters.html contains 9lines.
+article:peterson.html contains 48lines.
+article:petrov.html contains 162lines.
+article:pian.html contains 9lines.
+article:picard.html contains 16lines.
+article:pieterse.html contains 12lines.
+article:pietsch.html contains 13lines.
+article:pilettea.html contains 22lines.
+article:pilettet.html contains 20lines.
+article:piotti.html contains 18lines.
+article:piper.html contains 15lines.
+article:piquet.html contains 64lines.
+article:piquetjr.html contains 210lines.
+article:pirocchi.html contains 9lines.
+article:pironi.html contains 29lines.
+article:pirro.html contains 190lines.
+article:pizzonia.html contains 179lines.
+article:poele.html contains 155lines.
+article:pollet.html contains 10lines.
+article:pon.html contains 9lines.
+article:poore.html contains 14lines.
+article:portago.html contains 23lines.
+article:posey.html contains 14lines.
+article:pozzi.html contains 66lines.
+article:pretorio.html contains 16lines.
+article:prinoth.html contains 10lines.
+article:prophet.html contains 19lines.
+article:prost.html contains 75lines.
+article:pryce.html contains 27lines.
+article:purley.html contains 29lines.
+article:puzey.html contains 9lines.
+article:quester.html contains 47lines.
+article:raby.html contains 17lines.
+article:rahal.html contains 110lines.
+article:raikkone.html contains 245lines.
+article:ramos.html contains 17lines.
+Create Hermanos "Nano" da Silva Ramos (F/Brz)
+birth:1925-12-7, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:raphanel.html contains 44lines.
+article:ratzenbe.html contains 34lines.
+article:rebaque.html contains 21lines.
+article:redman.html contains 2lines.
+article:rees.html contains 13lines.
+article:regazzon.html contains 38lines.
+Create Clay Regazzoni (Gianclaudio)
+birth:1939-12-5, death:2006-12-15
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:reuteman.html contains 49lines.
+article:reventlo.html contains 19lines.
+article:revson.html contains 30lines.
+article:rhodes.html contains 13lines.
+article:ribeiro.html contains 27lines.
+article:ricciardo.html contains 159lines.
+article:richards.html contains 12lines.
+article:riess.html contains 13lines.
+article:rindt.html contains 38lines.
+article:riseley.html contains 9lines.
+article:riu.html contains 9lines.
+article:robarts.html contains 17lines.
+article:rodrigua.html contains 9lines.
+article:rodrigup.html contains 28lines.
+article:rodrigur.html contains 20lines.
+article:rol.html contains 11lines.
+article:rollinso.html contains 15lines.
+article:rolt.html contains 24lines.
+article:roos.html contains 10lines.
+article:rooyen.html contains 12lines.
+article:rosberg.html contains 85lines.
+Create Keke Rosberg (Keijo)
+birth:1948-12-6, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:rosbergn.html contains 206lines.
+article:rosier.html contains 33lines.
+article:rosset.html contains 95lines.
+article:rothenga.html contains 16lines.
+article:ruby.html contains 17lines.
+article:rudaz.html contains 9lines.
+article:ruttman.html contains 14lines.
+article:ryan.html contains 20lines.
+article:said.html contains 12lines.
+Create 'Bob' Said (Boris)
+birth:1932-5-5, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:sala.html contains 26lines.
+article:salazar.html contains 101lines.
+Create Eliseo Salazar (Chile)
+birth:1954-11-14, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:salo.html contains 250lines.
+article:salvador.html contains 33lines.
+article:sanesi.html contains 15lines.
+article:sarrazin.html contains 180lines.
+article:sato.html contains 210lines.
+article:scarfiot.html contains 32lines.
+article:scarlatt.html contains 19lines.
+article:scheckti.html contains 19lines.
+article:schecktj.html contains 37lines.
+article:schell.html contains 29lines.
+Create Harry Schell (F/USA)
+birth:1921-6-29, death:1960-5-13
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:schenken.html contains 28lines.
+article:scherrer.html contains 9lines.
+article:schiatta.html contains 88lines.
+article:schiller.html contains 9lines.
+article:schlesjl.html contains 29lines.
+article:schlessj.html contains 27lines.
+article:schneide.html contains 286lines.
+article:schoelle.html contains 9lines.
+article:schroede.html contains 9lines.
+article:schumach.html contains 398lines.
+article:schumacr.html contains 314lines.
+article:schuppan.html contains 24lines.
+article:schwelm.html contains 9lines.
+article:scott.html contains 15lines.
+article:scotti.html contains 11lines.
+article:seidel.html contains 16lines.
+article:seifferg.html contains 9lines.
+article:senna.html contains 1275lines.
+article:sennab.html contains 153lines.
+article:serafini.html contains 14lines.
+article:serra.html contains 144lines.
+Create Chico Serra (Francisco)
+birth:1957-2-3, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:serrurie.html contains 14lines.
+article:servoz.html contains 15lines.
+Create Johnny Servoz-Gavin (Georges)
+birth:1942-1-18, death:2006-5-28
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:settembe.html contains 14lines.
+article:sharp.html contains 15lines.
+Create 'Hap' Sharp (James R)
+birth:1928-1-1, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:shawe.html contains 14lines.
+article:shelby.html contains 19lines.
+article:shelly.html contains 10lines.
+article:siffert.html contains 37lines.
+article:simon.html contains 26lines.
+article:solana.html contains 16lines.
+article:soler.html contains 17lines.
+article:sommer.html contains 21lines.
+article:sospiri.html contains 87lines.
+article:southste.html contains 19lines.
+article:sparken.html contains 11lines.
+Create Mike' 'Sparken (Michel Poberejsky)
+birth:1930-6-16, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:speed.html contains 191lines.
+article:spence.html contains 23lines.
+article:stacey.html contains 14lines.
+article:starrabb.html contains 9lines.
+article:stewarji.html contains 11lines.
+article:stewarti.html contains 12lines.
+article:stewartj.html contains 49lines.
+Create Sir Jackie Stewart (John Young)
+birth:1939-6-11, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:stohr.html contains 12lines.
+article:stommele.html contains 41lines.
+article:strieff.html contains 19lines.
+article:stuck.html contains 15lines.
+article:stuckhj.html contains 110lines.
+article:stuppach.html contains 11lines.
+article:sullivan.html contains 50lines.
+article:surer.html contains 29lines.
+article:surtees.html contains 45lines.
+article:sutcliff.html contains 11lines.
+article:sutil.html contains 183lines.
+article:suzukia.html contains 51lines.
+article:suzukit.html contains 82lines.
+article:swaters.html contains 17lines.
+article:takagi.html contains 247lines.
+article:takahara.html contains 15lines.
+article:takahash.html contains 15lines.
+article:tambay.html contains 43lines.
+article:taramazz.html contains 11lines.
+article:tarquini.html contains 404lines.
+article:taruffi.html contains 41lines.
+article:taylorde.html contains 10lines.
+article:taylorhe.html contains 21lines.
+article:taylorjo.html contains 16lines.
+article:taylormi.html contains 14lines.
+article:taylortr.html contains 29lines.
+article:terra.html contains 10lines.
+article:testut.html contains 10lines.
+article:thackwel.html contains 39lines.
+article:thiele.html contains 9lines.
+Create Alfonse Thiele (I/USA)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:thompson.html contains 12lines.
+article:thorne.html contains 9lines.
+article:tingle.html contains 14lines.
+Create Sam Tingle (Rhodesia)
+birth:1921-8-24, death:2008-12-19
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:titterin.html contains 14lines.
+article:tomaso.html contains 12lines.
+article:tornaco.html contains 13lines.
+article:trimmer.html contains 15lines.
+article:trintign.html contains 49lines.
+article:trips.html contains 29lines.
+Create Count Wolfgang Graf Berghe "Taffy" von Trips (D)
+birth:1928-5-4, death:1961-9-10
+Array
+(
+    [first_name] => Array
+        (
+            [0] => First Name is too long (maximum is 30 characters).
+        )
+
+)
+article:trulli.html contains 346lines.
+article:tuero.html contains 52lines.
+article:tunmer.html contains 11lines.
+article:ulmen.html contains 15lines.
+article:unser.html contains 37lines.
+article:uria.html contains 10lines.
+article:vaccarel.html contains 20lines.
+article:verstapp.html contains 205lines.
+article:vettel.html contains 124lines.
+article:villejac.html contains 281lines.
+article:villenej.html contains 29lines.
+article:villeneu.html contains 35lines.
+article:villores.html contains 37lines.
+article:villota.html contains 20lines.
+article:volonter.html contains 14lines.
+article:vonlanth.html contains 14lines.
+article:wacker.html contains 13lines.
+article:walkerda.html contains 20lines.
+article:walkerpe.html contains 15lines.
+article:walter.html contains 10lines.
+article:ward.html contains 25lines.
+article:warwick.html contains 109lines.
+article:watson.html contains 44lines.
+article:webber.html contains 223lines.
+article:weidler.html contains 15lines.
+article:wendling.html contains 329lines.
+article:westbury.html contains 17lines.
+article:wharton.html contains 20lines.
+article:whiteawa.html contains 9lines.
+article:whiteheg.html contains 12lines.
+article:whitehep.html contains 23lines.
+article:whitehou.html contains 12lines.
+article:widdows.html contains 14lines.
+article:wietzes.html contains 14lines.
+article:wilds.html contains 20lines.
+article:williamj.html contains 12lines.
+article:williamr.html contains 20lines.
+article:wilson.html contains 11lines.
+article:wilsond.html contains 30lines.
+article:wilsonj.html contains 242lines.
+article:winkelhj.html contains 162lines.
+article:winkelma.html contains 23lines.
+article:winkmark.html contains 184lines.
+article:wisell.html contains 22lines.
+article:wunderin.html contains 12lines.
+article:wurz.html contains 195lines.
+article:yamamoto.html contains 198lines.
+article:yoong.html contains 154lines.
+Create b 20/7/1976 b 20/7/1976 (Kuala Lumpur (Kuala Lumpur)
+birth:, death:
+Array
+(
+    [nationality] => Array
+        (
+            [0] => Nationality is too long (maximum is 3 characters).
+        )
+
+)
+article:zanardi.html contains 273lines.
+article:zapico.html contains 16lines.
+article:zonta.html contains 229lines.
+article:zorzi.html contains 11lines.
+article:zunino.html contains 20lines.

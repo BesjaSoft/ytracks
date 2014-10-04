@@ -31,14 +31,14 @@ class BaseModel extends CActiveRecord {
 
     public function behaviors() {
         return array(
-            'AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'),
-            'SlugBehavior' => array('class' => 'application.models.behaviours.SlugBehavior',
+            'AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
+            'SlugBehavior' => array('class' => 'SlugBehavior',
                 'slug_col' => 'alias',
                 'title_col' => self::getDisplayField($this),
                 'overwrite' => false //, 'max_slug_chars' => 125
             ),
             'ERememberFiltersBehavior' => array(
-                'class' => 'application.components.ERememberFiltersBehavior',
+                'class' => 'ERememberFiltersBehavior',
                 'defaults' => array(), /* optional line */
                 'defaultStickOnClear' => false /* optional line */
         ));

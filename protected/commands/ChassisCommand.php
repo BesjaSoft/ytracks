@@ -1,33 +1,24 @@
 <?php
-class ChassisCommand extends CConsoleCommand
-{
 
-    private function convertContent()
-    {
-        Tchassis::model()->readContent();
-    }
+class ChassisCommand extends BaseConsole {
 
-    private function convertTvehicle()
-    {
-        Tchassis::model()->exportChassis();
-    }
-
-    private function readfiles()
-    {
-        $dir_path = "../../../../webcopier/wsrp/chassis/";
-        $files = glob($dir_path."*.html");
-        echo 'Aantal files: '.count($files)."\n";
-        foreach ($files as $file) {
-            Content::model()->readfile($file, 15); // wsrp/chassis
+    private function convertContent($do = false) {
+        if ($do) {
+            Tchassis::model()->readContent($this->content[$this->key]['category']);
         }
     }
 
-    public function actionIndex()
-    {
-        $this->readfiles();
-        $this->convertContent();
+    private function convertTvehicle() {
+        Tchassis::model()->exportChassis();
+    }
+
+    public function actionIndex() {
+        $this->key = 'chassis';
+        $this->readfiles(true);
+        $this->convertContent(true);
         $this->convertTvehicle();
     }
 
 }
+
 ?>

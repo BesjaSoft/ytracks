@@ -1,7 +1,11 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('content_id')); ?>:</b>
+	<?php echo CHtml::encode($data->content_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
@@ -12,8 +16,8 @@
 	<?php echo CHtml::encode($data->event_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tproject_id')); ?>:</b>
-	<?php echo CHtml::encode($data->tproject_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('project_id')); ?>:</b>
+	<?php echo CHtml::encode($data->project_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('circuit_id')); ?>:</b>
@@ -24,11 +28,11 @@
 	<?php echo CHtml::encode($data->ordering); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('laps')); ?>:</b>
 	<?php echo CHtml::encode($data->laps); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('length')); ?>:</b>
 	<?php echo CHtml::encode($data->length); ?>
 	<br />

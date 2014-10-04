@@ -75,7 +75,7 @@ class Individual extends BaseModel {
         $criteria->distinct = true;
         $criteria->condition = 'date_of_birth is not null and datediff(s.start_date, date_of_birth) < 0';
         $criteria->order = 'date_of_birth asc';
-        $criteria->join = "inner join dpbfw_tracks_results r on t.id = r.individual_id inner join dpbfw_tracks_subrounds s on s.id = r.subround_id and s.start_date is not null";
+        $criteria->join = "inner join k4ezl_tracks_results r on t.id = r.individual_id inner join k4ezl_tracks_subrounds s on s.id = r.subround_id and s.start_date is not null";
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
     }
@@ -90,11 +90,11 @@ class Individual extends BaseModel {
 
     public function getTwinsOrDoubles() {
         $criteria = new CDbCriteria;
-        $criteria->select = 'first_name, last_name, nationality, count(id) AS cnt,min(id) as min_id,max(id)as max_id';
-        $criteria->group = 'first_name, last_name, nationality, ordering';
+        $criteria->select = 'first_name, last_name, nickname, concat(first_name," ",last_name) as full_name, nationality, count(id) AS cnt,min(id) as min_id,max(id)as max_id';
+        $criteria->group = 'first_name, last_name, nickname, nationality, ordering';
         $criteria->having = 'count(id) >= 2';
         $criteria->order = 'last_name asc';
-        $criteria->condition = 'first_name is not null and last_name is not null and deleted=0';
+        $criteria->condition = '((first_name is not null and last_name is not null) or nickname is not null) and deleted=0';
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
@@ -146,7 +146,7 @@ class Individual extends BaseModel {
             array('nationality, country_of_birth, country_of_death', 'exist', 'attributeName' => 'iso3', 'className' => 'Country'),
             // unique key constraint:
             array('nickname', 'unique'),
-            array('last_name+first_name+nationality+date_of_birth', 'uniqueMultiColumnValidator'),
+            array('last_name+first_name+nationality+date_of_birth', 'uniqueMultiColumnValidator', 'caseSensitive' => 'true'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, last_name, first_name, full_name, alias, nickname, height, weight, gender, date_of_birth, place_of_birth, country_of_birth, nationality, date_of_death, place_of_death, country_of_death, user_id, picture, picture_small, address, postcode, city, state, country, description, published, checked_out, checked_out_time, created, modified, deleted, deleted_date',
@@ -455,6 +455,10 @@ class Individual extends BaseModel {
 
     private function combineParticipants($id) {
 
+        $knownError = array('individual_id' => array('The Combination of (Individual+Project+Team) should be unique in the current context.'),
+            'project_id' => array('The Combination of (Individual+Project+Team) should be unique in the current context.'),
+            'team_id' => array('The Combination of (Individual+Project+Team) should be unique in the current context.'),
+        );
         $return = true;
         $list = Participant::model()->findAll('individual_id=:individual', array('individual' => $id));
         echo 'count participants : ' . count($list) . ', id:' . $id . "\n";
@@ -469,8 +473,17 @@ class Individual extends BaseModel {
                             print_r($participant->getErrors());
                         }
                     } else {
-                        print_r($participant->getErrors());
-                        return false;
+                        $countDiffAssoc = count(array_diff_assoc($participant->getErrors(), $knownError));
+                        if ($countDiffAssoc >= 1) {
+                            print_r($participant->getErrors());
+                            return false;
+                        } else {
+                            if ($participant->delete()) {
+                                echo 'Participant with id ' . $participant->id . ' deleted';
+                            } else {
+                                return false;
+                            }
+                        }
                     }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
@@ -514,6 +527,12 @@ class Individual extends BaseModel {
 
     private function combineResults($id) {
 
+        $knownError = array('individual_id' => array('The Combination of (Individual+Team+Subround+Rank) should be unique in the current context.'),
+            'team_id' => array('The Combination of (Individual+Team+Subround+Rank) should be unique in the current context.'),
+            'subround_id' => array('The Combination of (Individual+Team+Subround+Rank) should be unique in the current context.'),
+            'rank' => array('The Combination of (Individual+Team+Subround+Rank) should be unique in the current context. ')
+        );
+
         $return = true;
         $list = Result::model()->findAll('individual_id=:individual', array('individual' => $id));
         echo 'count results : ' . count($list) . "\n";
@@ -529,8 +548,17 @@ class Individual extends BaseModel {
                             die;
                         }
                     } else {
-                        print_r($result->getErrors());
-                        return false;
+                        $countDiffAssoc = count(array_diff_assoc($result->getErrors(), $knownError));
+                        if ($countDiffAssoc >= 1) {
+                            print_r($result->getErrors());
+                            return false;
+                        } else {
+                            if ($result->delete()) {
+                                echo 'Result with id ' . $result->id . ' deleted';
+                            } else {
+                                return false;
+                            }
+                        }
                     }
                 } catch (Exception $ex) {
                     echo $ex->getMessage();
@@ -593,6 +621,81 @@ class Individual extends BaseModel {
         if ($valid === false) {
             $this->addError($attribute, 'Lastname or nickname should be entered');
         }
+    }
+
+    public function batchUpdateAll() {
+
+        echo '***** UpdateAll Individuals *****' . "\n";
+        $this->printStarttijd();
+        $update = new CDbCriteria();
+        $criteria = new CDbCriteria();
+        // in order to get all individuals, set published to 0, except the deleted:
+        echo 'Update all!' . "\n";
+        $update->condition = 'published=0 and deleted=0';
+        $condition = 'deleted=0 and published=0';
+
+        Individual::model()->updateAll(array('published' => '0'), $update);
+
+        $found = true;
+        $cnt = 0;
+        $display = 0;
+
+        $criteria->select = 'id';
+        $criteria->condition = $condition;
+        $count = Individual::model()->count($criteria);
+        echo 'Todo : ' . $count . "\n";
+
+        $str = strlen((string) $count);
+        if ($str >= 5) {
+            $str = 5;
+        }
+        $readlimit = str_pad('1', $str, 0);
+        $displaylimit = str_pad('1', $str, 0);
+        $criteria->limit = $readlimit;
+        $criteria->order = 'id';
+        $looper = 0;
+        while ($found) {
+            $looper++;
+            //echo '- Loop : ' . $looper . ', done: ' . $display . ', tijd ' . date('Y-m-d H:i:s') . "\n";
+            $list = Individual::model()->findAll($criteria);
+            $cnt++;
+            //echo 'found:'.count($list).'('.$cnt.')'."\n";
+            // no left:
+            if (count($list) == 0) {
+                $found = false;
+            } else {
+                foreach ($list as $id) {
+                    $individual = Individual::model()->findByPk($id->id);
+                    $display++;
+                    if (($display % $displaylimit) == 0) {
+                        echo '- Pk :' . $id->id . ', tijd ' . date('Y-m-d H:i:s') . ', done: ' . $display . ' = ' . (sprintf('%01.2f', ($display * 100) / $count)) . "%\n";
+                    }
+                    try {
+                        $individual->full_name = null;
+                        $individual->alias = null;
+                        $individual->published = 1;
+                        if (!$individual->save()) {
+                            print_r($individual->getErrors());
+                        }
+                    } catch (Exception $ex) {
+                        echo $ex->getMessage() . "\n";
+                        print_r($individual->getErrors() . "\n");
+                        print_r($individual . "\n");
+                    }
+                    unset($individual);
+                }
+            }
+            unset($list);
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->select = 'id';
+        $criteria->condition = $update->condition;
+        $count = Individual::model()->count($criteria);
+        echo 'Left : ' . $count . "\n";
+
+        $this->printEindTijd();
+        echo '***** Einde ConvertResults *****' . "\n";
     }
 
 }

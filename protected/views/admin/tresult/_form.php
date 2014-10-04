@@ -25,7 +25,7 @@
         <?php
         $this->widget('zii.widgets.jui.CJuiAutoComplete', array('id' => 'subround_id',
             'name' => 'subround_id',
-            'value' => $model->subround->round->name . ' ' . $model->subround->start_date . '/' . $model->subround->subroundtype->name,
+            'value' => isset($model->subround_id) ? ($model->subround->round->name . ' ' . $model->subround->start_date . '/' . $model->subround->subroundtype->name) : $model->subround_id,
             'source' => $this->createUrl('subround/autoComplete'),
             'options' => array('showAnim' => 'fold',
                 'minLength' => 3,
@@ -93,7 +93,7 @@
     <div class="controls">
         <?php
         echo $form->dropDownList($model, 'make_id', Make::model()->findList()
-                , array('prompt' => 'Select a Make..'
+                , array('prompt' => '- Select a Make -'
             , 'ajax' => array('type' => 'POST' //request type
                 , 'url' => Yii::app()->baseUrl . '/index.php?r=admin/tresult/gettypes' //url to call
                 , 'update' => '#Tresult_type_id' //selector to update
@@ -107,7 +107,7 @@
         echo $form->dropDownList($model
                 , 'type_id'
                 , Type::model()->findList('make_id = :make', array(':make' => $model->make_id))
-                , array('prompt' => 'Select a Type'
+                , array('prompt' => '- Select a Type -'
             , 'ajax' => array('type' => 'POST' //request type
                 , 'url' => Yii::app()->baseUrl . '/index.php?r=admin/tresult/getvehicles' //url to call
                 , 'update' => '#Tresult_vehicle_id' //selector to update
@@ -117,35 +117,32 @@
         ?>
         <?php echo $form->error($model, 'type_id'); ?>
         <?php
-        echo $form->dropDownList($model
-                , 'vehicle_id'
-                , Vehicle::model()->findList('type_id = :type', array(':type' => $model->type_id))
-                , array('prompt' => 'Select a Vehicle')
+        echo $form->dropDownList($model, 'vehicle_id', Vehicle::model()->findList('type_id = :type', array(':type' => $model->type_id)), array('prompt' => '- Select a Vehicle -')
         );
         ?>
         <?php echo $form->error($model, 'vehicle_id'); ?>
     </div>
 </div>
-<?php echo $form->dropDownListRow($model, 'engine_id', Engine::model()->findList(), array('prompt' => '- Select an Engine -')); ?>
+        <?php echo $form->dropDownListRow($model, 'engine_id', Engine::model()->findList(), array('prompt' => '- Select an Engine -')); ?>
 <?php echo $form->textFieldRow($model, 'tteam', array('size' => 60, 'maxlength' => 255)); ?>
 
 <div class="control-group">
-    <?php echo $form->hiddenField($model, 'team_id'); ?>
-    <?php echo $form->labelEx($model, 'team_id', array('class' => 'control-label')); ?>
+<?php echo $form->hiddenField($model, 'team_id'); ?>
+<?php echo $form->labelEx($model, 'team_id', array('class' => 'control-label')); ?>
     <div class="controls">
-        <?php
-        $this->widget('zii.widgets.jui.CJuiAutoComplete'
-                , array('id' => 'team_id'
-            , 'name' => 'team_id'
-            , 'value' => $model->team->name
-            , 'source' => $this->createUrl('team/autoComplete')
-            , 'options' => array('showAnim' => 'fold'
-                , 'minLength' => 3
-                , 'select' => 'js:function(event, ui){ var $selectedObject = ui.item; $("#Tresult_team_id").val($selectedObject.id);}'
-            )
-            , 'htmlOptions' => array('style' => 'width:300px')
-        ));
-        ?>
+    <?php
+    $this->widget('zii.widgets.jui.CJuiAutoComplete'
+            , array('id' => 'team_id'
+        , 'name' => 'team_id'
+        , 'value' => isset($model->team_id) ? $model->team->name : $model->team_id
+        , 'source' => $this->createUrl('team/autoComplete')
+        , 'options' => array('showAnim' => 'fold'
+            , 'minLength' => 3
+            , 'select' => 'js:function(event, ui){ var $selectedObject = ui.item; $("#Tresult_team_id").val($selectedObject.id);}'
+        )
+        , 'htmlOptions' => array('style' => 'width:300px')
+    ));
+    ?>
         <?php echo $form->error($model, 'team_id'); ?>
     </div>
 </div>

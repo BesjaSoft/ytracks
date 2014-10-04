@@ -8,7 +8,7 @@ return array(
     // autoloading model and component classes
     'import'=>array(
         'application.models.*',
-        'application.models.behaviours.*',
+        'application.models.behaviors.*',
         'application.models.validators.*',
         'application.components.*',
         'application.extensions.Countries',
@@ -22,7 +22,23 @@ return array(
             'username' => 'tracks',
             'password' => 'tracks',
             'charset' => 'utf8',
-            'tablePrefix' => 'dpbfw_',
+            'tablePrefix' => 'k4ezl_',
+        ),
+                'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'CFileLogRoute',
+                    'levels' => 'error, warning',
+                ),
+                array(
+                    'class' => 'CDbLogRoute',
+                    'autoCreateLogTable' => true,
+                    'logTableName' => 'k4ezl_yii_logging',
+                    'connectionID' => 'db',
+                    'levels' => 'error, warning',
+                ),
+            ),
         ),
     ),
 );

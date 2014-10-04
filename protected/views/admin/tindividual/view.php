@@ -22,7 +22,7 @@ $this->widget('bootstrap.widgets.TbDetailView',
     'data' => $model,
     'attributes' => array(
         'id',
-        $this->ShowContentDetailView($model),
+        $this->ShowContentDetail($model),
         'last_name',
         'first_name',
         'full_name',

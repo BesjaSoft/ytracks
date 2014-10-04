@@ -162,17 +162,20 @@ class IndividualController extends Controller {
      */
     public function actionAdmin() {
         $model = new Individual('search');
-        $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Individual'])) {
-            $model->attributes = $_GET['Individual'];
-        }
+        //$model->unsetAttributes();  // clear any default values
+        //if (isset($_GET['Individual'])) {
+        //    $model->attributes = $_GET['Individual'];
+        //}
 
         $this->render('admin', array('model' => $model,));
     }
 
     public function actionChart() {
-
+        //$this->render("demo");
         $this->render("geochart");
+        //$this->render("mapOptions");
+        //$this->render("markers");
+        //$this->render("styledMap");
     }
 
     public function actionTwinOrDouble() {

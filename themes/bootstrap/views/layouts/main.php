@@ -80,6 +80,7 @@
                             'items' => array(
                                 array('label' => 'TChassis', 'url' => array('/admin/tchassis/admin')),
                                 array('label' => 'TIndividuals', 'url' => array('/admin/tindividual/admin')),
+                                array('label' => 'TEvents', 'url' => array('/admin/tevent/admin')),
                                 array('label' => 'TModels', 'url' => array('/admin/tscale/admin')),
                                 array('label' => 'TProjects', 'url' => array('/admin/tproject/admin')),
                                 array('label' => 'TRounds', 'url' => array('/admin/tround/admin')),
@@ -103,7 +104,7 @@
             <?php echo $content; ?>
         </div><!-- page -->
         <div id ="footer" class="footer">
-            <?php echo Yii::powered(); ?> Copyright &copy; 2010- <?php echo date('Y'); ?> by BSS
+<?php echo Yii::powered(); ?> Copyright &copy; 2010- <?php echo date('Y'); ?> by BSS
         </div><!-- footer -->
     </body>
 </html>

@@ -37,8 +37,44 @@
     <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
     <?php echo $form->textFieldRow($model, 'description', array('size' => 60, 'maxlength' => 255)); ?>
     <?php echo $form->textFieldRow($model, 'code', array('size' => 20, 'maxlength' => 20)); ?>
-    <?php echo $form->textFieldRow($model, 'parent_id'); ?>
-    <?php echo $form->textFieldRow($model, 'tuner_id'); ?>
+    <div class="control-group">
+        <?php echo $form->hiddenField($model, 'parent_id'); ?>
+        <?php echo $form->labelEx($model, 'parent_id', array('class' => 'control-label')); ?>
+        <div class="controls">
+            <?php
+            $this->widget('zii.widgets.jui.CJuiAutoComplete', array('id' => 'parent_id',
+                'name' => 'parent_id',
+                'value' => isset($model->parent_id) ? $model->parent->fullname : $model->parent_id,
+                'source' => $this->createUrl('engine/autoComplete'),
+                'options' => array('showAnim' => 'fold',
+                    'minLength' => 3,
+                    'select' => 'js:function(event, ui){ var $selectedObject = ui.item; $("#Engine_parent_id").val($selectedObject.id);}'
+                )
+                    )
+            );
+            ?>
+            <?php echo $form->error($model, 'make_id'); ?>
+        </div>
+    </div>
+    <div class="control-group">
+        <?php echo $form->hiddenField($model, 'tuner_id'); ?>
+        <?php echo $form->labelEx($model, 'tuner_id', array('class' => 'control-label')); ?>
+        <div class="controls">
+            <?php
+            $this->widget('zii.widgets.jui.CJuiAutoComplete', array('id' => 'tuner_id',
+                'name' => 'make_id',
+                'value' => isset($model->tuner_id) ? $model->tuner->name : $model->tuner_id,
+                'source' => $this->createUrl('tuner/autoComplete'),
+                'options' => array('showAnim' => 'fold',
+                    'minLength' => 3,
+                    'select' => 'js:function(event, ui){ var $selectedObject = ui.item; $("#Engine_tuner_id").val($selectedObject.id);}'
+                )
+                    )
+            );
+            ?>
+            <?php echo $form->error($model, 'make_id'); ?>
+        </div>
+    </div>
     <?php echo $form->dropDownListRow($model, 'enginetype_id', Enginetype::model()->findList(), array('prompt' => 'Select an Enginetype..')); ?>
     <?php echo $form->textFieldRow($model, 'compression', array('size' => 10, 'maxlength' => 10)); ?>
     <?php echo $form->textFieldRow($model, 'cams'); ?>

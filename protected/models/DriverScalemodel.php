@@ -98,7 +98,7 @@ class DriverScalemodel extends BaseModel
 
     public function behaviors()
     {
-        return array('AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'));
+        return array('AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'));
     }
 
     /**

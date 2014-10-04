@@ -48,15 +48,17 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'columns' => array(
         'first_name',
         'last_name',
-        'cnt',
-        'min_id',
-        'max_id',
+        'nickname',
+        'full_name',
         array(
             'header' => 'nationality',
             'type' => 'image',
             'value' => '$data->getFlag($data->nationality, array("size" => "24x24"))',
             'htmlOptions' => array('style' => 'text-align:center;')
         ),
+        'cnt',
+        'min_id',
+        'max_id',
         array(
             'class' => 'CButtonColumn',
             'buttons' => array(

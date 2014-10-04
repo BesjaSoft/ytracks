@@ -19,15 +19,15 @@ if ($model->getClassName() == 'Circuit') {
 echo CHtml::link('New Round', array('/round/create'));
 
 $dataProvider = new CActiveDataProvider(
-                'Round', array(
-            'criteria' => array(
-                'condition' => $condition,
-                'order' => $order
-            ),
-            'pagination' => array(
-                'pageSize' => 15,
-            ),
-                )
+        'Round', array(
+    'criteria' => array(
+        'condition' => $condition,
+        'order' => $order
+    ),
+    'pagination' => array(
+        'pageSize' => 15,
+    ),
+        )
 );
 
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -42,7 +42,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             'class' => 'CButtonColumn',
             'viewButtonUrl' => 'Yii::app()->createUrl("/round/view"  , array("id" => $data->id))',
             'updateButtonUrl' => 'Yii::app()->createUrl("/round/update", array("id" => $data->id))',
-            'htmlOptions' => array('style'=>'width:60px; text-align:center;')
+            'deleteButtonUrl' => 'Yii::app()->createUrl("/round/delete", array("id" => $data->id))',
+            'htmlOptions' => array('style' => 'width:60px; text-align:center;')
         )
     ),
         )

@@ -67,7 +67,6 @@ class Controller extends CController {
                 (isset($data->engine_id) ? " - ".CHTML::link(CHTML::encode($data->engine->getFullname()), array("/engine/view","id"=>$data->engine_id)
                            ): "")
                 '
-                          
         );
     }
 
@@ -124,11 +123,23 @@ class Controller extends CController {
     protected function showContentGrid() {
         return $this->showRelatedColumnGrid('content', 'title');
     }
-
+    protected function showMakeDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('make_id'),
+            'type' => 'raw',
+            'value' => !isset($model->make_id) ? $model->make_id : CHtml::Link(CHtml::encode($model->make->name), array('make/view', 'id' => $model->make_id))
+        );
+    }
     protected function showMakeGrid() {
         return $this->showRelatedColumnGrid('make');
     }
-
+    protected function showTypeDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('type_id'),
+            'type' => 'raw',
+            'value' => !isset($model->type_id) ? $model->type_id : CHtml::Link(CHtml::encode($model->type->name), array('type/view', 'id' => $model->type_id))
+        );
+    }
     protected function showTypeGrid() {
         return array('name' => 'type_id',
             'type' => 'raw',
@@ -143,6 +154,10 @@ class Controller extends CController {
 
     protected function showSeasonGrid() {
         return $this->showRelatedColumnGrid('season');
+    }
+
+    protected function showProjectGrid() {
+        return $this->showRelatedColumnGrid('project');
     }
 
     protected function showRandomImageGrid() {
@@ -184,12 +199,56 @@ class Controller extends CController {
         return $res;
     }
 
-    protected function ShowContentDetailView($model) {
+    protected function ShowContentDetail($model) {
         return array(
             'label' => $model->getAttributeLabel('content_id'),
             'type' => 'raw',
             'value' => !isset($model->content_id) ? $model->content_id : CHtml::Link(CHtml::encode($model->content->title), array('content/view', 'id' => $model->content_id))
         );
+    }
+
+    protected function ShowProjectDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('project_id'),
+            'type' => 'raw',
+            'value' => !isset($model->project_id) ? $model->project_id : CHtml::Link(CHtml::encode($model->project->name), array('project/view', 'id' => $model->project_id))
+        );
+    }
+
+    protected function ShowEventDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('event_id'),
+            'type' => 'raw',
+            'value' => !isset($model->event_id) ? $model->event_id : CHtml::Link(CHtml::encode($model->event->name), array('event/view', 'id' => $model->event_id))
+        );
+    }
+
+    protected function ShowCircuitDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('circuit_id'),
+            'type' => 'raw',
+            'value' => !isset($model->circuit_id) ? $model->circuit_id : CHtml::Link(CHtml::encode($model->circuit->name), array('circuit/view', 'id' => $model->circuit_id))
+        );
+    }
+
+    protected function ShowCompetitionDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('competition_id'),
+            'type' => 'raw',
+            'value' => !isset($model->competition_id) ? $model->competition_id : CHtml::Link(CHtml::encode($model->competition->name), array('competition/view', 'id' => $model->competition_id))
+        );
+    }
+
+    protected function ShowSeasonDetail($model) {
+        return array(
+            'label' => $model->getAttributeLabel('season_id'),
+            'type' => 'raw',
+            'value' => !isset($model->season_id) ? $model->season_id : CHtml::Link(CHtml::encode($model->season->name), array('season/view', 'id' => $model->season_id))
+        );
+    }
+
+    protected function showEventGrid() {
+        return $this->showRelatedColumnGrid('event');
     }
 
     protected function ShowIndividualDetailView($model) {
@@ -208,6 +267,10 @@ class Controller extends CController {
             array('label' => 'Delete ' . get_class($model), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
             array('label' => 'Manage ' . get_class($model), 'url' => array('admin')),
         );
+    }
+
+    protected function showCircuitGrid() {
+        return $this->showRelatedColumnGrid('circuit');
     }
 
     protected function ShowConstructorDetailView($model) {

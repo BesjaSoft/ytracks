@@ -43,7 +43,7 @@ class Country extends BaseModel
     public function behaviors() {
         return array(
             'ERememberFiltersBehavior' => array(
-                'class' => 'application.components.ERememberFiltersBehavior',
+                'class' => 'ERememberFiltersBehavior',
                 'defaults' => array(), /* optional line */
                 'defaultStickOnClear' => false /* optional line */
             ),

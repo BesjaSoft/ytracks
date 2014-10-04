@@ -15,13 +15,13 @@
 * heavy filtering this function can be activated by just a couple of lines.
 *
 * To use this extension, just copy this file to your components/ directory,
-* add 'import' => 'application.components.ERememberFiltersBehavior', [...] to your
+* add 'import' => 'ERememberFiltersBehavior', [...] to your
 * config/main.php and paste the following code to your behaviors() method of your model
 *
 * public function behaviors() {
 *        return array(
 *            'ERememberFiltersBehavior' => array(
-*                'class' => 'application.components.ERememberFiltersBehavior',
+*                'class' => 'ERememberFiltersBehavior',
 *                'defaults'=>array(),
 *                'defaultStickOnClear'=>false 
 *            ),

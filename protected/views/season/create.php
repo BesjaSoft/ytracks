@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Season', 'url'=>array('index')),
-	array('label'=>'Manage Season', 'url'=>array('admin')),
+	array('label'=>'List Season','url'=>array('index')),
+	array('label'=>'Manage Season','url'=>array('admin')),
 );
 ?>
 

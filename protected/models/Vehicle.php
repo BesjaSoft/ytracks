@@ -21,6 +21,7 @@
  * @property string $options
  * @property string $history
  * @property string $engine
+ * @property integer $engine_id
  * @property string $group
  * @property string $first_owner
  * @property string $next_owners
@@ -51,17 +52,17 @@ class Vehicle extends BaseModel {
         return parent::model($className);
     }
 
-    public function behaviours() {
+    public function behaviors() {
         return array(
-            'AutoTimestampBehavior' => array('class' => 'application.components.AutoTimestampBehavior'),
+            'AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
             'SlugBehavior' => array(
-                'class' => 'application.models.behaviours.SlugBehavior',
+                'class' => 'SlugBehavior',
                 'slug_col' => 'alias',
-                'title_col' => array(array('type', 'alias'), 'chassisnumber'),
+                'title_col' => array('type' => array('type', 'alias'), 'chassisnumber'),
                 'overwrite' => true //, 'max_slug_chars' => 125
             ),
             'ERememberFiltersBehavior' => array(
-                'class' => 'application.components.ERememberFiltersBehavior',
+                'class' => 'ERememberFiltersBehavior',
                 'defaults' => array(), /* optional line */
                 'defaultStickOnClear' => false /* optional line */
             ),
@@ -83,7 +84,7 @@ class Vehicle extends BaseModel {
         // will receive user inputs.
         return array(
             array('type_id, created', 'required'),
-            array('type_id, color_id, condition_id, bodywork_id, carrosseriesoort_id, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
+            array('type_id, color_id, condition_id, bodywork_id, carrosseriesoort_id, engine_id, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
             array('reference', 'length', 'max' => 10),
             array('chassisnumber', 'length', 'max' => 50),
             array('alias', 'length', 'max' => 255),
@@ -97,6 +98,7 @@ class Vehicle extends BaseModel {
             array('color_id', 'exist', 'attributeName' => 'id', 'className' => 'Color'),
             //array('condition_id', 'exist','attributeName' => 'id', 'className' => 'Condition'),
             array('bodywork_id', 'exist', 'attributeName' => 'id', 'className' => 'Bodywork'),
+            array('engine_id', 'exist', 'attributeName' => 'id', 'className' => 'Engine'),
             // unique key constraint:
             array('type_id+chassisnumber', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
@@ -136,6 +138,7 @@ class Vehicle extends BaseModel {
             'options' => 'Options',
             'history' => 'History',
             'engine' => 'Engine',
+            'engine_id' => 'Engine',
             'group' => 'Group',
             'first_owner' => 'First Owner',
             'next_owners' => 'Next Owners',
@@ -161,7 +164,7 @@ class Vehicle extends BaseModel {
         // update the registered number of vehicles within the type:
         // get the number of registered cars:
         $criteria = new CDbCriteria();
-        $criteria->condition = 'type_id='.$this->type_id.' and deleted = 0';
+        $criteria->condition = 'type_id=' . $this->type_id . ' and deleted = 0';
         $count = Vehicle::model()->count($criteria);
 
         // update the type
@@ -189,10 +192,20 @@ class Vehicle extends BaseModel {
      */
     public function beforeValidate() {
         $this->reference = $this->setNullable($this->reference);
+        $this->engine = $this->setNullable($this->engine);
+        echo 'vehicle, beforevalidate:' . $this->chassisnumber;
         $this->chassisnumber = $this->setNullable($this->chassisnumber);
+        echo 'vehicle, beforevalidate:' . $this->chassisnumber;
+        $this->year = $this->setNullable($this->year);
+        $this->group = $this->setNullable($this->group);
+        $this->first_owner = $this->setNullable($this->first_owner);
+        $this->next_owners = $this->setNullable($this->next_owners);
+        $this->comment = $this->setNullable($this->comment);
+        //
         $this->color_id = $this->setNullable($this->color_id);
         $this->condition_id = $this->setNullable($this->condition_id);
         $this->bodywork_id = $this->setNullable($this->bodywork_id);
+
 
         return parent::beforeValidate();
     }
@@ -230,6 +243,7 @@ class Vehicle extends BaseModel {
         $criteria->compare('options', $this->options, true);
         $criteria->compare('history', $this->history, true);
         $criteria->compare('engine', $this->engine, true);
+        $criteria->compare('engine_id', $this->engine_id);
         $criteria->compare('group', $this->group, true);
         $criteria->compare('first_owner', $this->first_owner, true);
         $criteria->compare('next_owners', $this->next_owners, true);
@@ -255,12 +269,19 @@ class Vehicle extends BaseModel {
 
     public function getAlbum() {
         return strtolower($this->getBaseImagePath()
-                .'/vehicles'
-                .'/'.substr($this->getSlug($this->type->make->name), 0, 1)
-                .'/'.$this->getSlug($this->type->make->name)
-                .'/'.$this->getSlug($this->type->name)
-                .'/'.$this->getSlug($this->chassisnumber)
+                . '/vehicles'
+                . '/' . substr($this->getSlug($this->type->make->name), 0, 1)
+                . '/' . $this->getSlug($this->type->make->name)
+                . '/' . $this->getSlug($this->type->name)
+                . '/' . $this->getSlug($this->chassisnumber)
         ); // The directory to display
+    }
+
+    public function getBreadcrumbs() {
+        return array('Vehicles' => array('index'),
+            $this->type->make->name => array('make/view&id=' . $this->type->make_id),
+            $this->type->name => array('type/view&id=' . $this->type_id),
+            $this->chassisnumber,);
     }
 
 }

@@ -1,18 +1,17 @@
 <?php
-$this->breadcrumbs = array(
-	'Tvehicles',
-	Yii::t('app', 'Index'),
+$this->breadcrumbs=array(
+	'Tchassises',
 );
 
 $this->menu=array(
-	array('label'=>Yii::t('app', 'Create') . ' Tvehicle', 'url'=>array('create')),
-	array('label'=>Yii::t('app', 'Manage') . ' Tvehicle', 'url'=>array('admin')),
+	array('label'=>'Create Tchassis','url'=>array('create')),
+	array('label'=>'Manage Tchassis','url'=>array('admin')),
 );
 ?>
 
-<h1>Tvehicles</h1>
+<h1>Tchassises</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('bootstrap.widgets.TbListView',array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>

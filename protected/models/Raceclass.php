@@ -32,7 +32,7 @@ class Raceclass extends BaseModel {
         return 'Raceclass';
     }
 
-    public static function getDisplayField() {
+    public static function getDisplayField($class = __CLASS__) {
         return 'code';
     }
 

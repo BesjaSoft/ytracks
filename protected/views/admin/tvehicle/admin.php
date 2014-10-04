@@ -56,8 +56,6 @@ echo CHtml::ajaxLink("Delete Selected",
         )
 );
 
-
-
 $this->widget('bootstrap.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'tvehicle-grid',
@@ -68,9 +66,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array('class' => 'CCheckBoxColumn'),
         array('name' => 'id', 'header' => '#', 'value' => '$data->id', 'htmlOptions' => array('style' => 'text-align: right; width:40px;')),
         'tvehicle',
-        'tmake',
-        'ttype',
-        array('name' => 'vehicle_id', 'type' => 'raw', 'value' => '!isset($data->vehicle_id) ? "": $data->make->name.\' \'.$data->type->name'),
+        'tengine',
+        array('name' => 'vehicle_id', 'type' => 'raw', 'value' => '!isset($data->vehicle_id) ? $data->vehicle_id : $data->make->name.\' \'.$data->type->name.\' \'.$data->vehicle->chassisnumber'),
+        array('name' => 'engine_id', 'type' => 'raw', 'value' => 'isset($data->engine_id) ? $data->engine->getFullname() : $data->engine_id'),
         'tchassis',
         'tlicenseplate',
         /*

@@ -25,7 +25,7 @@ class TresultIndividual extends CActiveRecord
 			array('result_id', 'exist', 'attributeName' => 'id','className'=>'Tresult'),
 			array('individual_id', 'exist', 'attributeName' => 'id','className'=>'Individual'),
 			// unique key
- 			array('result_id+individual_id', 'uniqueMultiColumnValidator')
+ 			array('result_id+individual_id', 'uniqueMultiColumnValidator', 'caseSensitive' => true)
 		);
 	}
 

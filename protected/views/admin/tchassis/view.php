@@ -1,20 +1,19 @@
 <?php
 $this->breadcrumbs = array(
-    'Tvehicles' => array('index'),
+    'Tchassises' => array('index'),
     $model->id,
 );
 
 $this->menu = array(
-    array('label' => 'List Tvehicle', 'url' => array('index')),
-    array('label' => 'Create Tvehicle', 'url' => array('create')),
-    array('label' => 'Update Tvehicle', 'url' => array('update', 'id' => $model->id)),
-    array('label' => 'Export Tvehicle', 'url' => array('export', 'id' => $model->id)),
-    array('label' => 'Delete Tvehicle', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
-    array('label' => 'Manage Tvehicle', 'url' => array('admin')),
+    array('label' => 'List Tchassis', 'url' => array('index')),
+    array('label' => 'Create Tchassis', 'url' => array('create')),
+    array('label' => 'Update Tchassis', 'url' => array('update', 'id' => $model->id)),
+    array('label' => 'Delete Tchassis', 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+    array('label' => 'Manage Tchassis', 'url' => array('admin')),
 );
 ?>
 
-<h1>View Tvehicle #<?php echo $model->id; ?></h1>
+<h1>View Tchassis #<?php echo $model->id; ?></h1>
 
 <?php
 $this->widget('bootstrap.widgets.TbDetailView', array(
@@ -26,14 +25,22 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
         'ttype',
         'chassis',
         'tengine',
+        'tengine_number',
         'year',
         'group',
         'first_owner',
         'next_owners',
+        'original_color',
+        'original_registration_number',
+        'later_registration_numbers',
+        'competition_appearances',
         'comment',
-        array('name' => 'type_id', 'type' => 'raw', 'value' => CHtml::link(CHtml::encode($model->make->name, array('make/view', 'id' => $model->make_id))) . ' ' . CHtml::link(CHtml::encode($model->type->name), array('type/view', 'id' => $model->type_id))),
-        array('name' => 'vehicle_id', 'type' => 'raw', 'value' => CHtml::link(Chtml::encode($model->vehicle->chassisnumber, array('vehicle/view/', 'id' => $model->vehicle_id)))),
+        $this->showMakeDetail($model),
+        $this->showTypeDetail($model),
+        'vehicle_id',
+        'engine_id',
         'published',
+        'done',
         'ordering',
         'checked_out',
         'checked_out_time',
@@ -44,5 +51,3 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     ),
 ));
 ?>
-
-

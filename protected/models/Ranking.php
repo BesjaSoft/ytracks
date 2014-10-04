@@ -24,7 +24,7 @@ class Ranking extends BaseModel
             array( 'project_id', 'exist', 'attributeName' => 'id', 'className' => 'Project'),
             array( 'team_id', 'exist', 'attributeName' => 'id', 'className' => 'Team'),
             // unique field combination:
-            array('individual_id+project_id', 'uniqueMultiColumnValidator'),
+            array('individual_id+project_id', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
             // used by search:
             array('id, individual_id, project_id, team_id, rank, points, raceclass_id, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on'=>'search'),
         );
@@ -105,7 +105,7 @@ class Ranking extends BaseModel
     public function behaviors()
     {
         return array(
-            'AutoTimestampBehavior' => array( 'class' => 'application.components.AutoTimestampBehavior'),
+            'AutoTimestampBehavior' => array( 'class' => 'AutoTimestampBehavior'),
             'CAdvancedArBehavior', array('class' => 'ext.CAdvancedArBehavior')
         );
     }

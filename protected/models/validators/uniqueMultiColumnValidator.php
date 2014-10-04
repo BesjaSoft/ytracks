@@ -1,86 +1,68 @@
 <?php
-class uniqueMultiColumnValidator extends CValidator
-{
-    /* class variables:*/
-    private $allowEmpty = false;
-    private $caseSensitive = false;
-    
-    /* getter and setter allowEmpty: */
-    public function setAllowEmpty($value) {$this->allowEmpty = $value;}
-    public function getAllowEmpty() {return $this->allowEmpty;}
 
-    /* getter and setter caseSensitive: */
-    public function setCaseSensitive($value) {$this->caseSensitive = $value;}
-    public function getCaseSensitive() {return $this->caseSensitive;}
+class uniqueMultiColumnValidator extends CValidator {
+    /* class variables: */
 
-    protected function validateAttribute($object,$attribute)
-    {
+    public $allowEmpty = false;
+    public $caseSensitive = false;
+
+    protected function validateAttribute($object, $attribute) {
         $attributes = null;
-        $criteria=array('condition'=>'');
-        if(false !== strpos($attribute, "+"))
-        {
+        $criteria = array('condition' => '');
+        if (false !== strpos($attribute, "+")) {
             $attributes = explode("+", $attribute);
-        }
-        else
-        {
+        } else {
             $attributes = array($attribute);
         }
 
-        foreach($attributes as $attribute)
-        {
+        foreach ($attributes as $attribute) {
             $value = $object->$attribute;
-            if($this->allowEmpty && ($value===null || $value==='')) {
-                    return;
+            if ($this->allowEmpty && ($value === null || $value === '')) {
+                return;
             }
-            $column=$object->getTableSchema()->getColumn($attribute);
-            if($column===null) {
-                    throw new CException(Yii::t('yii','{class} does not have attribute "{attribute}".',
-                array('{class}'=>get_class($object), '{attribute}'=>$attribute)));
+            $column = $object->getTableSchema()->getColumn($attribute);
+            if ($column === null) {
+                throw new CException(Yii::t('yii', '{class} does not have attribute "{attribute}".', array('{class}' => get_class($object), '{attribute}' => $attribute)));
             }
-            $columnName=$column->rawName;
-            if(''!=$criteria['condition'])
-            {
+            $columnName = $column->rawName;
+            if ('' != $criteria['condition']) {
                 $criteria['condition'].= " AND ";
             }
-            $criteria['condition'].=$this->caseSensitive ? "$columnName=:$attribute" : "LOWER($columnName)=LOWER(:$attribute)";
-            $criteria['params'][':'.$attribute]=$value;
+            $criteria['condition'].= $this->caseSensitive ? "$columnName=:$attribute" : "LOWER($columnName)=LOWER(:$attribute)";
+            $criteria['params'][':' . $attribute] = $value;
         }
 
-        if($column->isPrimaryKey) {
-            $exists=$object->exists($criteria);
+        if ($column->isPrimaryKey) {
+            $exists = $object->exists($criteria);
         } else {
             // need to exclude the current record based on PK
-            $criteria['limit']=2;
-            $objects=$object->findAll($criteria);
-            $n=count($objects);
-            if($n===1){
-                if(''==$object->getPrimaryKey())
-                {
+            $criteria['limit'] = 2;
+            $objects = $object->findAll($criteria);
+            $n = count($objects);
+            if ($n === 1) {
+                if ('' == $object->getPrimaryKey()) {
                     $exists = true;
-                }
-                else
-                {
-                    $exists=$objects[0]->getPrimaryKey()!==$object->getPrimaryKey();
+                } else {
+                    $exists = $objects[0]->getPrimaryKey() !== $object->getPrimaryKey();
                 }
             } else {
-                $exists=$n>1;
+                $exists = $n > 1;
             }
         }
-        if($exists)
-        {
+        if ($exists) {
             $message = '';
             $labels = $object->attributeLabels();
-            foreach ($attributes as $attribute)
-            {
+            foreach ($attributes as $attribute) {
                 $message .= $labels[$attribute] . "+";
             }
-            $message = substr ($message, 0, -1);
-            $message = $this->message!==null ? $this->message : "The Combination of ($message) should be unique in the current context.";
-            foreach ($attributes as $attribute)
-            {
-                $this->addError($object,$attribute,$message);
+            $message = substr($message, 0, -1);
+            $message = $this->message !== null ? $this->message : "The Combination of ($message) should be unique in the current context.";
+            foreach ($attributes as $attribute) {
+                $this->addError($object, $attribute, $message);
             }
         }
     }
+
 }
+
 ?>

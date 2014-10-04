@@ -43,7 +43,7 @@ class Round extends BaseModel {
     public function getListHeldToday() {
         $criteria = new CDbCriteria;
         $criteria->condition = 'date_format( start_date, "%d%m" ) = date_format( curdate( ) , "%d%m")';
-	$criteria->order = 'start_date asc';
+        $criteria->order = 'start_date asc';
 
         return new CActiveDataProvider(get_class($this), array('criteria' => $criteria,));
     }
@@ -73,7 +73,7 @@ class Round extends BaseModel {
             array('circuit_id', 'exist', 'attributeName' => 'id', 'className' => 'Circuit'),
             array('distance_id', 'exist', 'attributeName' => 'id', 'className' => 'Distance'),
             // unique field combination:
-            array('project_id+ordering', 'uniqueMultiColumnValidator'),
+            array('project_id+ordering', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, event_id, project_id, circuit_id, ordering, laps, length, distance_id, start_date, end_date, description, comment, checked_out, checked_out_time, published, manches, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
@@ -82,10 +82,10 @@ class Round extends BaseModel {
 
     public function getAlbum() {
         return strtolower($this->getBaseImagePath()
-                        . '/races'
-                        . '/' . $this->project->competition->code
-                        . '/' . $this->project->season->name
-                        //. '/' . $this->ordering . '-' . $this->event->country_code
+                . '/races'
+                . '/' . $this->project->competition->code
+                . '/' . $this->project->season->name
+                //. '/' . $this->ordering . '-' . $this->event->country_code
         ); // The directory to display
     }
 
@@ -111,7 +111,7 @@ class Round extends BaseModel {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'subrounds' => array(self::HAS_MANY, 'Subround', 'projectround_id'),
+            'subrounds' => array(self::HAS_MANY, 'Subround', 'round_id'),
             'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
             'circuit' => array(self::BELONGS_TO, 'Circuit', 'circuit_id'),
             'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
@@ -181,8 +181,8 @@ class Round extends BaseModel {
         $criteria->compare('deleted_date', $this->deleted_date, true);
 
         return new CActiveDataProvider(get_class($this), array(
-                    'criteria' => $criteria,
-                ));
+            'criteria' => $criteria,
+        ));
     }
 
     // private methods:
@@ -239,9 +239,9 @@ class Round extends BaseModel {
         $criteria->condition = 'round_id=:round';
         $criteria->params = array('round' => $this->id);
 
-        $found = Subround::model()->findAll($criteria);
+        $found = Subround::model()->count($criteria);
 
-        if ($found->cnt >= 1) {
+        if ($found >= 1) {
             return;
         }
 
@@ -261,7 +261,7 @@ class Round extends BaseModel {
 
             // add the overall result-subround, expected to be on the end_date
             $subround = new Subround();
-            $subround->projectround_id = $this->id;
+            $subround->round_id = $this->id;
             $subround->factor = 1;
             $subround->start_date = $this->start_date;
             $subround->end_date = $this->end_date;
@@ -280,7 +280,7 @@ class Round extends BaseModel {
                 // add the stages:
                 for ($i = 1; $this->manches; $i++) {
                     $subround = new Subround();
-                    $subround->projectround_id = $this->id;
+                    $subround->round_id = $this->id;
                     $subround->factor = 1;
                     $subround->start_date = $this->start_date;
                     $subround->end_date = $this->end_date;
@@ -297,13 +297,20 @@ class Round extends BaseModel {
                 $this->manches = 1;
                 $this->save();
             }
+        } else {
+            // add the race, expected to be on the end_date
+            $this->addSubround('race', 1, 1);
+            // add the fastest laps, expected to be on the end_date
+            $this->addSubround('fastest laps', 2, 1);
+            // add the starting grid, expected to be on the end_date
+            $this->addSubround('starting grid', 3, 1);
         }
     }
 
     private function addSubround($name, $ordering, $factor) {
         // add the race, expected to be on the end_date
         $subround = new Subround();
-        $subround->projectround_id = $this->id;
+        $subround->round_id = $this->id;
         $subround->factor = $factor;
         $subround->start_date = $this->end_date;
         $subround->end_date = $this->end_date;
@@ -318,7 +325,7 @@ class Round extends BaseModel {
 
         foreach ($round->subrounds as $subround) {
             $copy = new Subround();
-            $copy->projectround_id = $this->id;
+            $copy->round_id = $this->id;
             $copy->start_date = $this->end_date;
             $copy->end_date = $this->end_date;
             $copy->published = 1;

@@ -1,126 +1,72 @@
-<div class="wide form">
-
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
-
-        'action'=>Yii::app()->createUrl($this->route),
-        'method'=>'get',
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
 )); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'id'); ?>
-                <?php echo $form->textField($model,'id'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'filename'); ?>
-                <?php echo $form->textField($model,'filename',array('size'=>60,'maxlength'=>100)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'filename',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'tmake'); ?>
-                <?php echo $form->textField($model,'tmake',array('size'=>60,'maxlength'=>100)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'tmake',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'ttype'); ?>
-                <?php echo $form->textField($model,'ttype',array('size'=>60,'maxlength'=>100)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'ttype',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'chassis'); ?>
-                <?php echo $form->textField($model,'chassis',array('size'=>60,'maxlength'=>100)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'chassis',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'tengine'); ?>
-                <?php echo $form->textField($model,'tengine',array('size'=>60,'maxlength'=>100)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'tengine',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'year'); ?>
-                <?php echo $form->textField($model,'year',array('size'=>20,'maxlength'=>20)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'tengine_number',array('class'=>'span5','maxlength'=>50)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'group'); ?>
-                <?php echo $form->textField($model,'group',array('size'=>60,'maxlength'=>100)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'year',array('class'=>'span5','maxlength'=>50)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'first_owner'); ?>
-                <?php echo $form->textField($model,'first_owner',array('size'=>60,'maxlength'=>500)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'group',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'next_owners'); ?>
-                <?php echo $form->textField($model,'next_owners',array('size'=>60,'maxlength'=>500)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'first_owner',array('class'=>'span5','maxlength'=>500)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'comment'); ?>
-                <?php echo $form->textArea($model,'comment',array('rows'=>6, 'cols'=>50)); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'next_owners',array('class'=>'span5','maxlength'=>500)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'make_id'); ?>
-                <?php echo $form->textField($model,'make_id'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'original_color',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'type_id'); ?>
-                <?php echo $form->textField($model,'type_id'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'original_registration_number',array('class'=>'span5','maxlength'=>20)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'vehicle_id'); ?>
-                <?php echo $form->textField($model,'vehicle_id'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'later_registration_numbers',array('class'=>'span5','maxlength'=>100)); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'published'); ?>
-                <?php echo $form->checkBox($model,'published'); ?>
-        </div>
+	<?php echo $form->textAreaRow($model,'competition_appearances',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'ordering'); ?>
-                <?php echo $form->textField($model,'ordering'); ?>
-        </div>
+	<?php echo $form->textAreaRow($model,'comment',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'checked_out'); ?>
-                <?php echo $form->textField($model,'checked_out'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'make_id',array('class'=>'span5')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'checked_out_time'); ?>
-                <?php echo $form->textField($model,'checked_out_time'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'type_id',array('class'=>'span5')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'created'); ?>
-                <?php echo $form->textField($model,'created'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'vehicle_id',array('class'=>'span5')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'modified'); ?>
-                <?php echo $form->textField($model,'modified'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'engine_id',array('class'=>'span5')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'deleted'); ?>
-                <?php echo $form->checkBox($model,'deleted'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'published',array('class'=>'span5')); ?>
 
-        <div class="row">
-                <?php echo $form->label($model,'deleted_date'); ?>
-                <?php echo $form->textField($model,'deleted_date'); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'done',array('class'=>'span5')); ?>
 
-        <div class="row buttons">
-                <?php echo CHtml::submitButton(Yii::t('app', 'Search')); ?>
-        </div>
+	<?php echo $form->textFieldRow($model,'ordering',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'checked_out',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'checked_out_time',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'created',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'modified',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'deleted',array('class'=>'span5')); ?>
+
+	<?php echo $form->textFieldRow($model,'deleted_date',array('class'=>'span5')); ?>
+
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.TbButton', array(
+		    'buttonType'=>'submit',
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
+	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

@@ -55,7 +55,7 @@ class EngineController extends Controller {
             $criteria->order = 'concat(make.name,t.name)';
             $criteria->select = 'id,t.name';
 
-            $model = new Type;
+            $model = new Engine();
             $results = $model->with('make')->findAll($criteria);
             foreach ($results as $result) {
                 $res[] = array
