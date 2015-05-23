@@ -18,16 +18,16 @@ echo CHtml::link('New Ranking', array('/ranking/create'));
 
 // Initialize the data provider
 $dataProvider = new CActiveDataProvider('Ranking', array(
-            'criteria' => array(
-                'condition' => $condition,
-                'order' => $order
-            ),
-            'pagination' => array(
-                'pageSize' => 15,
-            ),
+    'criteria' => array(
+        'condition' => $condition,
+        'order' => $order
+    ),
+    'pagination' => array(
+        'pageSize' => 15,
+    ),
         ));
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'id' => 'rankings-grid',
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
@@ -35,8 +35,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'rank',
         $display,
         'points',
-        array(
-            'class' => 'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
             'viewButtonUrl' => 'Yii::app()->createUrl("/ranking/view"  , array("id" => $data->id))',
             'updateButtonUrl' => 'Yii::app()->createUrl("/ranking/update", array("id" => $data->id))'
         )

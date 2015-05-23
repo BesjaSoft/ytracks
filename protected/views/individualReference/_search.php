@@ -1,30 +1,75 @@
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+<?php
+/* @var $this IndividualReferenceController */
+/* @var $model IndividualReference */
+/* @var $form CActiveForm */
+?>
+
+<div class="wide form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<?php echo $form->textFieldRow($model,'id',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'id'); ?>
+		<?php echo $form->textField($model,'id'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'individual_id',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'individual_id'); ?>
+		<?php echo $form->textField($model,'individual_id'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'internal_reference',array('class'=>'span5','maxlength'=>50)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'source_id'); ?>
+		<?php echo $form->textField($model,'source_id'); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'source_id',array('class'=>'span5')); ?>
+	<div class="row">
+		<?php echo $form->label($model,'source_reference'); ?>
+		<?php echo $form->textField($model,'source_reference',array('size'=>50,'maxlength'=>50)); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'source_reference',array('class'=>'span5','maxlength'=>6)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'full_name'); ?>
+		<?php echo $form->textField($model,'full_name',array('size'=>60,'maxlength'=>250)); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'full_name',array('class'=>'span5','maxlength'=>32)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'first_name'); ?>
+		<?php echo $form->textField($model,'first_name',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'first_name',array('class'=>'span5','maxlength'=>18)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'last_name'); ?>
+		<?php echo $form->textField($model,'last_name',array('size'=>60,'maxlength'=>150)); ?>
+	</div>
 
-	<?php echo $form->textFieldRow($model,'last_name',array('class'=>'span5','maxlength'=>24)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'createdon'); ?>
+		<?php echo $form->textField($model,'createdon'); ?>
+	</div>
 
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array(
-		    'buttonType'=>'submit',
-			'type'=>'primary',
-			'label'=>'Search',
-		)); ?>
+	<div class="row">
+		<?php echo $form->label($model,'modifiedon'); ?>
+		<?php echo $form->textField($model,'modifiedon'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'deleted'); ?>
+		<?php echo $form->textField($model,'deleted'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'deletedon'); ?>
+		<?php echo $form->textField($model,'deletedon'); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
+
+</div><!-- search-form -->

@@ -17,8 +17,8 @@ class ResultCommand extends BaseConsole {
                 $this->convertGelf1Content(false);
                 $this->convertTresult(true, $vehicle, $error);
             } elseif ($section == "urh") {
-                $this->convertUrhContent($do);
-                $this->convertTresult(true, $vehicle, $error);
+                //$this->convertUrhContent($do);
+                //$this->convertTresult(true, $vehicle, $error);
             }
         } else {
             echo 'Please use one of the following : ' . "\n";

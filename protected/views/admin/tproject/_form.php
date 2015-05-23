@@ -1,5 +1,5 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'id' => 'tproject-form',
     'enableAjaxValidation' => false,
     'type' => 'horizontal',
@@ -19,23 +19,23 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 </div>
 
 <?php
-echo $form->dropDownListRow($model, 'project_id', Project::model()->findList(), array('prompt' => '- Select a Project -', 'class' => 'span5'));
+echo $form->dropDownListGroup($model, 'project_id', Project::model()->findList(), array('prompt' => '- Select a Project -', 'class' => 'span5'));
 ?>
 
 <?php
-echo $form->dropDownListRow($model, 'competition_id', Competition::model()->findList(), array('prompt' => '- Select a Season -', 'class' => 'span5'));
+echo $form->dropDownListGroup($model, 'competition_id', Competition::model()->findList(), array('prompt' => '- Select a Season -', 'class' => 'span5'));
 ?>
 
 <?php
-echo $form->dropDownListRow($model, 'season_id', Season::model()->findList(), array('prompt' => '- Select a Season -', 'class' => 'span5'));
+echo $form->dropDownListGroup($model, 'season_id', Season::model()->findList(), array('prompt' => '- Select a Season -', 'class' => 'span5'));
 ?>
-<?php echo $form->checkBoxRow($model, 'done'); ?>
+<?php echo $form->checkBoxGroup($model, 'done'); ?>
 
 <div class="form-actions">
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
+    $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => $model->isNewRecord ? 'Create' : 'Save',
     ));
     ?>

@@ -96,7 +96,8 @@ class Controller extends CController {
         }
 
         // return the button definition
-        return array('class' => 'CButtonColumn',
+        return array('htmlOptions' => array('nowrap'=>'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
             'template' => $button_template,
             'viewButtonUrl' => 'Yii::app()->createUrl("/' . $controller . '/view"  , array("id" => $data->id))',
             'updateButtonUrl' => 'Yii::app()->createUrl("/' . $controller . '/update", array("id" => $data->id))',
@@ -123,6 +124,7 @@ class Controller extends CController {
     protected function showContentGrid() {
         return $this->showRelatedColumnGrid('content', 'title');
     }
+
     protected function showMakeDetail($model) {
         return array(
             'label' => $model->getAttributeLabel('make_id'),
@@ -130,9 +132,11 @@ class Controller extends CController {
             'value' => !isset($model->make_id) ? $model->make_id : CHtml::Link(CHtml::encode($model->make->name), array('make/view', 'id' => $model->make_id))
         );
     }
+
     protected function showMakeGrid() {
         return $this->showRelatedColumnGrid('make');
     }
+
     protected function showTypeDetail($model) {
         return array(
             'label' => $model->getAttributeLabel('type_id'),
@@ -140,6 +144,7 @@ class Controller extends CController {
             'value' => !isset($model->type_id) ? $model->type_id : CHtml::Link(CHtml::encode($model->type->name), array('type/view', 'id' => $model->type_id))
         );
     }
+
     protected function showTypeGrid() {
         return array('name' => 'type_id',
             'type' => 'raw',

@@ -19,7 +19,10 @@
  */
 class Torque extends Unit
 {
-   public static $domainValue = 'TQE';
+    public function init() {
+        $this->domainValue = 'TQE';
+        parent::init();
+    }
 
     /**
      * Returns the static model of the specified AR class.

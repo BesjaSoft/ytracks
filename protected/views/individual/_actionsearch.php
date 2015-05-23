@@ -1,23 +1,18 @@
 <div class="form">
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-		'type'=>'horizontal',
-    	'action'=>Yii::app()->createUrl('individual/admin/'),
-        'method'=>'get',
-)); ?>
+    <?php
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
+        'action' => Yii::app()->createUrl('individual/admin/'),
+        'method' => 'get',
+    ));
+    ?>
 
-	<div class="row">
-		<?php echo $form->label($this->searchModel,'first_name'); ?>
-		<?php echo $form->textField($this->searchModel,'first_name',array('size'=>30,'maxlength'=>30)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($this->searchModel,'last_name'); ?>
-		<?php echo $form->textField($this->searchModel,'last_name',array('size'=>50,'maxlength'=>50)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+    <?php echo $form->textFieldGroup($this->searchModel, 'first_name'); ?>
+    <?php echo $form->textFieldGroup($this->searchModel, 'last_name'); ?>
+    <?php
+    $this->widget(
+            'booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => 'Search')
+    );
+    ?>
 
 <?php $this->endWidget(); ?>
 </div><!-- search-form -->

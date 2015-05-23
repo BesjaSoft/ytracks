@@ -18,7 +18,7 @@ $this->menu = array(
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'type' => 'horizontal',
         'id' => 'tscale-form',
         'enableAjaxValidation' => true,

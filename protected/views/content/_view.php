@@ -21,7 +21,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fulltext')); ?>:</b>
-	<?php echo CHtml::encode($data->fulltext); ?>
+	<?php echo $data->fulltext; ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('state')); ?>:</b>

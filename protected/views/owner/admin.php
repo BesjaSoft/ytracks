@@ -9,8 +9,7 @@ $this->menu = array(
     array('label' => 'Create Owner', 'url' => array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search',
-        "
+Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
@@ -31,8 +30,8 @@ $('.search-form form').submit(function(){
     or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
 </p>
 
-    <?php echo CHtml::link('Advanced Search',
-            '#', array('class' => 'search-button')); ?>
+<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button'));
+?>
 <div class="search-form" style="display:none">
     <?php
     $this->renderPartial('_search', array(
@@ -42,8 +41,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView',
-        array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'owner-grid',
     'dataProvider' => $model->search(),
@@ -67,8 +65,8 @@ $this->widget('bootstrap.widgets.TbGridView',
           'deleted',
           'deleted_date',
          */
-        array(
-            'class' => 'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
         ),
     ),
 ));

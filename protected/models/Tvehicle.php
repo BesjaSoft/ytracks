@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{tracks_tvehicles}}':
  * @property integer $id
  * @property string $tvehicle
+ * @property string $tengine
  * @property string $tchassis
  * @property string $tlicenseplate
  * @property integer $make_id
@@ -41,7 +42,8 @@ class Tvehicle extends BaseModel {
         return array(
             array('created', 'required'),
             array('make_id, type_id, vehicle_id, engine_id', 'numerical', 'integerOnly' => true),
-            array('tvehicle', 'length', 'max' => 255),
+            array('tvehicle', 'length', 'max' => 255),  
+            array('tengine', 'length', 'max' => 100),
             array('tchassis, tlicenseplate', 'length', 'max' => 50),
             array('modified', 'safe'),
             // foreign key checks:
@@ -83,6 +85,7 @@ class Tvehicle extends BaseModel {
         return array(
             'id' => 'ID',
             'tvehicle' => 'Tvehicle',
+            'tengine' => 'Tengine',
             'tchassis' => 'Tchassis',
             'tlicenseplate' => 'Tlicenseplate',
             'make_id' => 'Make',
@@ -98,12 +101,6 @@ class Tvehicle extends BaseModel {
 
         if (empty($this->tvehicle)) {
             $this->tvehicle = null;
-        }
-        if (empty($this->tmake)) {
-            $this->tmake = null;
-        }
-        if (empty($this->ttype)) {
-            $this->ttype = null;
         }
         if (!empty($this->type_id)) {
             $type = Type::model()->findByPk($this->type_id);
@@ -122,6 +119,13 @@ class Tvehicle extends BaseModel {
         }
 
         return parent::beforeSave();
+    }
+    
+    public function IsDone(){
+        if ($this->done == 1) {
+            return true;
+        }
+        return false;
     }
 
     public function behaviors() {

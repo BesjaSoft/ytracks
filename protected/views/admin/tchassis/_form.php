@@ -1,5 +1,5 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'id' => 'tchassis-form',
     'type' => 'horizontal',
     'enableAjaxValidation' => false,
@@ -11,38 +11,38 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php echo $form->textFieldRow($model, 'filename', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'filename', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'tmake', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'tmake', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'ttype', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'ttype', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'chassis', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'chassis', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'tengine', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'tengine', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'tengine_number', array('class' => 'span5', 'maxlength' => 50)); ?>
+<?php echo $form->textFieldGroup($model, 'tengine_number', array('class' => 'span5', 'maxlength' => 50)); ?>
 
-<?php echo $form->textFieldRow($model, 'year', array('class' => 'span5', 'maxlength' => 50)); ?>
+<?php echo $form->textFieldGroup($model, 'year', array('class' => 'span5', 'maxlength' => 50)); ?>
 
-<?php echo $form->textFieldRow($model, 'group', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'group', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'first_owner', array('class' => 'span5', 'maxlength' => 500)); ?>
+<?php echo $form->textFieldGroup($model, 'first_owner', array('class' => 'span5', 'maxlength' => 500)); ?>
 
-<?php echo $form->textFieldRow($model, 'next_owners', array('class' => 'span5', 'maxlength' => 500)); ?>
+<?php echo $form->textFieldGroup($model, 'next_owners', array('class' => 'span5', 'maxlength' => 500)); ?>
 
-<?php echo $form->textFieldRow($model, 'original_color', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'original_color', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textFieldRow($model, 'original_registration_number', array('class' => 'span5', 'maxlength' => 20)); ?>
+<?php echo $form->textFieldGroup($model, 'original_registration_number', array('class' => 'span5', 'maxlength' => 20)); ?>
 
-<?php echo $form->textFieldRow($model, 'later_registration_numbers', array('class' => 'span5', 'maxlength' => 100)); ?>
+<?php echo $form->textFieldGroup($model, 'later_registration_numbers', array('class' => 'span5', 'maxlength' => 100)); ?>
 
-<?php echo $form->textAreaRow($model, 'competition_appearances', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php echo $form->textAreaGroup($model, 'competition_appearances', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
-<?php echo $form->textAreaRow($model, 'comment', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php echo $form->textAreaGroup($model, 'comment', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
 <?php
-echo $form->dropDownListRow($model, 'make_id', Make::model()->findList(), array(
+echo $form->dropDownListGroup($model, 'make_id', Make::model()->findList(), array(
     'class' => 'span5',
     'prompt' => '- Select a Make -',
     'ajax' => array(
@@ -54,7 +54,7 @@ echo $form->dropDownListRow($model, 'make_id', Make::model()->findList(), array(
 );
 ?>
 <?php
-echo $form->dropDownListRow($model, 'type_id', Type::model()->findList('make_id = :make', array(':make' => $model->make_id))
+echo $form->dropDownListGroup($model, 'type_id', Type::model()->findList('make_id = :make', array(':make' => $model->make_id))
         , array('class' => 'span5',
     'prompt' => '-Select a Type -'
     , 'ajax' => array('type' => 'POST' //request type
@@ -66,21 +66,21 @@ echo $form->dropDownListRow($model, 'type_id', Type::model()->findList('make_id 
 ?>
 
 <?php
-echo $form->dropDownListRow($model, 'vehicle_id', Vehicle::model()->findList('type_id = :type', array(':type' => $model->type_id)), array('class' => 'span5', 'prompt' => '- Select a Vehicle -'));
+echo $form->dropDownListGroup($model, 'vehicle_id', Vehicle::model()->findList('type_id = :type', array(':type' => $model->type_id)), array('class' => 'span5', 'prompt' => '- Select a Vehicle -'));
 ?>
 
-<?php echo $form->dropdownListRow($model, 'engine_id', Engine::model()->findList(), array('class' => 'span5','prompt'=> '- select an Engine - ')); ?>
+<?php echo $form->dropDownListGroup($model, 'engine_id', Engine::model()->findList(), array('class' => 'span5','prompt'=> '- select an Engine - ')); ?>
 
-<?php echo $form->textFieldRow($model, 'published', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'published', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'done', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'done', array('class' => 'span5')); ?>
 
 
 <div class="form-actions">
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
+    $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => $model->isNewRecord ? 'Create' : 'Save',
     ));
     ?>

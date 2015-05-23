@@ -1,7 +1,7 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'type' => 'horizontal',
         'id' => 'competition-form',
         'enableAjaxValidation' => false,

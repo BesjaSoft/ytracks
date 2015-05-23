@@ -21,7 +21,7 @@ if (!empty($model->tvehicle)) {
 } else {
     $tvehicle = $model->tmake . ' / ' . $model->ttype;
 }
-$this->widget('bootstrap.widgets.TbDetailView', array(
+$this->widget('booster.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
         'id',
@@ -30,6 +30,7 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
             'type' => 'raw',
             'value' => $tvehicle
         ),
+        'tengine',
         'tchassis',
         'tlicenseplate',
         array(

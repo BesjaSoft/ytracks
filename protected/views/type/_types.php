@@ -26,7 +26,7 @@ if (isset($search)) {
     $type->make_id = $model->id;
 }
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'type-grid',
     'dataProvider' => $type->searchTypes(),
@@ -43,13 +43,10 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'untill',
         'production_number',
         'registered',
-        array(
-            'class' => 'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
             'viewButtonUrl' => 'Yii::app()->createUrl("/type/view", array("id" => $data->id))',
             'updateButtonUrl' => 'Yii::app()->createUrl("/type/update", array("id" => $data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("/type/delete", array("id" => $data->id))'
-        )
-    )
-        )
-);
+))));
 ?>

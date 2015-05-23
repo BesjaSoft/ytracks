@@ -13,7 +13,7 @@ $this->menu=array(
 <h1> Create Tscale </h1>
 <div class="form">
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm', array(
 		'type'=>'horizontal',
 
 	'id'=>'tscale-form',

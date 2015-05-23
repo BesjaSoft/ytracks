@@ -29,16 +29,16 @@ class Scalemodel extends BaseModel {
 
     public static $displayField = 'description';
 
-    public static function getDisplayField($class = __CLASS__) {
-        return parent::getDisplayField($class);
-    }
-
     /**
      * Returns the static model of the specified AR class.
      * @return Scalemodel the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public static function getDisplayField($class = __CLASS__) {
+        return parent::getDisplayField($class);
     }
 
     public function afterSave() {
@@ -92,7 +92,8 @@ class Scalemodel extends BaseModel {
             array('make_id+reference', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, make_id, type_id, description, alias, reference, year, color, raceno, livery, event, drivers, category_id, scale_id, modeltype_id, material_id, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
+            array('id, make_id, type_id, description, alias, reference, year, color, raceno, livery, event, drivers, category_id, scale_id, modeltype_id, material_id, created, modified, deleted, deleted_date',
+                'safe', 'on' => 'search'),
         );
     }
 
@@ -200,7 +201,7 @@ class Scalemodel extends BaseModel {
                 'defaultStickOnClear' => false /* optional line */
             ),
             'SlugBehavior' => array
-                ('class' => 'application.models.behaviours.SlugBehavior'
+                ('class' => 'SlugBehavior'
                 , 'slug_col' => 'alias'
                 , 'title_col' => array(array('make', 'name'), 'reference')
                 , 'overwrite' => true //, 'max_slug_chars' => 125

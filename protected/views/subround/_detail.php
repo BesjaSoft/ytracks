@@ -1,6 +1,6 @@
 <?php
 
-$this->widget('bootstrap.widgets.TbDetailView', array(
+$this->widget('booster.widgets.TbDetailView', array(
     'data'       => $model,
     'attributes' => array(
         'id',

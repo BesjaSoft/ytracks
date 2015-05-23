@@ -37,7 +37,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
+<?php $this->widget('booster.widgets.TbGridView',array(
 	'id'=>'bodywork-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -58,7 +58,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'delete_date',
 		*/
 		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'class'=>'booster.widgets.TbButtonColumn',
 		),
 	),
 )); ?>

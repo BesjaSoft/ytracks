@@ -2,11 +2,11 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-<?php echo $form->textFieldRow($model, 'merk', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'referentie', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'car', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'omschrijving', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'categorie', array('size' => 60, 'maxlength' => 250)); ?>
+<?php echo $form->textFieldGroup($model, 'merk', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'referentie', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'car', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'omschrijving', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'categorie', array('size' => 60, 'maxlength' => 250)); ?>
 
 <div class="control-group">
 
@@ -30,11 +30,11 @@
 </div>
 
 <?php
-echo $form->dropDownListRow($model, 'category_id', ModelCategory::model()->findList()
+echo $form->dropDownListGroup($model, 'category_id', ModelCategory::model()->findList()
         , array('prompt' => 'Select a Category..')
 );
 ?>
 
-<?php echo $form->checkBoxRow($model, 'deleted'); ?>
+<?php echo $form->checkBoxGroup($model, 'deleted'); ?>
 
 

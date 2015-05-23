@@ -10,14 +10,14 @@
 
         <?php
         $this->widget(
-                'bootstrap.widgets.TbNavbar', array(
+                'booster.widgets.TbNavbar', array(
             'type' => 'inverse', // null or 'inverse'
             'brand' => 'yTracks',
             'brandUrl' => '#',
             'collapse' => true, // requires bootstrap-responsive.css
             'items' => array(
                 array(
-                    'class' => 'bootstrap.widgets.TbMenu',
+                    'class' => 'booster.widgets.TbMenu',
                     'items' => array(
                         array('label' => 'Home', 'url' => array('/site/index')),
                         array(

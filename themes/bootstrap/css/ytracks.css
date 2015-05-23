@@ -1,8 +1,4 @@
 @CHARSET "ISO-8859-1";
-body {
-    padding-top: 42px;
-    position: relative;
-}
 
 table td {
     font-size: 12px;
@@ -23,5 +19,5 @@ table td {
 
 .licenseplate{
     display: inline;
-    color: orange;
+    color: goldenrod;
 }

@@ -116,8 +116,7 @@ $dataProvider = new CActiveDataProvider(
 );
 
 
-$this->widget('bootstrap.widgets.TbGridView', array(
-    'id' => 'results-grid',
+$this->widget('booster.widgets.TbGridView', array(
     'dataProvider' => $dataProvider,
     'columns' => $columns,
     'type' => 'striped bordered condensed'

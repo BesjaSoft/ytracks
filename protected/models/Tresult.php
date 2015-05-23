@@ -236,7 +236,7 @@ class Tresult extends BaseModel {
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'Pagination' => array('pageSize' => 20,),
+            'Pagination' => array('pageSize' => 25,),
         ));
     }
 
@@ -274,7 +274,6 @@ class Tresult extends BaseModel {
         // Export the Tresults into Results
         $raceclass_id = null;
 
-
         // Get the raceclass:
         $raceclass = null;
         if (isset($tresult->raceclass)) {
@@ -303,22 +302,26 @@ class Tresult extends BaseModel {
             if (is_bool($result) && $result === false) {
                 $tresult->error = 7;
                 $tresult->save();
-                return;
+                return false;
             } else {
                 $tresult->subround_id = $result;
             }
             $tresult->save();
+            $tresult = Tresult::model()->findByPk($tresult->id);
         }
 
         if (empty($tresult->make_id) ||
                 (empty($tresult->engine_id) && (strpos($tresult->tvehicle, 'Turbo') > 0 || strpos($tresult->tvehicle, ' - ') > 0 ))
         ) {
+            //echo 'Opzoeken van het voertuig';
             $vehicle = $this->findVehicle($tresult);
             $tresult->make_id = $vehicle->make_id;
             $tresult->type_id = $vehicle->type_id;
             $tresult->vehicle_id = $vehicle->vehicle_id;
             $tresult->engine_id = $vehicle->engine_id;
             $tresult->save();
+            
+            $tresult = Tresult::model()->findByPk($tresult->id);
         }
 
         $trindividuals = $tresult->trindividuals;
@@ -872,6 +875,7 @@ class Tresult extends BaseModel {
                                 if ($store || empty($tresult->error)) {
                                     if ($this->addIndividuals($tresult, false)) {
                                         if ($this->export($tresult->id)) {
+                                            $tresult = Tresult::model()->findByPk($id->id);
                                             $tresult->deleted = 1;
                                             $tresult->save();
                                         }
@@ -905,6 +909,11 @@ class Tresult extends BaseModel {
         echo '***** Einde ConvertResults *****' . "\n";
     }
 
+    private function findEngine($engineName){
+        $engine = Engine::model()->find('name=:name', array('name' => $engineName));
+        return $engine;
+    }
+    
     private function findEvent($tresult, $debug = false) {
         $event = Event::model()->find('name=:name', array('name' => trim($tresult->round)));
         if (empty($event->id)) {
@@ -1129,39 +1138,58 @@ class Tresult extends BaseModel {
         $vehicle->type_id = null;
         $vehicle->vehicle_id = null;
         $vehicle->engine_id = null;
-
+        
+        $hasTurbo = false;
+        $engineName = '';
+        
         if (empty($tresult->tvehicle) || $tresult->tvehicle == '?' || $tresult->tvehicle == '-') {
             $make = Make::model()->find('name=:name', array('name' => 'Unknown'));
             $vehicle->make_id = $make->id;
             return $vehicle;
         }
 
-// assume that if there was an chassisnumber entered and the vehicle is not empty, this is correct.
-        if (!empty($tresult->make_id) && (!empty($tresult->tchassis) && !empty($tresult->vehicle_id))) {
+        // assume that if there was an chassisnumber entered and the vehicle is not empty, this is correct.
+        if (!empty($tresult->make_id) && 
+                (!empty($tresult->tchassis) && !empty($tresult->vehicle_id)) &&
+                (!empty($tresult->engine_id) && strpos($tresult->tvehicle, ' - ') > 0 )) {
             $vehicle->make_id = $tresult->make_id;
             $vehicle->type_id = $tresult->type_id;
             $vehicle->vehicle_id = $tresult->vehicle_id;
             $vehicle->engine_id = $tresult->engine_id;
+            
             return $vehicle;
         }
 
         if (!empty($tresult->tchassis)) {
+            // lookup in the conversion table:
+            $tvehicle = $this->findTvehicle($tresult->tvehicle, $tresult->tchassis);
+            if (!empty($tvehicle->vehicle_id)) {
+                $vehicle->make_id = $tvehicle->make_id;
+                $vehicle->type_id = $tvehicle->type_id;
+                $vehicle->vehicle_id = $tvehicle->vehicle_id;
+                $vehicle->engine_id = $tvehicle->engine_id;
 
-// remove the last part, might be the engine....
+                return $vehicle;
+            }
+            
+            // remove the last part, might be the engine....
             $type = trim($tresult->tvehicle);
+            // first remove the turbo part:
             if (substr($type, -5) == 'Turbo') {
                 $type = trim(str_replace('Turbo', '', $type));
+                $hasTurbo = true;
             }
             $rpos = strrpos($type, ' ');
             if ($rpos !== false) {
+                $engineName = substr($type, $rpos + 1);
                 $type = substr($type, 0, $rpos);
-
                 $tchassis = str_replace(' ', '', $tresult->tchassis);
 
-// find by Alias - no changes
+                // find by Alias - no changes
                 $fvehicle = $this->findVehicleByAlias($tresult->tvehicle, $tresult->tchassis);
-                if (!$vehicle)
+                if (!$vehicle) {
                     $fvehicle = $this->findVehicleByAlias($tresult->tvehicle, $tchassis);
+                }
                 if (!$vehicle)
                     $fvehicle = $this->findVehicleByAlias($type, $tresult->tchassis);
                 if (!$vehicle)
@@ -1176,28 +1204,24 @@ class Tresult extends BaseModel {
                 if (!$vehicle)
                     $fvehicle = $this->findVehicleByName($type, $tchassis);
 
+                if ($hasTurbo) {
+                    $engineName = $engineName . ' Turbo';
+                }
+                $engine = $this->findEngine($engineName);
+                
                 if (!empty($fvehicle->id)) {
                     $vehicle->type_id = $fvehicle->type_id;
                     $vehicle->make_id = $fvehicle->type->make_id;
                     $vehicle->vehicle_id = $fvehicle->id;
-//$vehicle->engine_id = $fvehicle->engine_id;
+                    $vehicle->engine_id = $fvehicle->engine_id;
                     return $vehicle;
                 }
 
-                // not found within regular tables, now try to find the conversion tables:
-                $tvehicle = $this->findTvehicle($tresult->tvehicle, $tresult->tchassis);
-                if (!empty($tvehicle->vehicle_id)) {
-                    $vehicle->make_id = $tvehicle->make_id;
-                    $vehicle->type_id = $tvehicle->type_id;
-                    $vehicle->vehicle_id = $tvehicle->vehicle_id;
-                    $vehicle->engine_id = $tvehicle->engine_id;
 
-                    return $vehicle;
-                }
             } else {
-// Ok! No space in the type, but there is an chassisnumber? look up in the Tvehicles:
+                // Ok! No space in the type, but there is an chassisnumber? look up in the Tvehicles:
                 $tvehicle = $this->findTvehicle($tresult->tvehicle, $tresult->tchassis);
-//print_r($tvehicle);
+                //print_r($tvehicle);
                 if (!empty($tvehicle->vehicle_id)) {
                     $vehicle->make_id = $tvehicle->make_id;
                     $vehicle->type_id = $tvehicle->type_id;
@@ -1207,6 +1231,17 @@ class Tresult extends BaseModel {
                 }
             }
         } else {
+            // First check the conversion table:
+            $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and done=1', array(
+                'tvehicle' => $tresult->tvehicle));
+            if (!empty($tvehicle->make_id)) {
+                $vehicle->make_id = $tvehicle->make_id;
+                $vehicle->type_id = $tvehicle->type_id;
+                $vehicle->engine_id = $tvehicle->engine_id;
+                //echo '$tvehicle =>'.$tresult->tvehicle;
+                //print_r($vehicle);
+            }
+            
             $search = $this->getSlug(trim($tresult->tvehicle));
             $type = Type::model()->find('alias=:alias', array('alias' => $search));
             if (empty($type->id)) {
@@ -1242,14 +1277,6 @@ class Tresult extends BaseModel {
                 return $vehicle;
             }
 
-            // not found anywhere? Then check the conversion table:
-            $tvehicle = Tvehicle::model()->find('tvehicle=:tvehicle and done=1', array(
-                'tvehicle' => $tresult->tvehicle));
-            if (!empty($tvehicle->make_id)) {
-                $vehicle->make_id = $tvehicle->make_id;
-                $vehicle->type_id = $tvehicle->type_id;
-                $vehicle->engine_id = $tvehicle->engine_id;
-            }
         }
 
         return $vehicle;
@@ -1317,7 +1344,7 @@ class Tresult extends BaseModel {
     private function getSubroundType($tresult) {
         $subroundtype = 4; // default race
 
-        if (($tresult->round == '1000 km Okayama' && $tresult->rounddate == '1-11-2009' && empty($tresult->roundtype)) || 
+        if (($tresult->round == '1000 km Okayama' && $tresult->rounddate == '1-11-2009' && empty($tresult->roundtype)) ||
                 ($tresult->round == 'UAE GT Yas Marina' && $tresult->rounddate == '27-1-2012' && empty($tresult->roundtype)) ||
                 ($tresult->round == 'IGT Magione [III-IV]' && $tresult->rounddate == '12-4-1993' && empty($tresult->roundtype))
         ) {

@@ -1,33 +1,33 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'action' => Yii::app()->createUrl($this->route),
     'method' => 'get',
         ));
 ?>
 
-<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'content_id', array('class' => 'span5', 'maxlength' => 10)); ?>
+<?php echo $form->textFieldGroup($model, 'content_id', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-<?php echo $form->textFieldRow($model, 'project_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'project_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'competition_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'competition_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'season_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'season_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'created', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'created', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'modified', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'deleted', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'deleted', array('class' => 'span5')); ?>
 
-    <?php echo $form->textFieldRow($model, 'deleted_date', array('class' => 'span5')); ?>
+    <?php echo $form->textFieldGroup($model, 'deleted_date', array('class' => 'span5')); ?>
 
 <div class="form-actions">
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
+    $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => 'Search',
     ));
     ?>

@@ -25,7 +25,7 @@ data: $(this).serialize()
 ?>
 <h1>Manage Tresults</h1>
 
-<?php echo CHtml::link(Yii::t('app', 'Advanced Search'), '#', array('class' => 'search-button')); ?>
+<?php echo CHtml::link(Yii::t('app', 'Advanced Search'), '#', array('class' => 'btn btn-default search-button')); ?>
 <div class="search-form" style="display:none">
     <?php
     $this->renderPartial('_search', array(
@@ -34,9 +34,9 @@ data: $(this).serialize()
     ?>
 </div>
 
-<button class="btn btn-primary" onclick="updateAll();">Update all</button>
+<button class="btn btn-primary" onclick="exportAll();">Export all</button>
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'tresult-grid',
     'dataProvider' => $model->search(),
@@ -58,21 +58,21 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array('name' => 'tvehicle', 'type' => 'html', 'value' => '$data->tvehicle.CHtml::tag(\'div\', array(\'class\' => \'chassisnumber\'), $data->tchassis).CHtml::tag(\'div\', array(\'class\' => \'licenseplate\'), $data->tlicenseplate)'),
         array('name' => 'error', 'htmlOptions' => array('style' => 'width:15px;')),
         array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'class' => 'booster.widgets.TbButtonColumn',
             'buttons' => array(
                 'export' => array(
                     'label' => 'export',
-                    'imageUrl' => Yii::app()->request->baseUrl . '/images/export.png',
-                    'url' => 'Yii::app()->createUrl("/admin/tresult/export", array("id"=>$data->id,"showError"=>true))'),
+                    'icon' => 'cog',
+                    'url' => 'Yii::app()->createUrl("/admin/tresult/export", array("id"=>$data->id))'),
             ),
             'template' => '{view}{update}{delete}{export}',
-            'htmlOptions' => array('style' => 'width:65px;')
+            'htmlOptions' => array('style' => 'width:67px;')
         ),
     ),
 ));
 ?>
 <script type="text/javascript">
-    function updateAll() {
+    function exportAll() {
         $('input[type=checkbox][name="selectedItem[]"]').each(function () {
             if (this.checked) {
                 //console.log($(this).val()); 

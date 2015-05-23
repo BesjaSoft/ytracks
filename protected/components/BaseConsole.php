@@ -23,7 +23,7 @@ class BaseConsole extends CConsoleCommand {
         'geldrivers' => array('path' => '../../../../webcopier/GELMotorsport/drivers/*.html', 'category' => 24),
         'geltracks' => array('path' => '../../../../webcopier/GELMotorsport/tracks/*.html', 'category' => 25),
         'rallybase' => array('path' => '../../../webcopier/Rallybase/*.html', 'category' => 26),
-        'urh' => array('path' => '../../../webcopier/ultimateracinghistory/*.html', 'category' => 27),
+        'urh' => array('path' => '../../../../webcopier/urh/*.html', 'category' => 27),
     );
 
     protected function readfiles($do = false) {

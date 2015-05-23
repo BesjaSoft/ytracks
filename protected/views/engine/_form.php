@@ -1,7 +1,7 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'type' => 'horizontal',
         'id' => 'engine-form',
         'enableAjaxValidation' => false,
@@ -23,7 +23,7 @@
                 'value' => isset($model->make_id) ? $model->make->name : $model->make_id,
                 'source' => $this->createUrl('make/autoComplete'),
                 'options' => array('showAnim' => 'fold',
-                    'minLength' => 3,
+                    'minLength' => 2,
                     'select' => 'js:function(event, ui){ var $selectedObject = ui.item; $("#Engine_make_id").val($selectedObject.id);}'
                 )
                     )
@@ -33,10 +33,10 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'description', array('size' => 60, 'maxlength' => 255)); ?>
-    <?php echo $form->textFieldRow($model, 'code', array('size' => 20, 'maxlength' => 20)); ?>
+    <?php echo $form->textFieldGroup($model, 'name', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php echo $form->textFieldGroup($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php echo $form->textFieldGroup($model, 'description', array('size' => 60, 'maxlength' => 255)); ?>
+    <?php echo $form->textFieldGroup($model, 'code', array('size' => 20, 'maxlength' => 20)); ?>
     <div class="control-group">
         <?php echo $form->hiddenField($model, 'parent_id'); ?>
         <?php echo $form->labelEx($model, 'parent_id', array('class' => 'control-label')); ?>
@@ -75,12 +75,12 @@
             <?php echo $form->error($model, 'make_id'); ?>
         </div>
     </div>
-    <?php echo $form->dropDownListRow($model, 'enginetype_id', Enginetype::model()->findList(), array('prompt' => 'Select an Enginetype..')); ?>
-    <?php echo $form->textFieldRow($model, 'compression', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'cams'); ?>
-    <?php echo $form->textFieldRow($model, 'valves_cylinder'); ?>
-    <?php echo $form->textFieldRow($model, 'bore', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'stroke', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->dropDownListGroup($model, 'enginetype_id', Enginetype::model()->findList(), array('prompt' => 'Select an Enginetype..')); ?>
+    <?php echo $form->textFieldGroup($model, 'compression', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'cams'); ?>
+    <?php echo $form->textFieldGroup($model, 'valves_cylinder'); ?>
+    <?php echo $form->textFieldGroup($model, 'bore', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'stroke', array('size' => 10, 'maxlength' => 10)); ?>
 
 
     <div class="control-group">
@@ -138,14 +138,14 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'induction'); ?>
-    <?php echo $form->textFieldRow($model, 'ignition_id'); ?>
-    <?php echo $form->textFieldRow($model, 'fuelsystem_id'); ?>
-    <?php echo $form->checkBoxRow($model, 'published'); ?>
-    <?php echo $form->textFieldRow($model, 'ordering'); ?>
+    <?php echo $form->textFieldGroup($model, 'induction'); ?>
+    <?php echo $form->textFieldGroup($model, 'ignition_id'); ?>
+    <?php echo $form->textFieldGroup($model, 'fuelsystem_id'); ?>
+    <?php echo $form->checkBoxGroup($model, 'published'); ?>
+    <?php echo $form->textFieldGroup($model, 'ordering'); ?>
 
     <div class="form-actions">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save')); ?>
+        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

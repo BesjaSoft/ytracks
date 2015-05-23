@@ -1,52 +1,88 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-    'id' => 'individual-reference-form',
-    'enableAjaxValidation' => false,
-    'type' => 'horizontal',
-    'htmlOptions' => array('class' => 'well')
-        ));
+/* @var $this IndividualReferenceController */
+/* @var $model IndividualReference */
+/* @var $form CActiveForm */
 ?>
 
-<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+<div class="form">
 
-<?php echo $form->errorSummary($model); ?>
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'individual-reference-form',
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+)); ?>
 
-<div class="control-group">
-    <?php echo $form->labelEx($model, 'individual_id', array('class' => 'control-label')); ?>
-    <div class="controls">
-        <?php echo $form->hiddenField($model, 'individual_id'); ?>
-        <?php
-        $this->widget('zii.widgets.jui.CJuiAutoComplete', array('id'  => 'individual_id',
-            'name' => 'individual_id',
-            'value' => $model->individual->full_name,
-            'source' => $this->createUrl('individual/autoComplete'),
-            'options' => array(
-                'showAnim'  => 'fold',
-                'minLength' => 2,
-                'select'    => 'js:function(event, ui){ var $selectedObject = ui.item; $("#IndividualReference_individual_id").val($selectedObject.id);}'
-            ),
-            'htmlOptions'=>array('class' => 'span5',),
-                )
-        );
-        ?>
-        <?php echo $form->error($model, 'make_id'); ?>
-    </div>
-</div>
-<?php echo $form->textFieldRow($model, 'internal_reference', array('class'     => 'span5', 'maxlength' => 50)); ?>
-<?php echo $form->dropDownListRow($model, 'source_id', Source::model()->findList(), array('class' => 'span5')); ?>
-<?php echo $form->textFieldRow($model, 'source_reference', array('class'     => 'span5', 'maxlength' => 6)); ?>
-<?php echo $form->textFieldRow($model, 'full_name', array('class'     => 'span5', 'maxlength' => 32)); ?>
-<?php echo $form->textFieldRow($model, 'first_name', array('class'     => 'span5', 'maxlength' => 18)); ?>
-<?php echo $form->textFieldRow($model, 'last_name', array('class'     => 'span5', 'maxlength' => 24)); ?>
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-<div class="form-actions">
-    <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType' => 'submit',
-        'type'       => 'primary',
-        'label'      => $model->isNewRecord ? 'Create' : 'Save',
-    ));
-    ?>
-</div>
+	<?php echo $form->errorSummary($model); ?>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'individual_id'); ?>
+		<?php echo $form->textField($model,'individual_id'); ?>
+		<?php echo $form->error($model,'individual_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'source_id'); ?>
+		<?php echo $form->textField($model,'source_id'); ?>
+		<?php echo $form->error($model,'source_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'source_reference'); ?>
+		<?php echo $form->textField($model,'source_reference',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->error($model,'source_reference'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'full_name'); ?>
+		<?php echo $form->textField($model,'full_name',array('size'=>60,'maxlength'=>250)); ?>
+		<?php echo $form->error($model,'full_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'first_name'); ?>
+		<?php echo $form->textField($model,'first_name',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'first_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'last_name'); ?>
+		<?php echo $form->textField($model,'last_name',array('size'=>60,'maxlength'=>150)); ?>
+		<?php echo $form->error($model,'last_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'createdon'); ?>
+		<?php echo $form->textField($model,'createdon'); ?>
+		<?php echo $form->error($model,'createdon'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'modifiedon'); ?>
+		<?php echo $form->textField($model,'modifiedon'); ?>
+		<?php echo $form->error($model,'modifiedon'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'deleted'); ?>
+		<?php echo $form->textField($model,'deleted'); ?>
+		<?php echo $form->error($model,'deleted'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'deletedon'); ?>
+		<?php echo $form->textField($model,'deletedon'); ?>
+		<?php echo $form->error($model,'deletedon'); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
 
 <?php $this->endWidget(); ?>
+
+</div><!-- form -->

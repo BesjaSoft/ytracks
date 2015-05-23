@@ -15,7 +15,7 @@ $dataProvider = new CActiveDataProvider('Project', array(
     'pagination' => array('pageSize' => 15,),
         ));
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'project-grid',
     'dataProvider' => $dataProvider,
@@ -24,7 +24,5 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         $this->showCompetitionGrid(),
         $this->showSeasonGrid(),
         $this->showProjectButtonGrid()
-    ),
-        )
-);
+)));
 ?>

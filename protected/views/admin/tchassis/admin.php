@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'id' => 'tchassis-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
@@ -77,7 +77,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
           'deleted_date',
          */
         array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'class' => 'booster.widgets.TbButtonColumn',
             'template' => '{view}{update}{delete}{export}',
             'buttons' => array('export' => array(
                     'label' => 'Export',

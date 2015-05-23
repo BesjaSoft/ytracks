@@ -14,16 +14,16 @@ $this->menu = array(
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'action' => Yii::app()->createUrl($this->route),
         'method' => 'get',
-        'type' => 'search',
+        'type' => 'inline',
         'htmlOptions' => array('class' => 'well'),
             ));
     ?>
 
-    <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 200, 'class' => 'input-medium', 'prepend' => '<i class="icon-search"></i>')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'label' => 'Go')); ?>    
+    <?php echo $form->textFieldGroup($model, 'name', array('size' => 60, 'maxlength' => 200, 'class' => 'input-medium', 'prepend' => '<i class="icon-search"></i>')); ?>
+    <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => 'Go')); ?>    
 
 
     <?php $this->endWidget(); ?>
@@ -31,7 +31,7 @@ $this->menu = array(
 </div><!-- search-form -->
 
 <?php
-$this->widget('zii.widgets.CListView', array(
+$this->widget('booster.widgets.TbListView', array(
     'dataProvider' => $dataProvider,
     'itemView' => '_view',
 ));

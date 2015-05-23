@@ -2,17 +2,17 @@
 <div class="row-fluid">
     <div id="breadcrumbs" class="span9 offset1">
         <?php
-        $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+        $this->widget('booster.widgets.TbBreadcrumbs', array(
             'links' => $this->breadcrumbs,
         ));
         ?>
     </div><!-- content --> 
 </div>
 <div class="row-fluid">
-    <div id="content" class="span9 offset1">
+    <div id="content" class="col-sm-10 col-xs-12">
         <?php echo $content; ?>
     </div><!-- content -->
-    <div id="sidebar" class="span2">
+    <div id="sidebar" class="col-sm-2 col-xs-12 bs-docs-sidebar">
         <?php
         $this->beginWidget('zii.widgets.CPortlet', array(
             'title' => 'Operations',

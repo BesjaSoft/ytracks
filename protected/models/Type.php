@@ -165,7 +165,7 @@ class Type extends BaseModel {
         return array(
             'AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
             'SlugBehavior' => array(
-                'class' => 'application.models.behaviours.SlugBehavior',
+                'class' => 'SlugBehavior',
                 'slug_col' => 'alias',
                 'title_col' => array(array('make', 'name'), 'name'),
                 'overwrite' => false //, 'max_slug_chars' => 125

@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 <button class="btn btn-primary" onclick="updateAll();">Update all</button>
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'id' => 'tround-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
@@ -54,6 +54,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'id',
         $this->showContentGrid(),
         'name',
+        'ordering',
         $this->showEventGrid(),
         $this->showProjectGrid(),
         $this->showCircuitGrid(),
@@ -76,7 +77,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
           'deleted_date',
          */
         array(
-            'class' => 'bootstrap.widgets.TbButtonColumn',
+            'class' => 'booster.widgets.TbButtonColumn',
             'template' => '{view}{update}{delete}{export}',
             'buttons' => array(
                 'export' => array(
@@ -89,7 +90,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                     'url' => 'Yii::app()->createUrl("admin/tround/update", array("id"=>$data->id,"showError"=>true))'),
             ),
             'htmlOptions' => array(
-                'style' => 'width: 60px',
+                'style' => 'width: 80px',
             ),
         ),
     ),
@@ -114,6 +115,5 @@ $this->widget('bootstrap.widgets.TbGridView', array(
             }
         });
         $.fn.yiiGridView.update('tevent-grid');
-
     }
 </script>

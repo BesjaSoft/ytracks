@@ -13,21 +13,25 @@
  */
 class Modeltype extends Unit {
 
+    public function init() {
+        $this->domainValue = 'MPE';
+        parent::init();
+    }
+
     /**
      * Returns the static model of the specified AR class.
-     * @return Modeltype the static model class
+     * @return Distance the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
-    public static function getDisplayField() {
-        return 'description';
+    public static function getDisplayField($class = __CLASS__) {
+        return parent::getDisplayField($class);
     }
 
-    public function init() {
-        $this->domainValue = 'MPE';
-        parent::init();
+    public static function getDomainValue($class = __CLASS__) {
+        return parent::getDomainValue($class);
     }
 
     /**

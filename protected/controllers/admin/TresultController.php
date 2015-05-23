@@ -50,8 +50,9 @@ class TresultController extends Controller {
             $model->attributes = $_POST['Tresult'];
 
 
-            if ($model->save())
+            if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
         $this->render('create', array(
@@ -98,11 +99,11 @@ class TresultController extends Controller {
 
         if (Tresult::model()->addIndividuals($model, true)) {
             if (Tresult::model()->export($model)) {
+                $model = $this->loadModel($id);
                 $model->deleted = 1;
                 $model->save();
-
-                $this->redirect(array('admin/tresult/admin'));
             }
+            $this->redirect(array('admin/tresult/admin'));
         }
         if ($showUpdate) {
             $this->render('update', array('model' => $model,));

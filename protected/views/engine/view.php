@@ -48,7 +48,7 @@ $attributes[] = 'modified';
 $attributes[] = array('name' => 'deleted', 'type' => 'raw', 'value' => $model->getDeletedImage());
 $attributes[] = 'deleted_date';
 
-$this->widget('bootstrap.widgets.TbDetailView', array(
+$this->widget('booster.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => $attributes
 ));

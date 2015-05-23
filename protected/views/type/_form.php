@@ -1,7 +1,7 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'type' => 'horizontal',
         'id' => 'type-form',
         'enableAjaxValidation' => false,
@@ -34,12 +34,12 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'name', array('size' => 50, 'maxlength' => 50)); ?>
-    <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'description', array('size' => 60, 'maxlength' => 255)); ?>
-    <?php echo $form->textFieldRow($model, 'chassiscode', array('size' => 20, 'maxlength' => 20)); ?>
+    <?php echo $form->textFieldGroup($model, 'name', array('size' => 50, 'maxlength' => 50)); ?>
+    <?php echo $form->textFieldGroup($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php echo $form->textFieldGroup($model, 'description', array('size' => 60, 'maxlength' => 255)); ?>
+    <?php echo $form->textFieldGroup($model, 'chassiscode', array('size' => 20, 'maxlength' => 20)); ?>
     <?php
-    echo $form->dropDownListRow($model
+    echo $form->dropDownListGroup($model
             , 'cartype_id'
             , Cartype::model()->findList()
             , array('prompt' => 'Select a Cartype..')
@@ -71,8 +71,8 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'from', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'untill', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'from', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'untill', array('size' => 10, 'maxlength' => 10)); ?>
 
 
     <div class="control-group">
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'topspeed'); ?>
+    <?php echo $form->textFieldGroup($model, 'topspeed'); ?>
 
     <div class="control-group">
         <?php echo $form->labelEx($model, 'length', array('class' => 'control-label')); ?>
@@ -180,11 +180,11 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'spoorbreedte_voor', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'spoorbreedte_achter', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'production_number', array('size' => 20, 'maxlength' => 20)); ?>
-    <?php echo $form->checkBoxRow($model, 'published'); ?>
-    <?php echo $form->textFieldRow($model, 'ordering'); ?>
+    <?php echo $form->textFieldGroup($model, 'spoorbreedte_voor', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'spoorbreedte_achter', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'production_number', array('size' => 20, 'maxlength' => 20)); ?>
+    <?php echo $form->checkBoxGroup($model, 'published'); ?>
+    <?php echo $form->textFieldGroup($model, 'ordering'); ?>
 
     <div class="form-actions">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

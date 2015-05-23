@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'twindouble-grid',
     'dataProvider' => $model->getTwinsOrDoubles(),
@@ -59,8 +59,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'cnt',
         'min_id',
         'max_id',
-        array(
-            'class' => 'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
             'buttons' => array(
                 'combine' => array(
                     'label' => 'combine',

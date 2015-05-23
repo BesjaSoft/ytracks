@@ -1,104 +1,57 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'individual-form',
         'enableAjaxValidation' => false,
         'type' => 'horizontal',
-            ));
+    ));
     ?>
 
     <p class="note">Fields with <span class="required">*</span> are required.</p>
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textFieldRow($model, 'last_name', array('size' => 50, 'maxlength' => 50)); ?>
-    <?php echo $form->textFieldRow($model, 'first_name', array('size' => 30, 'maxlength' => 30)); ?>
-    <?php echo $form->textFieldRow($model, 'full_name', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'nickname', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'height', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'weight', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'gender', array('size' => 1, 'maxlength' => 1)); ?>
+    <?php echo $form->textFieldGroup($model, 'last_name', array('size' => 50, 'maxlength' => 50)); ?>
+    <?php echo $form->textFieldGroup($model, 'first_name', array('size' => 30, 'maxlength' => 30)); ?>
+    <?php echo $form->textFieldGroup($model, 'full_name', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php echo $form->textFieldGroup($model, 'alias', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php echo $form->textFieldGroup($model, 'nickname', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php /*echo $form->textFieldGroup($model, 'height', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'weight', array('size' => 10, 'maxlength' => 10)); */?>
+    <?php echo $form->textFieldGroup($model, 'gender', array('size' => 1, 'maxlength' => 1)); ?>
 
-    <div class="control-group">
-        <?php echo $form->labelEx($model, 'date_of_birth', array('class' => 'control-label')); ?>
-        <div class="controls">
+    <?php
+    $options = array('format' => 'dd/mm/yyyy');
+    echo $form->datePickerGroup($model, 'date_of_birth', $options);
+    ?>
+
+    <?php echo $form->textFieldGroup($model, 'place_of_birth', array('size' => 50, 'maxlength' => 50)); ?>
+    <?php echo $form->dropDownListGroup($model, 'country_of_birth', array('widgetOptions' => array('data' => Country::model()->findList(), 'prompt' => '-- Country --'))); ?>
+    <?php echo $form->dropDownListGroup($model, 'nationality', array('widgetOptions' => array('data' => Country::model()->findList(), 'prompt' => '-- Country --'))); ?>
+
+    <?php echo $form->datepickerGroup($model, 'date_of_death'); ?>
+
+    <?php echo $form->textFieldGroup($model, 'place_of_death', array('size' => 50, 'maxlength' => 50)); ?>
+    <?php echo $form->dropDownListGroup($model, 'country_of_death', array('widgetOptions' => array('data' => Country::model()->findList(), 'prompt' => '-- Country --'))); ?>
+    <?php /* echo $form->dropDownListGroup($model, 'user_id', User::model()->findList(), array('prompt' => '- Select an User -')); ?>
+
+    <?php echo $form->textAreaGroup($model, 'address', array('rows' => 6, 'cols' => 50)); ?>
+    <?php echo $form->textFieldGroup($model, 'postcode', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'city', array('size' => 50, 'maxlength' => 50)); ?>
+    <?php echo $form->textFieldGroup($model, 'state', array('size' => 20, 'maxlength' => 20)); ?>
+    <?php echo $form->dropDownListGroup($model, 'country', array('widgetOptions' => array('data' => Country::model()->findList(), 'prompt' => '-- Country --'))); */?>
+    <?php echo $form->ckeditorGroup($model, 'description'); ?>
+    <?php echo $form->checkBoxGroup($model, 'published'); ?>
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
             <?php
-            $this->widget('application.extensions.jui.EDatePicker', array(
-                'name' => 'date_of_birth',
-                'attribute' => 'date_of_birth', // Model attribute filed which hold user input
-                'model' => $model, // Model name
-                'language' => 'en',
-                'mode' => 'imagebutton',
-                'theme' => 'redmond',
-                //'value'=>date('d-m-Y'),
-                'htmlOptions' => array('size' => 15),
-                'fontSize' => '0.8em'
-                    )
+            $this->widget(
+                    'booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => $model->isNewRecord ? 'Create' : 'Save', 'context' => 'primary')
             );
             ?>
-
-            <?php echo $form->error($model, 'date_of_birth'); ?>
         </div>
-    </div>
-
-    <?php echo $form->textFieldRow($model, 'place_of_birth', array('size' => 50, 'maxlength' => 50)); ?>
-    <?php echo $form->dropdownListRow($model, 'country_of_birth', Countries::findList()); ?>
-    <?php echo $form->dropdownListRow($model, 'nationality', Countries::findList()); ?>
-
-    <div class="control-group">
-        <?php echo $form->labelEx($model, 'date_of_death', array('class' => 'control-label')); ?>
-        <div class="controls">
-            <?php
-            $this->widget('application.extensions.jui.EDatePicker', array(
-                'name' => 'date_of_death',
-                'attribute' => 'date_of_death', // Model attribute filed which hold user input
-                'model' => $model, // Model name
-                'language' => 'en',
-                'mode' => 'imagebutton',
-                'theme' => 'redmond',
-                //'value'=>date('d-m-Y'),
-                'htmlOptions' => array('size' => 15),
-                'fontSize' => '0.8em'
-                    )
-            );
-            ?>
-            <?php echo $form->error($model, 'date_of_death'); ?>
-        </div>
-    </div>
-
-    <?php echo $form->textFieldRow($model, 'place_of_death', array('size' => 50, 'maxlength' => 50)); ?>
-    <?php echo $form->dropdownListRow($model, 'country_of_death', Countries::findList()); ?>
-    <?php echo $form->dropdownListRow($model, 'user_id', User::model()->findList(), array('prompt' => '- Select an User -')); ?>
-
-    <?php echo $form->textAreaRow($model, 'address', array('rows' => 6, 'cols' => 50)); ?>
-    <?php echo $form->textFieldRow($model, 'postcode', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->textFieldRow($model, 'city', array('size' => 50, 'maxlength' => 50)); ?>
-    <?php echo $form->textFieldRow($model, 'state', array('size' => 20, 'maxlength' => 20)); ?>
-    <?php echo $form->dropdownListRow($model, 'country', Countries::findList()); ?>
-
-    <div class="control-group">
-        <?php echo $form->labelEx($model, 'description', array('class' => 'control-label')); ?>
-        <div class="controls">
-            <?php
-            $this->widget('application.extensions.fckeditor.FCKEditorWidget', array(
-                'model' => $model,
-                'attribute' => 'description',
-                'height' => '600px',
-                'width' => '80%',
-                'fckeditor' => dirname(Yii::app()->basePath) . '/fckeditor/fckeditor.php',
-                'fckBasePath' => Yii::app()->baseUrl . '/fckeditor/')
-            );
-            ?>
-            <?php echo $form->error($model, 'description'); ?>
-        </div>
-    </div>
-
-    <?php echo $form->checkBoxRow($model, 'published'); ?>
-
-    <div class="form-actions">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>
 
     <?php /*
@@ -134,6 +87,6 @@
       </div>
      */ ?>
 
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
 </div><!-- form -->

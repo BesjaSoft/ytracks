@@ -39,8 +39,8 @@
     </div>
 </div>
 
-<?php echo $form->textFieldRow($model, 'row'); ?>
-<?php echo $form->textFieldRow($model, 'num', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'row'); ?>
+<?php echo $form->textFieldGroup($model, 'num', array('size' => 60, 'maxlength' => 255)); ?>
 <div class="control-group">
     <?php echo $form->labelEx($model, 'subround_id', array('class' => 'control-label')); ?>
     <div class="controls row">
@@ -51,7 +51,7 @@
         <div class="span6">
             <?php
             $gridDataProvider = new CArrayDataProvider($trindividuals);
-            $this->widget('bootstrap.widgets.TbGridView', array(
+            $this->widget('booster.widgets.TbGridView', array(
                 'type' => 'striped bordered condensed',
                 'dataProvider' => $gridDataProvider,
                 'template' => "{items}",
@@ -59,7 +59,7 @@
                     array('name' => 'id', 'header' => '#'),
                     array('name' => 'firstName', 'header' => 'Name', 'value' => '$data->individual->full_name'),
                     array(
-                        'class' => 'bootstrap.widgets.TbButtonColumn',
+                        'class' => 'booster.widgets.TbButtonColumn',
                         'htmlOptions' => array('style' => 'width: 50px'),
                     ),
                 ),
@@ -68,17 +68,17 @@
         </div>
     </div>
 </div>
-<?php echo $form->textFieldRow($model, 'laps', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'performance', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'classification', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'raceclass', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'grid', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'laptime', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'Livery', array('size' => 60, 'maxlength' => 255)); ?>
-<?php echo $form->textFieldRow($model, 'Field4Question', array('size' => 10, 'maxlength' => 10)); ?>
-<?php echo $form->textFieldRow($model, 'Field4Or', array('size' => 10, 'maxlength' => 10)); ?>
-<?php echo $form->textFieldRow($model, 'Field4Evo', array('size' => 10, 'maxlength' => 10)); ?>
-<?php echo $form->textFieldRow($model, 'Field4_2', array('size' => 10, 'maxlength' => 10)); ?>
+<?php echo $form->textFieldGroup($model, 'laps', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'performance', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'classification', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'raceclass', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'grid', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'laptime', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'Livery', array('size' => 60, 'maxlength' => 255)); ?>
+<?php echo $form->textFieldGroup($model, 'Field4Question', array('size' => 10, 'maxlength' => 10)); ?>
+<?php echo $form->textFieldGroup($model, 'Field4Or', array('size' => 10, 'maxlength' => 10)); ?>
+<?php echo $form->textFieldGroup($model, 'Field4Evo', array('size' => 10, 'maxlength' => 10)); ?>
+<?php echo $form->textFieldGroup($model, 'Field4_2', array('size' => 10, 'maxlength' => 10)); ?>
 <div class="control-group">
     <?php echo $form->labelEx($model, 'tvehicle', array('class' => 'control-label')); ?>
     <div class="controls">
@@ -123,8 +123,8 @@
         <?php echo $form->error($model, 'vehicle_id'); ?>
     </div>
 </div>
-        <?php echo $form->dropDownListRow($model, 'engine_id', Engine::model()->findList(), array('prompt' => '- Select an Engine -')); ?>
-<?php echo $form->textFieldRow($model, 'tteam', array('size' => 60, 'maxlength' => 255)); ?>
+        <?php echo $form->dropDownListGroup($model, 'engine_id', Engine::model()->findList(), array('prompt' => '- Select an Engine -')); ?>
+<?php echo $form->textFieldGroup($model, 'tteam', array('size' => 60, 'maxlength' => 255)); ?>
 
 <div class="control-group">
 <?php echo $form->hiddenField($model, 'team_id'); ?>
@@ -147,5 +147,5 @@
     </div>
 </div>
 
-<?php echo $form->checkBoxRow($model, 'deleted'); ?>
-<?php echo $form->textFieldRow($model, 'error', array('size' => 10, 'maxlength' => 1)); ?>
+<?php echo $form->checkBoxGroup($model, 'deleted'); ?>
+<?php echo $form->textFieldGroup($model, 'error', array('size' => 10, 'maxlength' => 1)); ?>

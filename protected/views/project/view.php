@@ -18,18 +18,14 @@ $this->menu = array(
 <?php
 // build the tabs for the view
 $tabs = array();
-$tabs['Details'] = $this->renderPartial('_detail', array('model' => $model), true, false);
-$tabs['Rounds'] = $this->renderPartial('/round/_rounds', array('model' => $model), true, false);
-$tabs['Participants'] = $this->renderPartial('/participant/_participants', array('model' => $model), true, false);
-$tabs['Rankings'] = $this->renderPartial('/ranking/_rankings', array('model' => $model), true, false);
-$tabs['Pictures'] = $this->renderPartial('/album/_view', array('model' => $model), true, false);
+$tabs['Details'] = array('label' => 'Details', 'content' => $this->renderPartial('_detail', array('model' => $model), true, false));
+$tabs['Rounds'] = array('label' => 'Rounds', 'content' => $this->renderPartial('/round/_rounds', array('model' => $model), true, false), 'active' => true);
+$tabs['Participants'] = array('label' => 'Participants', 'content' => $this->renderPartial('/participant/_participants', array('model' => $model), true, false));
+$tabs['Rankings'] = array('label' => 'Rankings', 'content' => $this->renderPartial('/ranking/_rankings', array('model' => $model), true, false));
+$tabs['Pictures'] = array('label' => 'Pictures', 'content' => $this->renderPartial('/album/_view', array('model' => $model), true, false));
 
-$this->widget('zii.widgets.jui.CJuiTabs', array(
-    'tabs' => $tabs,
-    'options' => array(
-        'collapsible' => false,
-        'selected' => '1',
-        'id' => 'project-rounds'
-    ),
+$this->widget('booster.widgets.TbTabs', array(
+    'type' => 'tabs', // 'tabs' or 'pills'
+    'tabs' => $tabs
 ));
 ?>

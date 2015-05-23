@@ -1,18 +1,18 @@
 <?php $this->pageTitle = Yii::app()->name; ?>
 
 <div class="row">
-    <div class="span11 offset1">
+    <div class="col-md-11 col-md-offset-1">
         <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
     </div>
 </div>
 
 <div class="row">
-    <div class="span3 offset1">
+    <div class="col-md-4">
         <h5>Happy Birthday!</h5>
         <p>We congratulate:</p>
         <?php
         $model = new Individual();
-        $this->widget('bootstrap.widgets.TbGridView',
+        $this->widget('booster.widgets.TbGridView',
                 array(
             'type' => 'striped bordered condensed',
             'id' => 'individuals-born-grid',
@@ -25,12 +25,12 @@
         ));
         ?>
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <h5>Rest in Peace</h5>
         <p>We remember the following persons who died:</p>
         <?php
         $died = new Individual();
-        $this->widget('bootstrap.widgets.TbGridView',
+        $this->widget('booster.widgets.TbGridView',
                 array(
             'type' => 'striped bordered condensed',
             'id' => 'individuals-died-grid',
@@ -47,12 +47,12 @@
         ));
         ?>
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         <h5>Races held today</h5>
         <p>We take a look at the races held today:</p>
         <?php
         $held = new Round();
-        $this->widget('bootstrap.widgets.TbGridView',
+        $this->widget('booster.widgets.TbGridView',
                 array(
             'type' => 'striped bordered condensed',
             'id' => 'races-held-grid',
@@ -72,16 +72,16 @@
 <!-- only for not guests -->
 <?php if (!Yii::app()->user->isGuest) { ?>
     <div class="row">
-        <div class="span10 offset1">
+        <div class="col-md-11 col-md-offset-1">
             <h4>Checks on Individuals</h4>
         </div>
     </div>
     <div class="row">
-        <div class="span2 offset1">
+        <div class="col-md-2">
             <h5>Early Birds!</h5>
             <?php
             $earlyBirds = new Individual();
-            $this->widget('bootstrap.widgets.TbGridView',
+            $this->widget('booster.widgets.TbGridView',
                     array(
                 'type' => 'striped bordered condensed',
                 'id' => 'individuals-early-birds-grid',
@@ -94,11 +94,11 @@
             ));
             ?>
         </div>
-        <div class="span2">
+        <div class="col-md-2">
             <h5>Not born, just dead!</h5>
             <?php
             $missingBirthDates = new Individual();
-            $this->widget('bootstrap.widgets.TbGridView',
+            $this->widget('booster.widgets.TbGridView',
                     array(
                 'type' => 'striped bordered condensed',
                 'id' => 'individuals-not-born-grid',
@@ -112,11 +112,11 @@
             ?>
 
         </div>
-        <div class="span2">
+        <div class="col-md-2">
             <h5>Alive & Kickin'</h5>
             <?php
             $diehards = new Individual();
-            $this->widget('bootstrap.widgets.TbGridView',
+            $this->widget('booster.widgets.TbGridView',
                     array(
                 'type' => 'striped bordered condensed',
                 'id' => 'individuals-not-born-grid',
@@ -129,7 +129,7 @@
             ));
             ?>
         </div>
-        <div class="span2">
+        <div class="col-md-2">
             <div id="twinordoubles">
             </div>
 
@@ -138,11 +138,11 @@
                     array('update' => '#twinordoubles'));
             ?>
         </div>
-        <div class="span2">
+        <div class="col-md-2">
             <h5>Twins or doubles?</h5>
             <?php
             $twinsOrDoubles = new Individual();
-            $this->widget('bootstrap.widgets.TbGridView',
+            $this->widget('booster.widgets.TbGridView',
                     array(
                 'type' => 'striped bordered condensed',
                 'id' => 'individuals-early-birds-grid',

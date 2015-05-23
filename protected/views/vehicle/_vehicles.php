@@ -11,7 +11,8 @@ if ($model->getClassName() == 'Type') {
         $this->showRandomImageGrid(),
         'chassisnumber',
         'reference',
-        array('class' => 'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
             'viewButtonUrl' => 'Yii::app()->createUrl("/vehicle/view"  , array("id" => $data->id))',
             'updateButtonUrl' => 'Yii::app()->createUrl("/Vehicle/update", array("id" => $data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("/Vehicle/delete", array("id" => $data->id))'
@@ -19,14 +20,13 @@ if ($model->getClassName() == 'Type') {
     );
 }
 
-$dataProvider = new CActiveDataProvider('Vehicle',
-                array('criteria' => array('condition' => $condition,
-                        'order' => $order),
-                    'pagination' => array('pageSize' => 15,),
-                )
+$dataProvider = new CActiveDataProvider('Vehicle', array('criteria' => array('condition' => $condition,
+        'order' => $order),
+    'pagination' => array('pageSize' => 15,),
+        )
 );
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'dataProvider' => $dataProvider,
     'columns' => $columns

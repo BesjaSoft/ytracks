@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'id' => 'scalemodel-grid',
     'type' => 'striped bordered condensed',
     'dataProvider' => $model->search(),
@@ -51,9 +51,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         $this->showTypeGrid(),
         'description',
         'reference',
-        array(
-            'class' => 'CButtonColumn',
-            'htmlOptions' => array('style' => 'width:54px;')
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
         ),
     ),
 ));

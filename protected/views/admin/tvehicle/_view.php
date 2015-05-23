@@ -15,6 +15,10 @@
 ?>
 	<br />
 
+        <b><?php echo CHtml::encode($data->getAttributeLabel('tengine')); ?>:</b>
+	<?php echo CHtml::encode($data->tengine); ?>
+	<br />
+        
 	<b><?php echo CHtml::encode($data->getAttributeLabel('tchassis')); ?>:</b>
 	<?php echo CHtml::encode($data->tchassis); ?>
 	<br />

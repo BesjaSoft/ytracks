@@ -4,20 +4,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="en" />
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl;?>/css/ytracks.css" />
     </head>
 
     <body id="top" data-spy="scroll" data-target=".navbar">
 
         <?php
         date_default_timezone_set('Europe/Amsterdam');
-        $this->widget('bootstrap.widgets.TbNavbar', array(
-            'type' => 'inverse', // null or 'inverse'
+        $this->widget('booster.widgets.TbNavbar', array(
             'brand' => 'yTracks',
-            'brandUrl' => '#',
-            'collapse' => true, // requires bootstrap-responsive.css
+            'type' => 'inverse',
+            'fixed' => false,
+            'fluid' => false,
             'items' => array(
                 array(
-                    'class' => 'bootstrap.widgets.TbMenu',
+                    'class' => 'booster.widgets.TbMenu',
+                    'type' => 'navbar',
                     'items' => array(
                         array('label' => 'Home', 'url' => array('/site/index')),
                         array(
@@ -71,6 +73,9 @@
                                 array('label' => 'Scales', 'url' => array('/admin/scale/admin')),
                                 array('label' => 'Subroundtypes', 'url' => array('/admin/subroundtype/admin')),
                                 array('label' => 'Units', 'url' => array('/admin/unit/admin')),
+                                '---',
+                                array('label' => 'Jobs', 'url' => array('/admin/job/admin')),
+                                array('label' => 'Schedule', 'url' => array('/admin/scheduledjob/admin'))
                             ),
                             'visible' => !Yii::app()->user->isGuest
                         ),
@@ -103,8 +108,10 @@
         <div class="container-fluid">
             <?php echo $content; ?>
         </div><!-- page -->
-        <div id ="footer" class="footer">
-<?php echo Yii::powered(); ?> Copyright &copy; 2010- <?php echo date('Y'); ?> by BSS
-        </div><!-- footer -->
+        <footer id ="footer" class="footer">
+            <div class="container">
+                <?php echo Yii::powered(); ?> Copyright &copy; 2010- <?php echo date('Y'); ?> by BSS
+            </div>
+        </footer><!-- footer -->
     </body>
 </html>

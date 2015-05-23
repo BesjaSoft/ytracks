@@ -22,7 +22,7 @@ $dateFormatter = new CDateFormatter('nl-NL');
 <table>
     <tr>
         <td width="50%"><?php
-            $this->widget('bootstrap.widgets.TbDetailView', array(
+            $this->widget('booster.widgets.TbDetailView', array(
                 'data' => $model,
                 'attributes' => array(
                     'id',
@@ -56,7 +56,7 @@ $dateFormatter = new CDateFormatter('nl-NL');
                     ),
                     array('name' => 'tvehicle',
                         'type' => 'raw',
-                        'value' => $model->tvehicle . ' ' . CHtml::tag('div', array('class' => 'chassis'), $model->tchassis) . ' ' . Chtml::tag('div', array('class' => 'licenseplate'), $model->tlicenseplate)
+                        'value' => $model->tvehicle . ' ' . CHtml::tag('div', array('class' => 'chassisnumber'), $model->tchassis) . ' ' . Chtml::tag('div', array('class' => 'licenseplate'), $model->tlicenseplate)
                     ),
                     array('name' => 'vehicle_id'
                         , 'type' => 'raw'
@@ -79,8 +79,8 @@ $dateFormatter = new CDateFormatter('nl-NL');
                     array('name' => 'team_id'
                         , 'type' => 'raw'
                         , 'value' => isset($model->team_id) ? CHtml::Link(CHtml::encode($model->team->name)
-                                , array('team/view', 'id' => $model->team_id)
-                        ) : $model->team_id 
+                                        , array('team/view', 'id' => $model->team_id)
+                                ) : $model->team_id
                     ),
                     'deleted',
                     'error',

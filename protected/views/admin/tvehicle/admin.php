@@ -56,7 +56,7 @@ echo CHtml::ajaxLink("Delete Selected",
         )
 );
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'tvehicle-grid',
     'dataProvider' => $model->search(),
@@ -78,7 +78,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
           'created',
           'modified',
          */
-        array('class' => 'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
             'buttons' => array(
                 'export' => array(
                     'label' => 'export',

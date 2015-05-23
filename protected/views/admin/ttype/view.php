@@ -10,7 +10,7 @@ $this->menu = $this->BuildActionMenu($model);
 <h1>View Ttype #<?php echo $model->id; ?></h1>
 
 <?php
-$this->widget('bootstrap.widgets.TbDetailView', array(
+$this->widget('booster.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
         'id',

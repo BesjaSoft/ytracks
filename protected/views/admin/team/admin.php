@@ -64,8 +64,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'deleted',
 		'deleted_date',
 		*/
-		array(
-			'class'=>'CButtonColumn',
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
 		),
 	),
 )); ?>

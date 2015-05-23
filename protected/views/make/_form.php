@@ -1,7 +1,7 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'type' => 'horizontal',
         'id' => 'make-form',
         'enableAjaxValidation' => false,
@@ -13,9 +13,9 @@
 
     <?php echo $form->errorSummary($model); ?>
 
-    <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 100)); ?>
-    <?php echo $form->textFieldRow($model, 'alias', array('size' => 50, 'maxlength' => 50)); ?>
-    <?php echo $form->textFieldRow($model, 'code', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'name', array('size' => 60, 'maxlength' => 100)); ?>
+    <?php echo $form->textFieldGroup($model, 'alias', array('size' => 50, 'maxlength' => 50)); ?>
+    <?php echo $form->textFieldGroup($model, 'code', array('size' => 10, 'maxlength' => 10)); ?>
 
     <div class="control-group">
         <?php echo $form->hiddenField($model, 'founder_id'); ?>
@@ -37,14 +37,14 @@
         </div>
     </div>
 
-    <?php echo $form->textFieldRow($model, 'logo', array('size' => 60, 'maxlength' => 255)); ?>
-    <?php echo $form->textFieldRow($model, 'ordering'); ?>
-    <?php echo $form->textFieldRow($model, 'checked_out'); ?>
-    <?php echo $form->checkBoxRow($model, 'published'); ?>
+    <?php echo $form->textFieldGroup($model, 'logo', array('size' => 60, 'maxlength' => 255)); ?>
+    <?php echo $form->textFieldGroup($model, 'ordering'); ?>
+    <?php echo $form->textFieldGroup($model, 'checked_out'); ?>
+    <?php echo $form->checkBoxGroup($model, 'published'); ?>
 
 
     <div class="form-actions">
-        <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType' => 'submit', 'type' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save')); ?>
+        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

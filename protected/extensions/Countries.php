@@ -6,7 +6,7 @@ class Countries extends CComponent {
 
     private static function _getCountries() {
         $country['AFG'] = array('iso2' => 'AF', 'name' => 'Afghanistan, Islamic Republic ');
-        $country['ALA'] = array('iso2' => 'AX', 'name' => 'Ã…land Islands');
+        $country['ALA'] = array('iso2' => 'AX', 'name' => 'Ãland Islands');
         $country['ALB'] = array('iso2' => 'AL', 'name' => 'Albania, Republic of');
         $country['DZA'] = array('iso2' => 'DZ', 'name' => 'Algeria, People\'s Democratic R');
         $country['ASM'] = array('iso2' => 'AS', 'name' => 'American Samoa');
@@ -808,15 +808,15 @@ class Countries extends CComponent {
     }
 
     public static function getFlag($iso_code_3, $attributes = null) {
-        $iso2 = Countries::convertIso3to2($iso_code_3);
+        $country = Country::model()->find('iso3 = :iso3', array('iso3'=> $iso_code_3));
         $path = null;
 
-        if (!empty($iso2)) {
+        if (!empty($country->iso2)) {
             if (empty($attributes)) {
-                $path = Countries::$_baseFlagsPath . strtolower($iso2) . '.png';
+                $path = Countries::$_baseFlagsPath . strtolower($country->iso2) . '.png';
             } else {
                 if (!empty($attributes["size"])) {
-                    $path = Countries::$_baseFlagsPath . '/' . $attributes["size"] . '/' . strtolower($iso2) . '.png';
+                    $path = Countries::$_baseFlagsPath . '/' . $attributes["size"] . '/' . strtolower($country->iso2) . '.png';
                 }
             }
         }
@@ -834,8 +834,8 @@ class Countries extends CComponent {
     }
 
     public static function getCountryName($iso3) {
-        $countries = Countries::_getCountries();
-        return $countries[$iso3]['name'];
+        $country = Country::model()->find('iso3 = :iso3', array('iso3'=> $iso3));
+        return $country->name;
     }
 
     // -- private functions:

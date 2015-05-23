@@ -17,7 +17,7 @@ $this->menu = array(
 <h1> Update Tresult #<?php echo $model->id; ?> </h1>
 
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'type' => 'horizontal',
     'id' => 'tresult-form',
     'enableAjaxValidation' => true,

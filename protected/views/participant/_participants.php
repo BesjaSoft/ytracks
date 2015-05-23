@@ -23,21 +23,21 @@ $dataProvider = new CActiveDataProvider('Participant', array(
     'pagination' => array('pageSize' => 15,),
         ));
 
-$this->widget
-        ('zii.widgets.grid.CGridView'
-        , array('dataProvider' => $dataProvider,
+$this->widget('booster.widgets.TbGridView', array(
+    'type' => 'condensed bordered striped',
+    'dataProvider' => $dataProvider,
     'columns' => array(
         'id',
         //$this->showIndividualGrid(),
         'number',
-        array('name' => 'Project'
-            , 'value' => '$data->project->name'
+        array('name' => 'Project', 'value' => '$data->project->name'
         ),
         $this->showTeamGrid(),
-        array('class' => 'CButtonColumn'
-            , 'viewButtonUrl' => 'Yii::app()->createUrl("/participant/view"  , array("id" => $data->id))'
-            , 'updateButtonUrl' => 'Yii::app()->createUrl("/participant/update", array("id" => $data->id))'
-            , 'deleteButtonUrl' => 'Yii::app()->createUrl("/participant/delete", array("id" => $data->id))'
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
+            'viewButtonUrl' => 'Yii::app()->createUrl("/participant/view"  , array("id" => $data->id))',
+            'updateButtonUrl' => 'Yii::app()->createUrl("/participant/update", array("id" => $data->id))',
+            'deleteButtonUrl' => 'Yii::app()->createUrl("/participant/delete", array("id" => $data->id))'
         )
     ),
         )

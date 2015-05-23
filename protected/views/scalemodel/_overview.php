@@ -2,7 +2,7 @@
     <tr>
         <td width="50%">
             <?php
-            $this->widget('bootstrap.widgets.TbDetailView', array(
+            $this->widget('booster.widgets.TbDetailView', array(
                 'type' => 'striped condensed',
                 'data' => $model,
                 'attributes' => array(

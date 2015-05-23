@@ -18,7 +18,7 @@ $this->menu = array(
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'horizontalForm',
         'type' => 'horizontal',
         'id' => 'tvehicle-form',

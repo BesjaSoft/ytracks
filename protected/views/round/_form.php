@@ -1,53 +1,76 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'round-form',
         'enableAjaxValidation' => false,
         'type' => 'horizontal',
         'htmlOptions' => array('class' => 'well')
-            ));
+    ));
     ?>
 
     <p class="note">Fields with <span class="required">*</span> are required.</p>
 
     <?php echo $form->errorSummary($model); ?>
-    <?php echo $form->textFieldRow($model, 'name', array('size' => 60, 'maxlength' => 200)); ?>
+    <?php echo $form->textFieldGroup($model, 'name', array('size' => 60, 'maxlength' => 200)); ?>
     <?php
-    echo $form->dropDownListRow($model
-            , 'event_id'
-            , Event::model()->findList()
-            , array('prompt' => 'Select an Event..')
-    );
+    echo $form->dropDownListGroup($model, 'event_id', array(
+        'widgetOptions' => array(
+            'data' => Event::model()->findList(),
+            'prompt' => '-- Event --')
+    ));
     ?>
     <?php
-    echo $form->dropDownListRow($model
-            , 'project_id'
-            , Project::model()->findList()
-            , array('prompt' => 'Select a Project..')
-    );
+    echo $form->dropDownListGroup($model, 'project_id', array(
+        'widgetOptions' => array(
+            'data' => Project::model()->findList(),
+            'prompt' => '-- Project --')
+    ));
     ?>
     <?php
-    echo $form->dropDownListRow($model
-            , 'circuit_id'
-            , Circuit::model()->findList()
-            , array('prompt' => 'Select a Circuit..')
+    echo $form->dropDownListGroup($model, 'circuit_id', array(
+        'widgetOptions' => array(
+            Circuit::model()->findList(),
+            'prompt' => '-- Circuit --'
+        ))
     );
     ?>
 
-    <?php echo $form->textFieldRow($model, 'ordering'); ?>
-    <?php echo $form->textFieldRow($model, 'laps'); ?>
-    <?php echo $form->textFieldRow($model, 'length', array('size' => 10, 'maxlength' => 10)); ?>
-    <?php echo $form->dropDownListRow($model, 'distance_id', Distance::model()->findList(), array('prompt' => 'Distance..')); ?>
-    <?php echo $form->textFieldRow($model, 'start_date'); ?>
-    <?php echo $form->textFieldRow($model, 'end_date'); ?>
-    <?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
-    <?php echo $form->textAreaRow($model, 'comment', array('rows' => 6, 'cols' => 50)); ?>
-    <?php echo $form->checkBoxRow($model, 'published'); ?>
-    <?php echo $form->textFieldRow($model, 'manches'); ?>
+    <?php echo $form->textFieldGroup($model, 'ordering'); ?>
+    <?php echo $form->textFieldGroup($model, 'laps'); ?>
+    <?php echo $form->textFieldGroup($model, 'length', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->dropDownListGroup($model, 'distance_id', array('widgetOptions' => array('data' => Distance::model()->findList(), 'prompt' => '-- Distance --'))); ?>
+    <?php
+    echo $form->datePickerGroup($model, 'start_date', array('widgetOptions' => array(
+            'options' => array(
+                'language' => 'en',
+                'format' => 'yyyy-mm-dd',
+                'startdate' => $model->start_date
+            ),
+        ), 'wrapperHtmlOptions' => array('class' => 'col-sm-5'),
+        'options' => array('format' => 'yyyy-mm-dd'),
+        'prepend' => '<i class="glyphicon glyphicon-calendar"></i>'));
+    ?>
+    <?php
+    echo $form->datePickerGroup($model, 'end_date', array('widgetOptions' => array(
+            'options' => array(
+                'language' => 'en',
+                'format' => 'yyyy-mm-dd',
+                'startdate' => $model->end_date
+            ),
+        ), 'wrapperHtmlOptions' => array('class' => 'col-sm-5',),
+        'options' => array('format' => 'yyyy-mm-dd'),
+        'prepend' => '<i class="glyphicon glyphicon-calendar"></i>'));
+    ?>
+    <?php echo $form->textAreaGroup($model, 'description', array('rows' => 6, 'cols' => 50)); ?>
+    <?php echo $form->textAreaGroup($model, 'comment', array('rows' => 6, 'cols' => 50)); ?>
+    <?php echo $form->checkBoxGroup($model, 'published'); ?>
+    <?php echo $form->textFieldGroup($model, 'manches'); ?>
 
     <div class="form-actions">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+        <div class="col-sm-offset-3">
+            <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+        </div>
     </div>
 
     <?php $this->endWidget(); ?>

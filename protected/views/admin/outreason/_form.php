@@ -1,6 +1,6 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm', array(
 		'type'=>'horizontal',
 
 	'id'=>'outreason-form',

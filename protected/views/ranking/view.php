@@ -27,7 +27,7 @@ if ($model->project->hasDivisions()){
                 );
 }
 if (is_array($division)){
-    $this->widget('bootstrap.widgets.TbDetailView', array(
+    $this->widget('booster.widgets.TbDetailView', array(
     'data'=>$model,
     'attributes'=>array(
         'id',
@@ -64,7 +64,7 @@ if (is_array($division)){
 ));
 }
 else {
-$this->widget('bootstrap.widgets.TbDetailView', array(
+$this->widget('booster.widgets.TbDetailView', array(
     'data'=>$model,
     'attributes'=>array(
         'id',

@@ -11,7 +11,7 @@ $this->breadcrumbs = array(
 
 <div class="form">
     <?php
-    $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
         'id' => 'login-form',
         'enableAjaxValidation' => true,
         'type' => 'horizontal',
@@ -21,9 +21,9 @@ $this->breadcrumbs = array(
 
     <p class="note">Fields with <span class="required">*</span> are required.</p>
 
-    <?php echo $form->textFieldRow($model, 'username'); ?>
-    <?php echo $form->passwordFieldRow($model, 'password'); ?>
-    <?php echo $form->checkBoxRow($model, 'rememberMe'); ?>
+    <?php echo $form->textFieldGroup($model, 'username'); ?>
+    <?php echo $form->passwordFieldGroup($model, 'password'); ?>
+    <?php echo $form->checkBoxGroup($model, 'rememberMe'); ?>
 
     <div class="form-actions">
         <?php echo CHtml::submitButton('Login'); ?>

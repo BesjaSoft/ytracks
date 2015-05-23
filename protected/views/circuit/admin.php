@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
     'type' => 'striped bordered condensed',
     'id' => 'circuit-grid',
     'dataProvider' => $model->search(),
@@ -63,9 +63,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
           'deleted',
           'deleted_date',
          */
-        array(
-            'class' => 'CButtonColumn',
-            'htmlOptions' => array('style' => 'width:54px;')
+        array('htmlOptions' => array('nowrap' => 'nowrap'),
+            'class' => 'booster.widgets.TbButtonColumn',
         ),
     ),
 ));

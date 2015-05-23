@@ -1,4 +1,5 @@
 <?php
+$this->setPageTitle($model->type->make->name . ' ' . $model->type->name . ' <div class=\'chassisnumber\'>' . $model->chassisnumber . '</div> - yTracks');
 $this->breadcrumbs = $model->getBreadcrumbs();
 
 $this->menu = array(

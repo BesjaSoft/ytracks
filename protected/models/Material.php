@@ -19,7 +19,7 @@
  */
 class Material extends Unit {
 
-    public function init(){
+    public function init() {
         $this->domainValue = 'MAT';
         parent::init();
     }
@@ -68,4 +68,5 @@ class Material extends Unit {
             'criteria' => $criteria,
         ));
     }
+
 }

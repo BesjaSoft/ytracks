@@ -14,7 +14,7 @@ return array(
     //'theme' => 'jwcleanpro',
     //'theme'=>'cars',
     // preloading 'log' component
-    'preload' => array('log', 'bootstrap'),
+    'preload' => array('log', 'booster'),
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
@@ -38,8 +38,7 @@ return array(
     ),
     // application components
     'components' => array(
-        'bootstrap' => array(
-            'class' => 'ext.bootstrap.components.Bootstrap'), // assuming you extracted bootstrap under extensions
+        'booster' => array('class' => 'ext.yiibooster.components.Booster'), // assuming you extracted bootstrap under extensions
         'user' => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
@@ -95,11 +94,11 @@ return array(
                     'connectionID' => 'db',
                     'levels' => 'error, warning',
                 ),
-                // uncomment the following to show log messages on web pages
-                array(
-                    'class' => 'CWebLogRoute',
-                    'enabled' => YII_DEBUG
-                ),
+            // uncomment the following to show log messages on web pages
+            /* array(
+              'class' => 'CWebLogRoute',
+              'enabled' => YII_DEBUG
+              ), */
             ),
         ),
     ),

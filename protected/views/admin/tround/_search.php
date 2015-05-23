@@ -1,59 +1,59 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('booster.widgets.TbActiveForm', array(
     'action' => Yii::app()->createUrl($this->route),
     'method' => 'get',
         ));
 ?>
 
-<?php echo $form->textFieldRow($model, 'id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'content_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'content_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'name', array('class' => 'span5', 'maxlength' => 200)); ?>
+<?php echo $form->textFieldGroup($model, 'name', array('class' => 'span5', 'maxlength' => 200)); ?>
 
-<?php echo $form->textFieldRow($model, 'event_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'event_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'project_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'project_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'circuit_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'circuit_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'ordering', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'ordering', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'laps', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'laps', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'length', array('class' => 'span5', 'maxlength' => 10)); ?>
+<?php echo $form->textFieldGroup($model, 'length', array('class' => 'span5', 'maxlength' => 10)); ?>
 
-<?php echo $form->textFieldRow($model, 'distance_id', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'distance_id', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'start_date', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'start_date', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'end_date', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'end_date', array('class' => 'span5')); ?>
 
-<?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php echo $form->textAreaGroup($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
-<?php echo $form->textAreaRow($model, 'comment', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
+<?php echo $form->textAreaGroup($model, 'comment', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
 
-<?php echo $form->textFieldRow($model, 'checked_out', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'checked_out', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'checked_out_time', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'checked_out_time', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'published', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'published', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'manches', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'manches', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'created', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'created', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'modified', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'modified', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'deleted', array('class' => 'span5')); ?>
+<?php echo $form->textFieldGroup($model, 'deleted', array('class' => 'span5')); ?>
 
-    <?php echo $form->textFieldRow($model, 'deleted_date', array('class' => 'span5')); ?>
+    <?php echo $form->textFieldGroup($model, 'deleted_date', array('class' => 'span5')); ?>
 
 <div class="form-actions">
     <?php
-    $this->widget('bootstrap.widgets.TbButton', array(
+    $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',
-        'type' => 'primary',
+        'context' => 'primary',
         'label' => 'Search',
     ));
     ?>
