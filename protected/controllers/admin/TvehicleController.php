@@ -1,6 +1,6 @@
 <?php
 
-class TvehicleController extends Controller {
+class TvehicleController extends BaseController {
 
     public $layout = '//layouts/column2';
     private $_model;

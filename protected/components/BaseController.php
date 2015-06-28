@@ -4,7 +4,7 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends CController {
+class BaseController extends CController {
 
     /**
      * @var string the default layout for the controller view. Defaults to '//layouts/column1',
@@ -96,7 +96,7 @@ class Controller extends CController {
         }
 
         // return the button definition
-        return array('htmlOptions' => array('nowrap'=>'nowrap'),
+        return array('htmlOptions' => array('nowrap' => 'nowrap'),
             'class' => 'booster.widgets.TbButtonColumn',
             'template' => $button_template,
             'viewButtonUrl' => 'Yii::app()->createUrl("/' . $controller . '/view"  , array("id" => $data->id))',
@@ -129,7 +129,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('make_id'),
             'type' => 'raw',
-            'value' => !isset($model->make_id) ? $model->make_id : CHtml::Link(CHtml::encode($model->make->name), array('make/view', 'id' => $model->make_id))
+            'value' => !isset($model->make_id) ? $model->make_id : CHtml::Link(CHtml::encode($model->make->name),
+                            array('make/view', 'id' => $model->make_id))
         );
     }
 
@@ -141,7 +142,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('type_id'),
             'type' => 'raw',
-            'value' => !isset($model->type_id) ? $model->type_id : CHtml::Link(CHtml::encode($model->type->name), array('type/view', 'id' => $model->type_id))
+            'value' => !isset($model->type_id) ? $model->type_id : CHtml::Link(CHtml::encode($model->type->name),
+                            array('type/view', 'id' => $model->type_id))
         );
     }
 
@@ -208,7 +210,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('content_id'),
             'type' => 'raw',
-            'value' => !isset($model->content_id) ? $model->content_id : CHtml::Link(CHtml::encode($model->content->title), array('content/view', 'id' => $model->content_id))
+            'value' => !isset($model->content_id) ? $model->content_id : CHtml::Link(CHtml::encode($model->content->title),
+                            array('content/view', 'id' => $model->content_id))
         );
     }
 
@@ -216,7 +219,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('project_id'),
             'type' => 'raw',
-            'value' => !isset($model->project_id) ? $model->project_id : CHtml::Link(CHtml::encode($model->project->name), array('project/view', 'id' => $model->project_id))
+            'value' => !isset($model->project_id) ? $model->project_id : CHtml::Link(CHtml::encode($model->project->name),
+                            array('project/view', 'id' => $model->project_id))
         );
     }
 
@@ -224,7 +228,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('event_id'),
             'type' => 'raw',
-            'value' => !isset($model->event_id) ? $model->event_id : CHtml::Link(CHtml::encode($model->event->name), array('event/view', 'id' => $model->event_id))
+            'value' => !isset($model->event_id) ? $model->event_id : CHtml::Link(CHtml::encode($model->event->name),
+                            array('event/view', 'id' => $model->event_id))
         );
     }
 
@@ -232,7 +237,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('circuit_id'),
             'type' => 'raw',
-            'value' => !isset($model->circuit_id) ? $model->circuit_id : CHtml::Link(CHtml::encode($model->circuit->name), array('circuit/view', 'id' => $model->circuit_id))
+            'value' => !isset($model->circuit_id) ? $model->circuit_id : CHtml::Link(CHtml::encode($model->circuit->name),
+                            array('circuit/view', 'id' => $model->circuit_id))
         );
     }
 
@@ -240,7 +246,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('competition_id'),
             'type' => 'raw',
-            'value' => !isset($model->competition_id) ? $model->competition_id : CHtml::Link(CHtml::encode($model->competition->name), array('competition/view', 'id' => $model->competition_id))
+            'value' => !isset($model->competition_id) ? $model->competition_id : CHtml::Link(CHtml::encode($model->competition->name),
+                            array('competition/view', 'id' => $model->competition_id))
         );
     }
 
@@ -248,7 +255,8 @@ class Controller extends CController {
         return array(
             'label' => $model->getAttributeLabel('season_id'),
             'type' => 'raw',
-            'value' => !isset($model->season_id) ? $model->season_id : CHtml::Link(CHtml::encode($model->season->name), array('season/view', 'id' => $model->season_id))
+            'value' => !isset($model->season_id) ? $model->season_id : CHtml::Link(CHtml::encode($model->season->name),
+                            array('season/view', 'id' => $model->season_id))
         );
     }
 
@@ -260,7 +268,8 @@ class Controller extends CController {
         return array(
             'name' => 'individual_id',
             'type' => 'raw',
-            'value' => isset($model->individual_id) ? CHtml::link(CHtml::encode($model->individual->full_name), array('individual/view', 'id' => $model->individual_id)) : $model->individual_id
+            'value' => isset($model->individual_id) ? CHtml::link(CHtml::encode($model->individual->full_name),
+                            array('individual/view', 'id' => $model->individual_id)) : $model->individual_id
         );
     }
 
@@ -269,7 +278,8 @@ class Controller extends CController {
             array('label' => 'List ' . get_class($model), 'url' => array('index')),
             array('label' => 'Create ' . get_class($model), 'url' => array('create')),
             array('label' => 'Update ' . get_class($model), 'url' => array('update', 'id' => $model->id)),
-            array('label' => 'Delete ' . get_class($model), 'url' => '#', 'linkOptions' => array('submit' => array('delete', 'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
+            array('label' => 'Delete ' . get_class($model), 'url' => '#', 'linkOptions' => array('submit' => array('delete',
+                        'id' => $model->id), 'confirm' => 'Are you sure you want to delete this item?')),
             array('label' => 'Manage ' . get_class($model), 'url' => array('admin')),
         );
     }

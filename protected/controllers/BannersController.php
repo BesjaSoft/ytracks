@@ -1,6 +1,6 @@
 <?php
 
-class BannersController extends CController
+class BannersController extends BaseController
 {
 	const PAGE_SIZE = 10;
 

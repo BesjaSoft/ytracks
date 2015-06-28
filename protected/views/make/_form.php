@@ -1,7 +1,8 @@
 <div class="wide form">
 
     <?php
-    $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
+    $form = $this->beginWidget('booster.widgets.TbActiveForm',
+            array(
         'type' => 'horizontal',
         'id' => 'make-form',
         'enableAjaxValidation' => false,
@@ -17,21 +18,22 @@
     <?php echo $form->textFieldGroup($model, 'alias', array('size' => 50, 'maxlength' => 50)); ?>
     <?php echo $form->textFieldGroup($model, 'code', array('size' => 10, 'maxlength' => 10)); ?>
 
-    <div class="control-group">
+    <div class="form-group">
         <?php echo $form->hiddenField($model, 'founder_id'); ?>
-        <?php echo $form->labelEx($model, 'founder_id', array('class' => 'control-label')); ?>
-        <div class="controls">
+        <?php echo $form->labelEx($model, 'founder_id', array('class' => 'col-sm-3 control-label')); ?>
+        <div class="col-sm-9">
             <?php
-            $this->widget('zii.widgets.jui.CJuiAutoComplete', array('id' => 'founder_id',
+            $this->widget('zii.widgets.jui.CJuiAutoComplete',
+                    array('id' => 'founder_id',
                 'name' => 'founder_id',
                 'value' => isset($model->founder_id) ? $model->individual->full_name : $model->founder_id,
                 'source' => $this->createUrl('individual/autoComplete'),
                 'options' => array('showAnim' => 'fold',
                     'minLength' => 3,
                     'select' => 'js:function(event, ui){ var $selectedObject = ui.item; $("#Make_founder_id").val($selectedObject.id);}'
-                )
-                    )
-            );
+                ),
+                'htmlOptions' => array('class' => 'form-control')
+            ));
             ?>
             <?php echo $form->error($model, 'founder_id'); ?>
         </div>
@@ -44,9 +46,11 @@
 
 
     <div class="form-actions">
-        <?php $this->widget('booster.widgets.TbButton', array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save')); ?>
+        <?php $this->widget('booster.widgets.TbButton',
+                array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save'));
+        ?>
     </div>
 
-    <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
 </div><!-- form -->

@@ -85,7 +85,8 @@ class Content extends BaseModel {
             array('title+catid', 'uniqueMultiColumnValidator'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, asset_id, title, alias, introtext, fulltext, state, catid, created, created_by, created_by_alias, modified, modified_by, checked_out, checked_out_time, publish_up, publish_down, images, urls, attribs, version, ordering, metakey, metadesc, access, hits, metadata, featured, language, xreference, old_id', 'safe', 'on' => 'search'),
+            array('id, asset_id, title, alias, introtext, fulltext, state, catid, created, created_by, created_by_alias, modified, modified_by, checked_out, checked_out_time, publish_up, publish_down, images, urls, attribs, version, ordering, metakey, metadesc, access, hits, metadata, featured, language, xreference, old_id',
+                'safe', 'on' => 'search'),
         );
     }
 
@@ -232,7 +233,8 @@ class Content extends BaseModel {
                     // remove some unwanted tags:
                     $text = str_replace('<body>', '', $text);
                     $text = str_replace('</body>', '', $text);
-                    $text = str_replace('<img src="../www.toplist.cz/Wc237fae3e4f50.htm" width="1" height="1" border="0" />', '', $text);
+                    $text = str_replace('<img src="../www.toplist.cz/Wc237fae3e4f50.htm" width="1" height="1" border="0" />',
+                            '', $text);
                     $text = str_replace('<!-- IClista -->', '', $text);
                     $text = str_replace('<!-- /IClista -->', '', $text);
                     // remove the scripts:
@@ -240,29 +242,34 @@ class Content extends BaseModel {
                     $text = self::removeTags($text, 'noscript');
                     // encode the text to utf8
                     //$text = utf8_encode($text);
-                    $content = Content::model()->find('title=:title and catid=:cat', array('title' => $title, 'cat' => $catId));
-                    if (empty($content->id)) {
-                        echo 'Title not found : ' . $title . "\n";
-                        $content = new Content();
-                    }
-                    $content->title = $title;
-                    $content->introtext = ' ';
-                    $content->fulltext = trim($text);
-                    $content->catid = $catId;
-                    $content->state = 1;
-                    $content->created_by_alias = 'Administrator';
-                    $content->access = 5; // guest
-                    $content->language = '*'; // all languages
-                    $content->images = '{"image_intro":"","float_intro":"","image_intro_alt":"","image_intro_caption":"","image_fulltext":"","float_fulltext":"","image_fulltext_alt":"","image_fulltext_caption":""}';
-                    $content->urls = '{"urla":false,"urlatext":"","targeta":"","urlb":false,"urlbtext":"","targetb":"","urlc":false,"urlctext":"","targetc":""}';
-                    $content->attribs = '{"show_title":"","link_titles":"","show_tags":"","show_intro":"","info_block_position":"","show_category":"","link_category":"","show_parent_category":"","link_parent_category":"","show_author":"","link_author":"","show_create_date":"","show_modify_date":"","show_publish_date":"","show_item_navigation":"","show_icons":"","show_print_icon":"","show_email_icon":"","show_vote":"","show_hits":"","show_noauth":"","urls_position":"","alternative_readmore":"","article_layout":"","show_publishing_options":"","show_article_options":"","show_urls_images_backend":"","show_urls_images_frontend":""}';
-                    $content->metakey = '{"metakey":""}';
-                    $content->metadesc = '{"metadesc":""}';
-                    $content->metadata = '{"robots":"","author":"","rights":"","xreference":""}';
-                    if (!$content->save()) {
-                        echo 'file ' . $title . ', invalid fields' . "\n";
-                        print_r($content->getErrors());
-                        die;
+                    if (empty(trim($text))) {
+                        echo 'Content empty.' . "\n";
+                    } else {
+                        $content = Content::model()->find('title=:title and catid=:cat',
+                                array('title' => $title, 'cat' => $catId));
+                        if (empty($content->id)) {
+                            echo 'Title not found : ' . $title . "\n";
+                            $content = new Content();
+                        }
+                        $content->title = $title;
+                        $content->introtext = ' ';
+                        $content->fulltext = trim($text);
+                        $content->catid = $catId;
+                        $content->state = 1;
+                        $content->created_by_alias = 'Administrator';
+                        $content->access = 5; // guest
+                        $content->language = '*'; // all languages
+                        $content->images = '{"image_intro":"","float_intro":"","image_intro_alt":"","image_intro_caption":"","image_fulltext":"","float_fulltext":"","image_fulltext_alt":"","image_fulltext_caption":""}';
+                        $content->urls = '{"urla":false,"urlatext":"","targeta":"","urlb":false,"urlbtext":"","targetb":"","urlc":false,"urlctext":"","targetc":""}';
+                        $content->attribs = '{"show_title":"","link_titles":"","show_tags":"","show_intro":"","info_block_position":"","show_category":"","link_category":"","show_parent_category":"","link_parent_category":"","show_author":"","link_author":"","show_create_date":"","show_modify_date":"","show_publish_date":"","show_item_navigation":"","show_icons":"","show_print_icon":"","show_email_icon":"","show_vote":"","show_hits":"","show_noauth":"","urls_position":"","alternative_readmore":"","article_layout":"","show_publishing_options":"","show_article_options":"","show_urls_images_backend":"","show_urls_images_frontend":""}';
+                        $content->metakey = '{"metakey":""}';
+                        $content->metadesc = '{"metadesc":""}';
+                        $content->metadata = '{"robots":"","author":"","rights":"","xreference":""}';
+                        if (!$content->save()) {
+                            echo 'file ' . $title . ', invalid fields' . "\n";
+                            print_r($content->getErrors());
+                            die;
+                        }
                     }
                     unset($content);
                 } else {
@@ -292,3 +299,5 @@ class Content extends BaseModel {
     }
 
 }
+
+?>

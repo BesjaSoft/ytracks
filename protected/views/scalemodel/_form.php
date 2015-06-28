@@ -62,22 +62,19 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm',
 <?php echo $form->textFieldGroup($model, 'livery', array('class' => 'span5', 'maxlength' => 255)); ?>
 <?php echo $form->textFieldGroup($model, 'event', array('class' => 'span5', 'maxlength' => 255)); ?>
 <?php echo $form->textFieldGroup($model, 'drivers', array('class' => 'span5', 'maxlength' => 255)); ?>
-<?php
-echo $form->dropDownListGroup($model, 'category_id', ModelCategory::model()->findList(), array('class' => 'span5'));
-?>
-<?php echo $form->dropDownListGroup($model, 'scale_id', Scale::model()->findList(), array('class' => 'span5')); ?>
-<?php echo $form->dropDownListGroup($model, 'modeltype_id', ModelType::model()->findList(), array('class' => 'span5')); ?>
-<?php echo $form->dropDownListGroup($model, 'material_id', Material::model()->findList(), array('class' => 'span5'));
-?>
+<?php echo $form->dropDownListGroup($model, 'category_id', array('widgetOptions' => array('data' => ModelCategory::model()->findList(), 'prompt' => '-- Category --'))); ?>
+<?php echo $form->dropDownListGroup($model, 'scale_id', array('widgetOptions' => array('data' => Scale::model()->findList(), 'prompt' => '-- Scale --'))); ?>
+<?php echo $form->dropDownListGroup($model, 'modeltype_id', array('widgetOptions' => array('data' => ModelType::model()->findList(), 'prompt' => '-- Modeltype --'))); ?>
+<?php echo $form->dropDownListGroup($model, 'material_id', array('widgetOptions' => array('data' => Material::model()->findList(), 'prompt' => '-- Material --'))); ?>
 
-<div class="form-actions">
-    <?php
-    $this->widget('booster.widgets.TbButton',
-            array(
-        'buttonType' => 'submit',
-        'label' => $model->isNewRecord ? 'Create' : 'Save',
-    ));
-    ?>
-</div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <?php
+            $this->widget(
+                    'booster.widgets.TbButton', array('buttonType' => 'submit', 'label' => $model->isNewRecord ? 'Create' : 'Save', 'context' => 'primary')
+            );
+            ?>
+        </div>
+    </div>
 
 <?php $this->endWidget(); ?>

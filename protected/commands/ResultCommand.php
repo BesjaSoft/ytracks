@@ -5,7 +5,7 @@ class ResultCommand extends BaseConsole {
     public function actionIndex($section, $vehicle = "", $error = 0) {
         if (in_array($section, array_keys($this->content))) {
             $this->key = $section;
-            $this->readfiles(false);
+            $this->readfiles(true);
 
             if ($section == 'wsrp') {
                 $this->convertWsrpContent(false);
@@ -17,7 +17,7 @@ class ResultCommand extends BaseConsole {
                 $this->convertGelf1Content(false);
                 $this->convertTresult(true, $vehicle, $error);
             } elseif ($section == "urh") {
-                //$this->convertUrhContent($do);
+                $this->convertUrhContent(true);
                 //$this->convertTresult(true, $vehicle, $error);
             }
         } else {
@@ -26,16 +26,8 @@ class ResultCommand extends BaseConsole {
         }
     }
 
-    private function convertWsrpContent($do = false) {
-        echo '**** Convert content => tresult ****' . "\n";
-        if ($do) {
-            WsrpTresult::model()->readContent($this->key, $this->content[$this->key]['category']); 
-            Tresult::model()->reorderResults($do);
-        }
-    }
-
     private function convertFormula2Content($do = false) {
-        echo '**** Convert content => tresult ****' . "\n";
+        echo '**** Convert Formula 2 content => tresult ****' . "\n";
         if ($do) {
             Formula2Tresult::model()->readContent($this->key, $this->content[$this->key]['category']);
         }
@@ -52,6 +44,22 @@ class ResultCommand extends BaseConsole {
         echo '**** Convert tresults => results ****' . "\n";
         if ($do) {
             Tresult::model()->convertResults(true, $vehicle, $error);
+        }
+    }
+
+    private function convertUrhContent($do = false) {
+        echo '**** Convert URH content => tresult ****' . "\n";
+        if ($do) {
+            UrhTresult::model()->readContent($this->key, $this->content[$this->key]['category']);
+            //Tresult::model()->reorderResults($do);
+        }
+    }
+
+    private function convertWsrpContent($do = false) {
+        echo '**** Convert WSRP content => tresult ****' . "\n";
+        if ($do) {
+            WsrpTresult::model()->readContent($this->key, $this->content[$this->key]['category']);
+            Tresult::model()->reorderResults($do);
         }
     }
 

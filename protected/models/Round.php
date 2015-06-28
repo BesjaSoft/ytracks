@@ -63,7 +63,8 @@ class Round extends BaseModel {
         // will receive user inputs.
         return array(
             array('name, event_id, project_id, ordering, published, created', 'required'),
-            array('event_id, project_id, circuit_id, ordering, laps, distance_id, checked_out, published, manches, deleted', 'numerical', 'integerOnly' => true),
+            array('event_id, project_id, circuit_id, ordering, laps, distance_id, checked_out, published, manches, deleted',
+                'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 200),
             array('length', 'length', 'max' => 10),
             array('start_date, end_date, description, comment, modified, deleted_date', 'safe'),
@@ -73,10 +74,11 @@ class Round extends BaseModel {
             array('circuit_id', 'exist', 'attributeName' => 'id', 'className' => 'Circuit'),
             array('distance_id', 'exist', 'attributeName' => 'id', 'className' => 'Distance'),
             // unique field combination:
-            array('project_id+ordering', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
+            array('project_id+ordering', 'uniqueMultiColumnValidator', 'caseSensitive' => false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, event_id, project_id, circuit_id, ordering, laps, length, distance_id, start_date, end_date, description, comment, checked_out, checked_out_time, published, manches, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
+            array('id, name, event_id, project_id, circuit_id, ordering, laps, length, distance_id, start_date, end_date, description, comment, checked_out, checked_out_time, published, manches, created, modified, deleted, deleted_date',
+                'safe', 'on' => 'search'),
         );
     }
 
@@ -87,6 +89,35 @@ class Round extends BaseModel {
                 . '/' . $this->project->season->name
                 //. '/' . $this->ordering . '-' . $this->event->country_code
         ); // The directory to display
+    }
+
+    public function beforeSave() {
+
+        // some validations:
+        if ($this->start_date == '0000-00-00 00:00:00') {
+            $this->start_date = null;
+        }
+        if ($this->end_date == '0000-00-00 00:00:00') {
+            $this->end_date = null;
+        }
+
+        if (empty($this->end_date) && !empty($this->start_date)) {
+            $this->end_date = $this->start_date;
+        }
+
+        return parent::beforeSave();
+    }
+
+    protected function afterFind() {
+        parent::afterFind();
+
+        //this will change format to dd month's name year
+        if (!empty($this->start_date)) {
+            $this->start_date = date('Y-m-d', strtotime(str_replace("-", "", $this->start_date)));
+        }
+        if (!empty($this->end_date)) {
+            $this->end_date = date('Y-m-d', strtotime(str_replace("-", "", $this->end_date)));
+        }
     }
 
     public function afterSave() {
@@ -233,6 +264,13 @@ class Round extends BaseModel {
         }
     }
 
+    /**
+     * function: addSubrounds()
+     * parameters : none
+     * purpose : each round is supposed to have at least one subround, as that is the
+     * level on which the results are added. This function checks whether there are
+     * subrounds or not and if not, add the standard ones.
+     */
     private function addSubrounds() {
         $criteria = new CDbCriteria();
         $criteria->select = 'COUNT(*) AS CNT';
@@ -266,7 +304,8 @@ class Round extends BaseModel {
             $subround->start_date = $this->start_date;
             $subround->end_date = $this->end_date;
             $subround->ordering = 1;
-            $subround->subroundtype_id = Subroundtype::model()->find('lower(name)=:name and deleted=0', array('name' => 'overall result'))->id;
+            $subround->subroundtype_id = Subroundtype::model()->find('lower(name)=:name and deleted=0',
+                            array('name' => 'overall result'))->id;
             $subround->published = 1;
             if (!$subround->save()) {
                 echo 'something went wrong....';
@@ -276,7 +315,8 @@ class Round extends BaseModel {
 
             if ($this->project->competition->code == 'wrc') {
                 // get subroundtype "special stages":
-                $subroundtype_id = Subroundtype::model()->find('lower(name)=:name and deleted=0', array('name' => 'special stage'))->id;
+                $subroundtype_id = Subroundtype::model()->find('lower(name)=:name and deleted=0',
+                                array('name' => 'special stage'))->id;
                 // add the stages:
                 for ($i = 1; $this->manches; $i++) {
                     $subround = new Subround();
@@ -315,13 +355,15 @@ class Round extends BaseModel {
         $subround->start_date = $this->end_date;
         $subround->end_date = $this->end_date;
         $subround->ordering = $ordering;
-        $subround->subroundtype_id = Subroundtype::model()->find('lower(name)=:name and deleted=0', array('name' => $name))->id;
+        $subround->subroundtype_id = Subroundtype::model()->find('lower(name)=:name and deleted=0',
+                        array('name' => $name))->id;
         $subround->published = 1;
         return $subround->save();
     }
 
     public function copySubrounds() {
-        $round = Round::model()->find('project_id=:project and ordering=:ordering', array('project' => $this->project_id, 'ordering' => $this->ordering - 1));
+        $round = Round::model()->find('project_id=:project and ordering=:ordering',
+                array('project' => $this->project_id, 'ordering' => $this->ordering - 1));
 
         foreach ($round->subrounds as $subround) {
             $copy = new Subround();

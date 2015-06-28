@@ -1,6 +1,6 @@
 <?php
 
-class TscaleController extends Controller
+class TscaleController extends BaseController
 {
     public $layout='//layouts/column2';
     private $_model;

@@ -1,25 +1,19 @@
 <?php
 
-/**
- * This is the model class for table "{{tracks_units}}".
- *
- * The followings are the available columns in table '{{tracks_units}}':
- * @property integer $id
- * @property string $domain
- * @property string $code
- * @property string $description
- * @property integer $published
- * @property integer $ordering
- * @property integer $checked_out
- * @property string $checked_out_time
- * @property string $created
- * @property string $modified
- * @property integer $deleted
- * @property string $delete_date
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-class Source extends Unit {
 
-    public static $domainValue = 'SRC';
+/**
+ * Description of Ignition
+ *
+ * @author fred
+ */
+class Fuelsystem extends Unit
+{
+    public static $domainValue = 'FSM';
 
     /**
      * Returns the static model of the specified AR class.
@@ -36,14 +30,15 @@ class Source extends Unit {
     public static function getDomainValue($class = __CLASS__) {
         return parent::getDomainValue($class);
     }
-
-    /**
+    
+        /**
      * @return array relational rules.
      */
     public function relations() {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array();
+        return array('types' => array(self::HAS_MANY, 'Type', 'engineposition_id'));
     }
-
 }
+?>
+

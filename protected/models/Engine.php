@@ -27,10 +27,32 @@ class Engine extends BaseModel {
      */
     protected function beforeSave() {
 
-        if (empty($this->power) && $this->power == 0) {
+        if (empty($this->bore) || $this->bore == 0) {
+            $this->bore = null;
+        }
+
+        if (empty($this->compression) || $this->compression == 0) {
+            $this->compression = null;
+        }
+        if (empty($this->stroke) || $this->stroke == 0) {
+            $this->stroke = null;
+        }
+
+        if (empty($this->capacity) || $this->capacity == 0) {
+            $this->capacity = null;
+            $this->capacity_id = null;
+        }
+
+        if (empty($this->power) || $this->power == 0) {
             $this->power = null;
             $this->power_id = null;
             $this->power_revs = null;
+        }
+
+        if (empty($this->torque) || $this->torque == 0) {
+            $this->torque = null;
+            $this->torque_id = null;
+            $this->torque_revs = null;
         }
 
         return parent::beforeSave();
@@ -58,7 +80,8 @@ class Engine extends BaseModel {
         // will receive user inputs.
         return array(
             array('make_id, created', 'required'),
-            array('make_id, parent_id, tuner_id, enginetype_id, cams, valves_cylinder, capacity_id, power_id, power_revs, torque_id, torque_revs, induction, ignition_id, fuelsystem_id, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
+            array('make_id, parent_id, tuner_id, enginetype_id, cams, valves_cylinder, capacity_id, power_id, power_revs, torque_id, torque_revs, induction, ignition_id, fuelsystem_id, published, ordering, checked_out, deleted',
+                'numerical', 'integerOnly' => true),
             array('name, alias', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
             array('code', 'length', 'max' => 20),
@@ -69,12 +92,16 @@ class Engine extends BaseModel {
             array('tuner_id', 'exist', 'attributeName' => 'id', 'className' => 'Tuner'),
             array('enginetype_id', 'exist', 'attributeName' => 'id', 'className' => 'EngineType'),
             array('parent_id', 'exist', 'attributeName' => 'id', 'className' => 'Engine'),
+            array('torque_id', 'exist', 'attributeName' => 'id', 'className' => 'Torque'),
+            array('power_id', 'exist', 'attributeName' => 'id', 'className' => 'Power'),
+            array('ignition_id', 'exist', 'attributeName' => 'id', 'className' => 'Ignition'),
             // multicolumn unique validator
             array('make_id+name', 'uniqueMultiColumnValidator', 'caseSensitive' => true),
             //array('make_id+code','uniqueMultiColumnValidator'),
             //// The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, make_id, name, alias, description, code, parent_id, tuner_id, enginetype_id, compression, cams, valves_cylinder, bore, stroke, capacity, capacity_id, power, power_id, power_revs, torque, torque_id, torque_revs, induction, ignition_id, fuelsystem_id, published, ordering, checked_out, checked_out_time, created, modified, deleted, deleted_date', 'safe', 'on' => 'search'),
+            array('id, make_id, name, alias, description, code, parent_id, tuner_id, enginetype_id, compression, cams, valves_cylinder, bore, stroke, capacity, capacity_id, power, power_id, power_revs, torque, torque_id, torque_revs, induction, ignition_id, fuelsystem_id, published, ordering, checked_out, checked_out_time, created, modified, deleted, deleted_date',
+                'safe', 'on' => 'search'),
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-class InboxController extends Controller
+class InboxController extends BaseController
 {
 	const PAGE_SIZE=10;
 

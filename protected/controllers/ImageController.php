@@ -1,6 +1,6 @@
 <?php
 
-class ImageController extends Controller
+class ImageController extends BaseController
 {
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

@@ -76,6 +76,10 @@ class BaseModel extends CActiveRecord {
         return Countries::getFlag($country, $alternate);
     }
 
+    public function getGenderRule(){
+        return array('gender', 'in', 'range' => array('M', 'F'), 'allowEmpty' => false, 'strict' => true,);
+    }
+    
     public function getAlbum() {
         return '';
     }

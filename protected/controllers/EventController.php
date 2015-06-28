@@ -1,6 +1,6 @@
 <?php
 
-class EventController extends Controller {
+class EventController extends BaseController {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -30,7 +30,7 @@ class EventController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view'),
+                'actions' => array('index', 'view', 'autoComplete'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -128,6 +128,21 @@ class EventController extends Controller {
         ));
     }
 
+        /**
+     * performs an autocomplete search on the Individual
+     */
+    public function actionAutoComplete() {
+        $res = array();
+
+        if (isset($_GET['term'])) {
+            $model = new Event();
+            $res = $this->searchModel($model, $_GET['term']);
+        }
+
+        echo CJSON::encode($res);
+        Yii::app()->end();
+    }
+    
     /**
      * Manages all models.
      */

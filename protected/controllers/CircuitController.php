@@ -1,6 +1,6 @@
 <?php
 
-class CircuitController extends Controller {
+class CircuitController extends BaseController {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

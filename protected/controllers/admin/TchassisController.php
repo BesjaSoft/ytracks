@@ -1,6 +1,6 @@
 <?php
 
-class TchassisController extends Controller {
+class TchassisController extends BaseController {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

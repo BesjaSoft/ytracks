@@ -1,6 +1,6 @@
 <?php
 
-class MailinglistController extends Controller
+class MailinglistController extends BaseController
 {
 	const PAGE_SIZE=20;
 

@@ -1,6 +1,6 @@
 <?php
 
-class MakeController extends Controller {
+class MakeController extends BaseController {
 
     private $keywordSearchColumnArray = array('name'); //Columns to search
     public $currentSearchValue; //Current keword search string

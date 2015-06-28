@@ -1,6 +1,6 @@
 <?php
 
-class SectionController extends Controller
+class SectionController extends BaseController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

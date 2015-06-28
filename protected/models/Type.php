@@ -29,7 +29,7 @@ class Type extends BaseModel {
         return array(
             array('make_id, name, created', 'required'),
             array('make_id', 'exist', 'attributeName' => 'id', 'className' => 'Make'),
-            array('make_id, cartype_id, constructor_id, bodywork_id, motortype_id, engineposition_id, propulsion_id, topspeed, registered, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
+            array('make_id, cartype_id, constructor_id, bodywork_id, motortype_id, engineposition_id, propulsion_id, height_id, width_id, weight_id, length_id, topspeed, registered, published, ordering, checked_out, deleted', 'numerical', 'integerOnly' => true),
             array('name', 'length', 'max' => 50),
             array('alias', 'length', 'max' => 100),
             array('description', 'length', 'max' => 255),
@@ -41,6 +41,8 @@ class Type extends BaseModel {
             array('cartype_id', 'exist', 'attributeName' => 'id', 'className' => 'Cartype'),
             array('constructor_id', 'exist', 'attributeName' => 'id', 'className' => 'Constructor'),
             array('motortype_id', 'exist', 'attributeName' => 'id', 'className' => 'Motortype'),
+            array('weight_id', 'exist', 'attributeName' => 'id', 'className' => 'Weight'),
+            array('engineposition_id', 'exist', 'attributeName' => 'id', 'className' => 'Engineposition'),
             // unique field combination:
             array('make_id+name', 'uniqueMultiColumnValidator'),
             // Search array:
@@ -53,16 +55,14 @@ class Type extends BaseModel {
             'make' => array(self::BELONGS_TO, 'Make', 'make_id'),
             'bodywork' => array(self::BELONGS_TO, 'Bodywork', 'bodywork_id'),
             'cartype' => array(self::BELONGS_TO, 'Cartype', 'cartype_id'),
-            /*'motortype' => array(self::BELONGS_TO, 'Unit', 'motortype_id'),
-            'motorplace' => array(self::BELONGS_TO, 'Unit', 'motorplace_id'),             
-            'constructor' => array(self::BELONGS_TO, 'Constructor', 'constructor_id')
-            , 'engineposition' => array(self::BELONGS_TO, 'Engineposition', 'engineposition_id')
+            'engineposition' => array(self::BELONGS_TO, 'Engineposition', 'engineposition_id'),
+            'constructor' => array(self::BELONGS_TO, 'Constructor', 'constructor_id'),
+            // Has-Many:
+            'scalemodels' => array(self::HAS_MANY, 'Scalemodel', 'type_id'),
+            /*'motortype' => array(self::BELONGS_TO, 'Unit', 'motortype_id'),          
             , 'propulsion' => array(self::BELONGS_TO, 'Unit', 'propulsion_id')
             , 'result' => array(self::HAS_MANY, 'Result', 'type_id')
-            , 'tresult' => array(self::HAS_MANY, 'Tresult', 'type_id')
-            
-            , 
-            , 'scalemodel' => array(self::HAS_MANY, 'Scalemodel', 'type_id')
+            , 'tresult' => array(self::HAS_MANY, 'Tresult', 'type_id')           
             , 'tscale' => array(self::HAS_MANY, 'Tscale', 'type_id')
             , 'vehicle' => array(self::HAS_MANY, 'Vehicle', 'type_id')*/
         );

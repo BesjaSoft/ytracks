@@ -1,6 +1,6 @@
 <?php
 
-class RelationsController extends Controller
+class RelationsController extends BaseController
 {
 
 	/**

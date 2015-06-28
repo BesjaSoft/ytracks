@@ -1,6 +1,6 @@
 <?php
 
-class TtypeController extends Controller
+class TtypeController extends BaseController
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning

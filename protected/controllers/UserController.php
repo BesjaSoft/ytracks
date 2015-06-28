@@ -1,5 +1,5 @@
 <?php
-class UserController extends Controller {
+class UserController extends BaseController {
 	
 	/**
 	 * @var string specifies the default action to be 'list'.

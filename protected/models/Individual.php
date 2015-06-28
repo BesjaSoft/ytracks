@@ -162,10 +162,10 @@ class Individual extends BaseModel {
         // class name for the relations automatically generated below.
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'ranking' => array(self::HAS_MANY, 'Ranking', 'individual_id'),
-            'result' => array(self::HAS_MANY, 'Result', 'individual_id'),
-            'tresult' => array(self::HAS_MANY, 'TresultIndividual', 'individual_id'),
-            'make' => array(self::HAS_MANY, 'Make', 'founder_id'),
+            'rankings' => array(self::HAS_MANY, 'Ranking', 'individual_id'),
+            'results' => array(self::HAS_MANY, 'Result', 'individual_id'),
+            'tresults' => array(self::HAS_MANY, 'TresultIndividual', 'individual_id'),
+            'makes' => array(self::HAS_MANY, 'Make', 'founder_id'),
             'checked_out' => array(self::BELONGS_TO, 'User', 'user_id'),
             'participant' => array(self::HAS_MANY, 'Participant', 'individual_id'),
             'scalemodel' => array(self::HAS_MANY, 'ScalemodelDriver', 'individual_id'),

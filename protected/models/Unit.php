@@ -111,7 +111,7 @@ class Unit extends BaseModel {
     public function behaviors() {
         return array(
             'AutoTimestampBehavior' => array('class' => 'AutoTimestampBehavior'),
-            'SlugBehavior' => array('class' => 'application.models.behaviours.SlugBehavior',
+            'SlugBehavior' => array('class' => 'SlugBehavior',
                 'slug_col' => 'alias',
                 'title_col' => array('domain', 'code'),
                 'overwrite' => true

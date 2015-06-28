@@ -1,6 +1,6 @@
 <?php
 
-class TresultController extends Controller {
+class TresultController extends BaseController {
 
     public $layout = '//layouts/column1';
     private $_model;
