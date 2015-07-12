@@ -25,7 +25,7 @@
     <?php echo $form->checkBoxGroup($model, 'published'); ?>
     <?php echo $form->textFieldGroup($model, 'ordering'); ?>
 
-    <div class="form-actions">
+    <div class="form-group">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
     </div>
 

@@ -76,7 +76,7 @@ echo $form->dropDownListGroup($model, 'vehicle_id', Vehicle::model()->findList('
 <?php echo $form->textFieldGroup($model, 'done', array('class' => 'span5')); ?>
 
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',

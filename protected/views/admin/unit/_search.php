@@ -20,7 +20,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm',
 <?php echo $form->textFieldGroup($model, 'deleted', array('class' => 'span5')); ?>
 <?php echo $form->textFieldGroup($model, 'delete_date', array('class' => 'span5')); ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton',
             array(

@@ -30,7 +30,7 @@ $this->menu = array(
     ));
     ?>
 
-    <div class="form-actions">
+    <div class="form-group">
         <?php echo CHtml::submitButton(Yii::t('app', 'Update')); ?>
     </div>
 

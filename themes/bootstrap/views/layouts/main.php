@@ -110,7 +110,7 @@
         </div><!-- page -->
         <footer id ="footer" class="footer">
             <div class="container">
-                <?php echo Yii::powered(); ?> Copyright &copy; 2010- <?php echo date('Y'); ?> by BSS
+                <?php echo Yii::powered(); ?> Copyright &copy; 2010-<?php echo date('Y'); ?> by BSS
             </div>
         </footer><!-- footer -->
     </body>

@@ -34,6 +34,8 @@ echo $form->dropDownListGroup($model, 'project_id', array(
         'class' => 'span5')));
 ?>
 
+<?php echo $form->textFieldGroup($model, 'round_id', array('class' => 'span5')); ?>
+
 <?php
 echo $form->dropDownListGroup($model, 'circuit_id', Circuit::model()->findList()
         , array('prompt' => '- Select a Circuit -', 'class' => 'span5'));
@@ -56,7 +58,7 @@ echo $form->dropDownListGroup($model, 'circuit_id', Circuit::model()->findList()
   <?php echo $form->checkBoxGroup($model, 'deleted'); ?>
   <?php echo $form->textFieldGroup($model, 'deleted_date', array('class' => 'span5')); */ ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',

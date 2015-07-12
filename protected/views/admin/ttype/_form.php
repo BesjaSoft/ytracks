@@ -58,7 +58,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 <?php echo $form->textFieldGroup($model, 'maximum_speed_kph', array('class' => 'span5', 'maxlength' => 20)); ?>
 <?php echo $form->textFieldGroup($model, 'error', array('class' => 'span5')); ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',

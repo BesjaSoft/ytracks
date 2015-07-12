@@ -17,7 +17,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 <?php echo $form->textFieldGroup($model, 'checked_out_time', array('class' => 'span5')); ?>
 <?php echo $form->checkBoxGroup($model, 'published'); ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',

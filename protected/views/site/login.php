@@ -25,7 +25,7 @@ $this->breadcrumbs = array(
     <?php echo $form->passwordFieldGroup($model, 'password'); ?>
     <?php echo $form->checkBoxGroup($model, 'rememberMe'); ?>
 
-    <div class="form-actions">
+    <div class="form-group">
         <?php echo CHtml::submitButton('Login'); ?>
     </div>
 

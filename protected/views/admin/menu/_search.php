@@ -53,7 +53,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 
 <?php echo $form->textFieldGroup($model, 'client_id', array('class' => 'span5')); ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',

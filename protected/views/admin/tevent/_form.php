@@ -20,7 +20,7 @@ echo $form->dropDownListGroup($model, 'event_id', Event::model()->findList()
 ?>
 <?php echo $form->checkBoxGroup($model, 'done'); ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php
     $this->widget('booster.widgets.TbButton', array(
         'buttonType' => 'submit',

@@ -88,9 +88,12 @@
     <?php echo $form->checkBoxGroup($model, 'published'); ?>
     <?php echo $form->textFieldGroup($model, 'manches'); ?>
 
-    <div class="form-actions">
-        <div class="col-sm-offset-3">
-            <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+    <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+            <?php
+            $this->widget('booster.widgets.TbButton',
+                    array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save'));
+            ?>
         </div>
     </div>
 

@@ -44,11 +44,13 @@
     <?php echo $form->textFieldGroup($model, 'checked_out'); ?>
     <?php echo $form->checkBoxGroup($model, 'published'); ?>
 
-
-    <div class="form-actions">
-        <?php $this->widget('booster.widgets.TbButton',
-                array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save'));
-        ?>
+    <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+            <?php
+            $this->widget('booster.widgets.TbButton',
+                    array('buttonType' => 'submit', 'context' => 'primary', 'label' => $model->isNewRecord ? 'Create' : 'Save'));
+            ?>
+        </div>
     </div>
 
 <?php $this->endWidget(); ?>

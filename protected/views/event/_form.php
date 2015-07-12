@@ -19,7 +19,7 @@
     <?php echo $form->textFieldGroup($model, 'ordering'); ?>
     <?php echo $form->checkBoxGroup($model, 'published'); ?>
 
-    <div class="form-actions">
+    <div class="form-group">
         <div class="col-sm-offset-3">
             <?php
             $this->widget('booster.widgets.TbButton', array(

@@ -27,7 +27,7 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm', array(
 echo $this->renderPartial('_form', array('model' => $model, 'form' => $form, 'trindividuals' => $model->trindividuals));
 ?>
 
-<div class="form-actions">
+<div class="form-group">
     <?php echo CHtml::submitButton(Yii::t('app', 'Update')); ?>
 </div>
 

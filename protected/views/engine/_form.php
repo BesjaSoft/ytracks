@@ -35,13 +35,17 @@ $form = $this->beginWidget('booster.widgets.TbActiveForm',
 
 
 <?php echo $form->textFieldGroup($model, 'name',
-        array('size' => 60, 'maxlength' => 100, 'wrapperHtmlOptions' => array('class' => 'col-sm-6'))); ?>
+        array('size' => 60, 'maxlength' => 100, 'wrapperHtmlOptions' => array('class' => 'col-sm-6')));
+?>
 <?php echo $form->textFieldGroup($model, 'alias',
-        array('size' => 60, 'maxlength' => 100, 'wrapperHtmlOptions' => array('class' => 'col-sm-6'))); ?>
+        array('size' => 60, 'maxlength' => 100, 'wrapperHtmlOptions' => array('class' => 'col-sm-6')));
+?>
 <?php echo $form->textFieldGroup($model, 'description',
-        array('size' => 60, 'maxlength' => 255, 'wrapperHtmlOptions' => array('class' => 'col-sm-6'))); ?>
+        array('size' => 60, 'maxlength' => 255, 'wrapperHtmlOptions' => array('class' => 'col-sm-6')));
+?>
     <?php echo $form->textFieldGroup($model, 'code',
-            array('size' => 20, 'maxlength' => 20, 'wrapperHtmlOptions' => array('class' => 'col-sm-6'))); ?>
+            array('size' => 20, 'maxlength' => 20, 'wrapperHtmlOptions' => array('class' => 'col-sm-6')));
+    ?>
 
 <div class="form-group">
         <?php echo $form->hiddenField($model, 'parent_id'); ?>
@@ -90,18 +94,18 @@ echo $form->dropDownListGroup($model, 'enginetype_id',
 ?>
 <?php echo $form->textFieldGroup($model, 'compression', array('size' => 10, 'maxlength' => 10)); ?>
 <?php echo $form->textFieldGroup($model, 'cams'); ?>
-    <?php echo $form->textFieldGroup($model, 'valves_cylinder'); ?>
+<?php echo $form->textFieldGroup($model, 'valves_cylinder'); ?>
     <?php echo $form->textFieldGroup($model, 'bore', array('size' => 10, 'maxlength' => 10)); ?>
-<?php echo $form->textFieldGroup($model, 'stroke', array('size' => 10, 'maxlength' => 10)); ?>
+    <?php echo $form->textFieldGroup($model, 'stroke', array('size' => 10, 'maxlength' => 10)); ?>
 
 
 <div class="form-group">
             <?php echo $form->labelEx($model, 'capacity', array('class' => 'col-sm-3 control-label')); ?>
     <div>
         <div class="col-sm-2">
-            <?php
-            echo $form->textField($model, 'capacity', array('size' => 10, 'maxlength' => 10, 'class' => 'form-control'));
-            ?>
+<?php
+echo $form->textField($model, 'capacity', array('size' => 10, 'maxlength' => 10, 'class' => 'form-control'));
+?>
             <?php echo $form->error($model, 'capacity'); ?>
         </div>
         <div class="col-sm-2">
@@ -110,7 +114,7 @@ echo $form->dropDownListGroup($model, 'enginetype_id',
                     array('prompt' => '--option--', 'class' => 'form-control')
             );
             ?>
-    <?php echo $form->error($model, 'capacity_id'); ?>
+<?php echo $form->error($model, 'capacity_id'); ?>
         </div>
     </div>
 </div>
@@ -119,9 +123,9 @@ echo $form->dropDownListGroup($model, 'enginetype_id',
             <?php echo $form->labelEx($model, 'power', array('class' => 'col-sm-3 control-label')); ?>
     <div> 
         <div class="col-sm-2">
-            <?php
-            echo $form->textField($model, 'power', array('size' => 10, 'maxlength' => 10, 'class' => 'form-control'));
-            ?>
+<?php
+echo $form->textField($model, 'power', array('size' => 10, 'maxlength' => 10, 'class' => 'form-control'));
+?>
             <?php echo $form->error($model, 'power'); ?>
         </div>
         <div class="col-sm-2">
@@ -145,9 +149,9 @@ echo $form->dropDownListGroup($model, 'enginetype_id',
             <?php echo $form->labelEx($model, 'torque', array('class' => 'col-sm-3 control-label')); ?>
     <div> 
         <div class="col-sm-2">
-            <?php
-            echo $form->textField($model, 'torque', array('size' => 10, 'maxlength' => 10, 'class' => 'form-control'));
-            ?>
+<?php
+echo $form->textField($model, 'torque', array('size' => 10, 'maxlength' => 10, 'class' => 'form-control'));
+?>
             <?php echo $form->error($model, 'torque'); ?>
         </div>
         <div class="col-sm-2">
@@ -170,11 +174,13 @@ echo $form->dropDownListGroup($model, 'enginetype_id',
 </div>
 
 <?php echo $form->textFieldGroup($model, 'induction', array('wrapperHtmlOptions' => array('class' => 'col-sm-6'))); ?>
-<?php echo $form->dropDownlistGroup($model, 'ignition_id',
+<?php
+echo $form->dropDownlistGroup($model, 'ignition_id',
         array('widgetOptions' => array('data' => Ignition::model()->findList(), 'prompt' => '-- Ignition --'), 'wrapperHtmlOptions' => array(
         'class' => 'col-sm-6')));
 ?>
-<?php echo $form->dropDownlistGroup($model, 'fuelsystem_id',
+<?php
+echo $form->dropDownlistGroup($model, 'fuelsystem_id',
         array('widgetOptions' => array('data' => Fuelsystem::model()->findList(), 'prompt' => '-- Fuelsystem --'), 'wrapperHtmlOptions' => array(
         'class' => 'col-sm-6')));
 ?>

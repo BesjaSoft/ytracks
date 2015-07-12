@@ -9,7 +9,8 @@ $this->menu = array(
     array('label' => 'Create Tround', 'url' => array('create')),
 );
 
-Yii::app()->clientScript->registerScript('search', "
+Yii::app()->clientScript->registerScript('search',
+        "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
@@ -38,32 +39,33 @@ $('.search-form form').submit(function(){
     ));
     ?>
 </div><!-- search-form -->
-<button class="btn btn-primary" onclick="updateAll();">Update all</button>
+<button class="btn btn-primary" onclick="exportAllTrounds();">Export all</button>
 <?php
-$this->widget('booster.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbGridView',
+        array(
     'id' => 'tround-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => array(
-                array(
+        array(
             'id' => 'selectedItem',
             'header' => 'Select',
             'selectableRows' => 2,
             'class' => 'zii.widgets.grid.CCheckboxColumn',
         ),
-        'id',
+        array('name' => 'id', "header" => '#', 'htmlOptions' => array('style' => 'width:40px;')),
         $this->showContentGrid(),
         'name',
-        'ordering',
+        array('name' => 'ordering', "header" => 'Ord', 'htmlOptions' => array('style' => 'width:20px;')),
         $this->showEventGrid(),
-        $this->showProjectGrid(),
-        $this->showCircuitGrid(),
+        'start_date',
         /*
+          $this->showProjectGrid(),
+          $this->showCircuitGrid(),
           'ordering',
           'laps',
           'length',
           'distance_id',
-          'start_date',
           'end_date',
           'description',
           'comment',
@@ -97,7 +99,7 @@ $this->widget('booster.widgets.TbGridView', array(
 ));
 ?>
 <script type="text/javascript">
-    function updateAll() {
+    function exportAllTrounds() {
         $('input[type=checkbox][name="selectedItem[]"]').each(function () {
             if (this.checked) {
                 //console.log($(this).val()); 
@@ -106,7 +108,7 @@ $this->widget('booster.widgets.TbGridView', array(
                     url: "<?php echo Yii::app()->createUrl('admin/tround/export'); ?>",
                     data: {id: $(this).val()},
                     success: function (msg) {
-                        //alert("Success");
+                        //alert("Successful export of the trounds");
                     },
                     error: function (xhr) {
                         alert("failure " + xhr.readyState + this.url);
@@ -114,6 +116,6 @@ $this->widget('booster.widgets.TbGridView', array(
                 });
             }
         });
-        $.fn.yiiGridView.update('tevent-grid');
+        $.fn.yiiGridView.update('tround-grid');
     }
 </script>
